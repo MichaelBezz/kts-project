@@ -1,3 +1,42 @@
-.nav {
+@import 'styles/mixins';
 
+.nav {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    position: relative;
+    display: flex;
+    padding: 6px 0;
+    transition: color var(--transition-default);
+
+    @include hover-focus {
+      color: var(--color-text-accent);
+    }
+
+    &--active {
+      color: var(--color-text-accent);
+
+      &:after {
+        position: absolute;
+        top: calc(100% + 28px);
+        right: 0;
+        left: 0;
+        content: "";
+        height: 3px;
+        background-color: var(--color-text-accent);
+      }
+    }
+  }
 }
