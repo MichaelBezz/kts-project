@@ -1,0 +1,90 @@
+:root {
+  // Colors
+  // ---------------------------------
+
+  // Default
+
+  --color-black:                      #000000;
+  --color-white:                      #ffffff;
+  --color-transparent:                rgba(255, 255, 255, 0);
+
+  // --color-gainsboro:                  #d9d9d9;
+  // --color-spun-pearl:                 #afadb5;
+  // --color-ziggurat:                   #86aaa7;
+  // --color-breaker-bay:                #518581;
+  // --color-dark-green-copper:          #487773;
+
+  // Project palette
+
+  // --color-loader-bg:                  var(--color-breaker-bay);
+  // --color-loader-bg-inverse:          var(--color-white);
+  // --color-text-primary:               var(--color-black);
+  // --color-text-secondary:             var(--color-spun-pearl);
+  // --color-text-accent:                var(--color-breaker-bay);
+  // --color-icon-primary:               var(--color-black);
+  // --color-icon-secondary:             var(--color-spun-pearl);
+  // --color-icon-accent:                var(--color-breaker-bay);
+  // --color-button-primary-text:        var(--color-white);
+  // --color-button-primary-bg:          var(--color-breaker-bay);
+  // --color-button-primary-bg-hover:    var(--color-ziggurat);
+  // --color-button-primary-bg-active:   var(--color-dark-green-copper);
+  // --color-button-primary-bg-disabled: var(--color-gainsboro);
+  // --color-card-bg:                    var(--color-white);
+  // --color-card-image-bg:              var(--color-gainsboro);
+  // --color-input-text:                 var(--color-black);
+  // --color-input-text-disabled:        rgba(0, 0, 0, 0.2);
+  // --color-input-placeholder:          var(--color-spun-pearl);
+  // --color-input-bg:                   var(--color-white);
+  // --color-input-border:               var(--color-white);
+  // --color-input-border-focus:         var(--color-breaker-bay);
+  // --color-dropdown-bg:                var(--color-white);
+  // --color-dropdown-text:              var(--color-black);
+  // --color-dropdown-text-hover:        var(--color-spun-pearl);
+  // --color-dropdown-text-focus:        var(--color-breaker-bay);
+  // --color-dropdown-text-active:       var(--color-breaker-bay);
+  // --color-checkbox-bg:                var(--color-white);
+  // --color-checkbox-bg-disabled:       rgba(255, 255, 255, 0.5);
+  // --color-checkbox-border:            var(--color-white);
+  // --color-checkbox-border-hover:      var(--color-breaker-bay);
+  // --color-checkbox-border-disabled:   var(--color-transparent);
+  // --color-checkbox-check:             var(--color-breaker-bay);
+  // --color-checkbox-check-disabled:    rgba(0, 0, 0, 0.2);
+
+  // Animation
+  // ---------------------------------
+
+  // --transition-default:               0.3s ease;
+
+  // Typography
+  // ---------------------------------
+
+  --ff-roboto:                        'Roboto', Arial, sans-serif;
+
+  // Viewports
+  // ---------------------------------
+
+  // --vp-1920:                          1920px;
+  // --vp-1512:                          1512px;
+  // --vp-1440:                          1440px;
+  // --vp-1280:                          1280px;
+  --vp-1024:                          1024px;
+  --vp-768:                           768px;
+  // --vp-375:                           375px;
+  // --vp-320:                           320px;
+
+  // Offset
+  // ---------------------------------
+
+  // --space-xl:                         24px;
+  // --space-l:                          20px;
+  // --space-m:                          16px;
+  // --space-s:                          14px;
+  // --space-xs:                         12px;
+  // --space-xxs:                        8px;
+
+  // Border
+  // ---------------------------------
+
+  // --border-none:                      0;
+  // --border-radius-cycle:              50%;
+}
