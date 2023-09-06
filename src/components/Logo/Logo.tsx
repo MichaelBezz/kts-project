@@ -11,7 +11,7 @@ export type LogoProps = {
   height?: number;
 };
 
-const Logo: React.FC<LogoProps> = ({ className, width = 130, height = 42 }) => {
+const Logo: React.FC<LogoProps> = ({ className, width = 132, height = 42 }) => {
   return (
     <Link className={cn(styles['logo'], className)} to={AppRoute.Main}>
       <LogoIcon className={styles['logo__icon']} width={width} height={height} />
