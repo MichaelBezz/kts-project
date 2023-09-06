@@ -1,1 +1,29 @@
-.user-nav {}
+@import 'styles/mixins';
+
+.user-nav {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    width: 42px;
+    height: 42px;
+    padding: 6px;
+    color: var(--color-icon-primary);
+    transition: color var(--transition-default);
+
+    @include hover-focus {
+      color: var(--color-icon-accent);
+    }
+  }
+}
