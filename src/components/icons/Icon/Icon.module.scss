@@ -1,0 +1,16 @@
+.icon {
+  display: inline-block;
+  color: inherit;
+
+  &--primary {
+    color: var(--color-icon-primary);
+  }
+
+  &--secondary {
+    color: var(--color-icon-secondary);
+  }
+
+  &--accent {
+    color: var(--color-icon-accent);
+  }
+}
