@@ -18,6 +18,18 @@
   }
 }
 
+@mixin hover-focus {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  &:focus {
+    @content;
+  }
+}
+
 // Desktop first
 
 @mixin vp-1023 {

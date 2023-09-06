@@ -1,0 +1,16 @@
+@import 'styles/mixins';
+
+.logo {
+  display: flex;
+  width: 130px;
+  height: 42px;
+  transition: opacity var(--transition-default);
+
+  @include hover-focus {
+    opacity: 0.6;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+  }
+}
