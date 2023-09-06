@@ -8,19 +8,22 @@
   --color-white:                      #ffffff;
   --color-transparent:                rgba(255, 255, 255, 0);
 
-  // --color-gainsboro:                  #d9d9d9;
-  // --color-spun-pearl:                 #afadb5;
-  // --color-ziggurat:                   #86aaa7;
-  // --color-breaker-bay:                #518581;
-  // --color-dark-green-copper:          #487773;
+  --color-white-smoke:                #f3f3f3;
+  --color-gainsboro:                  #d9d9d9;
+  --color-spun-pearl:                 #afadb5;
+  --color-ziggurat:                   #86aaa7;
+  --color-breaker-bay:                #518581;
+  --color-dark-green-copper:          #487773;
 
   // Project palette
 
+  --color-header-bg:                  var(--color-white);
+  --color-header-border:              var(--color-white-smoke);
   // --color-loader-bg:                  var(--color-breaker-bay);
   // --color-loader-bg-inverse:          var(--color-white);
-  // --color-text-primary:               var(--color-black);
-  // --color-text-secondary:             var(--color-spun-pearl);
-  // --color-text-accent:                var(--color-breaker-bay);
+  --color-text-primary:               var(--color-black);
+  --color-text-secondary:             var(--color-spun-pearl);
+  --color-text-accent:                var(--color-breaker-bay);
   --color-icon-primary:               var(--color-black);
   --color-icon-secondary:             var(--color-spun-pearl);
   --color-icon-accent:                var(--color-breaker-bay);
@@ -75,8 +78,8 @@
   // Offset
   // ---------------------------------
 
-  // --space-xl:                         24px;
-  // --space-l:                          20px;
+  --space-xl:                         24px;
+  --space-l:                          20px;
   // --space-m:                          16px;
   // --space-s:                          14px;
   // --space-xs:                         12px;
