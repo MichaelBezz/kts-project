@@ -28,4 +28,4 @@ const LogoIcon: React.FC<IconProps> = (props) => {
   );
 }
 
-export default LogoIcon;
+export default React.memo(LogoIcon);

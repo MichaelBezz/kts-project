@@ -10,4 +10,4 @@ const UserIcon: React.FC<IconProps> = (props) => {
   );
 }
 
-export default UserIcon;
+export default React.memo(UserIcon);

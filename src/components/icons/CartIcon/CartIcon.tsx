@@ -12,4 +12,4 @@ const CartIcon: React.FC<IconProps> = (props) => {
   );
 }
 
-export default CartIcon;
+export default React.memo(CartIcon);

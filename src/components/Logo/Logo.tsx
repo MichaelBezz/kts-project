@@ -19,4 +19,4 @@ const Logo: React.FC<LogoProps> = ({ className, width = 132, height = 42 }) => {
   );
 };
 
-export default Logo;
+export default React.memo(Logo);

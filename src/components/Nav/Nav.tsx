@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import * as React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Text from 'components/Text';
 import { NAV_LINKS } from 'config/nav-links';
 import styles from './Nav.module.scss';
@@ -15,19 +15,23 @@ const Nav: React.FC<NavProps> = ({ className }) => {
   return (
     <nav className={cn(styles['nav'], className)}>
       <ul className={styles['nav__list']}>
-        {NAV_LINKS.map(({route, text}) => (
-          <li key={route} className={styles['nav__item']}>
-            <NavLink
-              className={cn(
-                styles['nav__link'],
-                {[styles['nav__link--active']]: route === location.pathname}
-              )}
-              to={route}
-            >
-              <Text tag="span" view="p-18">{text}</Text>
-            </NavLink>
-          </li>
-        ))}
+        {NAV_LINKS.map(({route, text}) => {
+          const isActive = route === location.pathname;
+
+          return (
+            <li key={route} className={styles['nav__item']}>
+              <Link
+                className={cn(
+                  styles['nav__link'],
+                  {[styles['nav__link--active']]: isActive}
+                )}
+                to={route}
+              >
+                <Text tag="span" view="p-18" weight={isActive ? 'medium' : 'normal'}>{text}</Text>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
