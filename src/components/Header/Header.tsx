@@ -12,7 +12,7 @@ export type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
     <header className={cn(styles['header'], className)}>
-      <div className="container">
+      <div className={cn(styles['header__wrapper'], 'container')}>
         <Logo className={styles['header__logo']} />
         <Nav className={styles['header__nav']} />
         <UserNav className={styles['header__user-nav']} />
