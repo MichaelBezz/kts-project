@@ -7,7 +7,7 @@ export type TextProps = {
   /** Html-тег */
   tag?:  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'p' | 'span';
   /** Стиль отображения */
-  view?: 'title' | 'button' | 'p-20' | 'p-18' | 'p-16' | 'p-14';
+  view?: 'title' | 'button' | 'p-32' | 'p-20' | 'p-18' | 'p-16' | 'p-14';
   /** Начертание шрифта */
   weight?: 'normal' | 'medium' | 'bold';
   /** Цвет */
