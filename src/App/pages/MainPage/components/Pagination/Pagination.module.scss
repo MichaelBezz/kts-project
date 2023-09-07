@@ -1,0 +1,72 @@
+@import 'styles/mixins';
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    &:first-child {
+      margin-right: 18px;
+
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:last-child {
+      margin-left: 18px;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 38px;
+    height: 42px;
+    padding: 5px 3px;
+    color: var(--color-pagination-text);
+    background-color: var(--color-pagination-bg);
+    border: var(--border-none);
+    transition: color var(--transition-default), background-color var(--transition-default);
+    user-select: none;
+    cursor: pointer;
+
+    @include hover-focus {
+      &:not(.pagination__button--current) {
+        color: var(--color-pagination-text-hover);
+      }
+    }
+
+    @include active {
+      &:not(.pagination__button--current) {
+        background-color: var(--color-pagination-bg-active);
+      }
+    }
+
+    &:disabled,
+    &--disabled {
+      color: var(--color-pagination-text-disabled);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    &--current {
+      color: var(--color-pagination-text-current);
+      background-color: var(--color-pagination-bg-current);
+    }
+  }
+
+  &__button-text {
+    display: flex;
+    align-items: center;
+  }
+}
