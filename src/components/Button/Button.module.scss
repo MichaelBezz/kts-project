@@ -1,0 +1,41 @@
+@import 'styles/mixins';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  min-height: 52px;
+  padding: var(--space-s) var(--space-l);
+  background-color: var(--color-button-primary-bg);
+  border: var(--border-none);
+  transition: background-color var(--transition-default);
+  user-select: none;
+  cursor: pointer;
+
+  @include hover-focus {
+    background-color: var(--color-button-primary-bg-hover);
+  }
+
+  @include active {
+    background-color: var(--color-button-primary-bg-active);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  &--disabled {
+    background-color: var(--color-button-primary-bg-disabled);
+    pointer-events: none;
+    cursor: default;
+  }
+
+  &__loader {
+    flex: 0 0 auto;
+  }
+
+  &__text {
+    color: var(--color-button-primary-text);
+  }
+}
