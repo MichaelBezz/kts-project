@@ -2,7 +2,7 @@ import cn from 'classnames';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import LogoIcon from 'components/icons/LogoIcon';
-import { AppRoute } from 'config/routes';
+import { AppRoute } from 'config/app-route';
 import styles from './Logo.module.scss';
 
 export type LogoProps = {

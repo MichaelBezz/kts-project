@@ -1,4 +1,4 @@
-import { AppRoute } from 'config/routes';
+import { AppRoute } from 'config/app-route';
 
 export const NAV_LINKS = [
   {
