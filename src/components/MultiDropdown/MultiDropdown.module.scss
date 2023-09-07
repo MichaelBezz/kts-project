@@ -1,0 +1,47 @@
+@import 'styles/mixins';
+
+.multi-dropdown {
+  position: relative;
+
+  &__list {
+    position: absolute;
+    top: calc(100% + var(--space-xxs));
+    right: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: var(--color-dropdown-bg);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input {
+    &:checked + .multi-dropdown__label {
+      color: var(--color-dropdown-text-active);
+    }
+
+    &:focus-visible + .multi-dropdown__label {
+      outline: 1px solid var(--color-dropdown-text-focus);
+    }
+  }
+
+  &__label {
+    padding: var(--space-s) var(--space-xs);
+    font-family: var(--ff-roboto);
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: var(--color-dropdown-text);
+    transition: color var(--transition-default);
+    cursor: pointer;
+
+    @include hover {
+      color: var(--color-dropdown-text-hover);
+    }
+  }
+}
