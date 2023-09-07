@@ -2,7 +2,7 @@ import { AppRoute } from 'config/app-route';
 
 export const NAV_LINKS = [
   {
-    route: AppRoute.Main,
+    route: AppRoute.Products,
     text: 'Products'
   },
   {

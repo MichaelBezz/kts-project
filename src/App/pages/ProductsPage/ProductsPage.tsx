@@ -4,9 +4,9 @@ import { api } from 'services/api';
 import { TProducts } from 'types/product';
 import Intro from './components/Intro';
 import ProductList from './components/ProductList';
-import styles from './MainPage.module.scss';
+import styles from './ProductsPage.module.scss';
 
-const MainPage: React.FC = () => {
+const ProductsPage: React.FC = () => {
   const [products, setProducts] = React.useState<TProducts>([]);
 
   React.useEffect(() => {
@@ -19,11 +19,11 @@ const MainPage: React.FC = () => {
   }, []);
 
   return(
-    <div className={styles['main-page']}>
-      <Intro className={styles['main-page__intro']} />
-      <ProductList className={styles['main-page__products']} products={products} />
+    <div className={styles['products-page']}>
+      <Intro />
+      <ProductList products={products} />
     </div>
   );
 };
 
-export default MainPage;
+export default ProductsPage;
