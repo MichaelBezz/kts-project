@@ -43,6 +43,7 @@
     position: absolute;
     top: 50%;
     right: var(--space-xs);
+    display: flex;
     transform: translateY(-50%);
     pointer-events: none;
   }
