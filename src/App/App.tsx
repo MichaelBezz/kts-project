@@ -12,6 +12,9 @@ const App: React.FC = () => {
         <Route path={AppRoute.Index} element={<Layout />}>
           <Route index element={<ProductsPage />} />
           <Route path={AppRoute.Product} element={<ProductPage />} />
+          {/* <Route path={AppRoute.Categories} element={<CategoriesPage />} /> */}
+          {/* <Route path={AppRoute.About} element={<AboutPage />} /> */}
+          {/* <Route path={AppRoute.NotFound} element={<NotFoundPage />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -3,24 +3,24 @@ import * as React from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Card from 'components/Card';
+import Pagination from 'components/Pagination';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
 import { TProducts } from 'types/product';
-import Pagination from '../Pagination';
-import styles from './ProductList.module.scss';
+import styles from './CardList.module.scss';
 
-export type ProductListProps = {
+export type CardListProps = {
   className?: string;
   products: TProducts;
 };
 
-const ProductList: React.FC<ProductListProps> = ({ className, products }) => {
+const CardList: React.FC<CardListProps> = ({ className, products }) => {
   const navigate = useNavigate();
 
   return (
-    <section className={cn(styles['product-list'], className)}>
+    <section className={cn(styles['card-list'], className)}>
       <div className="container">
-        <div className={styles['product-list__header']}>
+        <div className={styles['card-list__header']}>
           <Text tag="h2" view="p-32">
             Total Product
           </Text>
@@ -30,9 +30,9 @@ const ProductList: React.FC<ProductListProps> = ({ className, products }) => {
           </Text>
         </div>
 
-        <ul className={styles['product-list__body']}>
+        <ul className={styles['card-list__body']}>
           {products.slice(0, 9).map((product) => (
-            <li key={product.id} className={styles['product-list__item']}>
+            <li key={product.id} className={styles['card-list__item']}>
               <Card
                 image={product.images[0]}
                 captionSlot={product.category.name}
@@ -46,10 +46,10 @@ const ProductList: React.FC<ProductListProps> = ({ className, products }) => {
           ))}
         </ul>
 
-        <Pagination className={styles['product-list__pagination']} />
+        <Pagination className={styles['card-list__pagination']} />
       </div>
     </section>
   );
 };
 
-export default ProductList;
+export default CardList;

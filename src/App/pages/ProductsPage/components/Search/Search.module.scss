@@ -1,0 +1,13 @@
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+
+  &__input {
+    flex: 1 1 auto;
+  }
+
+  &__button {
+    flex-basis: 138px;
+  }
+}

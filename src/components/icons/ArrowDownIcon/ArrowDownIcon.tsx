@@ -9,4 +9,4 @@ const ArrowDownIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-export default ArrowDownIcon;
+export default React.memo(ArrowDownIcon);

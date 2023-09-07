@@ -9,4 +9,4 @@ const LoaderIcon: React.FC<IconProps> = (props) => {
   );
 };
 
-export default LoaderIcon;
+export default React.memo(LoaderIcon);
