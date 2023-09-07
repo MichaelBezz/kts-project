@@ -2,15 +2,7 @@
   &__header {
     display: flex;
     align-items: center;
-    gap: var(--space-xl);
-  }
-
-  &__title {
-    margin: 0;
-  }
-
-  &__count {
-    margin: 0;
+    gap: var(--space-xxl);
   }
 
   &__body {
@@ -19,7 +11,7 @@
     column-gap: 80px;
     row-gap: 30px;
     margin: 0;
-    margin-top: 32px;
+    margin-top: var(--space-xxl);
     padding: 0;
     list-style: none;
   }

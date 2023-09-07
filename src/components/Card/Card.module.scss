@@ -35,8 +35,8 @@
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    row-gap: var(--space-l);
-    padding: var(--space-xl) var(--space-xs);
+    row-gap: var(--space-xxl);
+    padding: var(--space-xxxl) var(--space-xs);
   }
 
   &__body {
@@ -46,14 +46,15 @@
   }
 
   &__footer {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr minmax(155px, 1fr);
     justify-content: space-between;
     align-items: center;
-    column-gap: var(--space-xxs);
+    column-gap: 26px;
     margin-top: auto;
-  }
 
-  &__price {
-    max-width: 60%;
+    &--without-slot {
+      grid-template-columns: 1fr;
+    }
   }
 }

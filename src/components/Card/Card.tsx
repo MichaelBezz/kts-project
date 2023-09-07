@@ -54,7 +54,10 @@ const Card: React.FC<CardProps> = ({
           </Text>
         </div>
 
-        <div className={styles['card__footer']}>
+        <div className={cn(
+          styles['card__footer'],
+          {[styles['card__footer--without-slot']]: !actionSlot}
+        )}>
           {contentSlot && (
             <Text className={styles['card__price']} tag='p' view='p-18' weight='bold'>
               {contentSlot}
