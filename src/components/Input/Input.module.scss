@@ -1,0 +1,49 @@
+.input {
+  position: relative;
+  background-color: var(--color-input-bg);
+
+  &__field {
+    display: block;
+    width: 100%;
+    height: 52px;
+    padding: var(--space-s) var(--space-xs);
+    font-family: var(--ff-roboto);
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: var(--color-input-text);
+    border: 1px solid var(--color-input-border);
+    transition:
+      color var(--transition-default),
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+
+    &--with-slot {
+      padding-right: 44px;
+    }
+
+    &::placeholder {
+      color: var(--color-input-placeholder);
+    }
+
+    &:focus-visible {
+      border-color: var(--color-input-border-focus);
+      outline: none;
+    }
+
+    &:disabled {
+      color: var(--color-input-text-disabled);
+      background-color: var(--color-input-bg);
+      border-color: var(--color-input-border);
+    }
+  }
+
+  &__slot {
+    position: absolute;
+    top: 50%;
+    right: var(--space-xs);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
