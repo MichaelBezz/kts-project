@@ -27,7 +27,9 @@ const Nav: React.FC<NavProps> = ({ className }) => {
                 )}
                 to={route}
               >
-                <Text tag="span" view="p-18" weight={isActive ? 'medium' : 'normal'}>{text}</Text>
+                <Text tag="span" view="p-18" weight={isActive ? 'medium' : 'normal'}>
+                  {text}
+                </Text>
               </Link>
             </li>
           );

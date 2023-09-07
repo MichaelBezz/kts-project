@@ -30,6 +30,6 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
       {children}
     </svg>
   );
-}
+};
 
 export default React.memo(Icon);

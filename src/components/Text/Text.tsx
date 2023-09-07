@@ -42,6 +42,6 @@ const Text: React.FC<TextProps> = ({
       {children}
     </Tag>
   );
-}
+};
 
 export default Text;

@@ -8,6 +8,6 @@ const UserIcon: React.FC<IconProps> = (props) => {
       <path stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M25.7374 27.5C25.7374 22.6625 20.9249 18.75 14.9999 18.75C9.07495 18.75 4.26245 22.6625 4.26245 27.5"/>
     </Icon>
   );
-}
+};
 
 export default React.memo(UserIcon);

@@ -10,6 +10,6 @@ const CartIcon: React.FC<IconProps> = (props) => {
       <path stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M10.6181 15H10.6294"/>
     </Icon>
   );
-}
+};
 
 export default React.memo(CartIcon);

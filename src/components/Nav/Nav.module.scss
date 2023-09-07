@@ -19,6 +19,7 @@
     position: relative;
     display: flex;
     padding: 6px 0;
+    color: var(--color-text-primary);
     transition: color var(--transition-default);
 
     @include hover-focus {

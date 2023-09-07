@@ -4,7 +4,7 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: var(--space-xs);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -19,7 +19,7 @@
     width: 42px;
     height: 42px;
     padding: 6px;
-    color: var(--color-icon-primary);
+    color: var(--color-icon-default);
     transition: color var(--transition-default);
 
     @include hover-focus {
