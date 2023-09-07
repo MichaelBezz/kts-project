@@ -1,8 +1,10 @@
 import cn from 'classnames';
 import * as React from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import Text from 'components/Text';
+import { AppRoute } from 'config/app-route';
 import { TProducts } from 'types/product';
 import Pagination from '../Pagination';
 import styles from './ProductList.module.scss';
@@ -13,6 +15,8 @@ export type ProductListProps = {
 };
 
 const ProductList: React.FC<ProductListProps> = ({ className, products }) => {
+  const navigate = useNavigate();
+
   return (
     <section className={cn(styles['product-list'], className)}>
       <div className="container">
@@ -35,7 +39,7 @@ const ProductList: React.FC<ProductListProps> = ({ className, products }) => {
                 title={product.title}
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
-                onClick={() => {}}
+                onClick={() => navigate(generatePath(AppRoute.Product, {id: `${product.id}`}))}
                 actionSlot={<Button>Add to Cart</Button>}
               />
             </li>
