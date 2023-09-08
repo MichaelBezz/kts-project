@@ -8,7 +8,10 @@
   padding: 0;
   background-color: var(--color-transparent);
   border: var(--border-none);
-  transition: color var(--transition-default), background-color var(--transition-default);
+  transition:
+    color var(--transition-default),
+    background-color var(--transition-default),
+    border-color var(--transition-default);
   user-select: none;
   cursor: pointer;
 
@@ -41,20 +44,23 @@
   &--secondary {
     min-height: 52px;
     padding: var(--space-s) var(--space-l);
-    color: var(--color-button-secondary-text);
-    background-color: var(--color-button-secondary-bg);
-    border: 1px solid var(--color-button-secondary-border);
+    color: var(--color-button-sec-text);
+    background-color: var(--color-button-sec-bg);
+    border: 1px solid var(--color-button-sec-border);
 
     @include hover-focus {
-      color: var(--color-button-secondary-text-hover);
+      color: var(--color-button-sec-text-hover);
+      border-color: var(--color-button-sec-border-hover);
     }
 
     @include active {
-      color: var(--color-button-secondary-text-active);
+      color: var(--color-button-sec-text-active);
+      border-color: var(--color-button-sec-border-active);
     }
 
     &.button--disabled {
-      color: var(--color-button-secondary-text-disabled);
+      color: var(--color-button-sec-text-disabled);
+      border-color: var(--color-button-sec-border-disabled);
       pointer-events: none;
       cursor: default;
     }

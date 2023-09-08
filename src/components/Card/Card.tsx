@@ -34,7 +34,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={cn(styles['card'], className)} onClick={onClick}>
       <div className={styles['card__image']}>
-        <img src={image} width='360' height='360' alt='Иллюстрация карточки' />
+        <img src={image} width='360' height='360' alt='Product main image' />
       </div>
 
       <div className={styles['card__content']}>
