@@ -1,13 +1,24 @@
 @import 'styles/mixins';
 
 .nav {
+  @include vp-767 {
+    padding: var(--space-m) 0;
+    background-color: var(--color-header-bg);
+  }
+
   &__list {
     display: flex;
     flex-wrap: wrap;
-    gap: 48px;
+    align-items: center;
+    gap: var(--space-xxxl);
     margin: 0;
     padding: 0;
     list-style: none;
+
+    @include vp-767 {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
   }
 
   &__item {
@@ -37,6 +48,10 @@
         content: "";
         height: 3px;
         background-color: var(--color-text-accent);
+
+        @include vp-767 {
+          content: initial;
+        }
       }
     }
   }

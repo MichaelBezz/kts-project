@@ -4,26 +4,61 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: var(--space-xs);
     margin: 0;
     padding: 0;
     list-style: none;
+
+    @include vp-767 {
+      gap: 6px;
+    }
   }
 
   &__item {
     display: flex;
     flex-direction: column;
+
+    &--burger {
+      display: none;
+
+      @include vp-767 {
+        display: block;
+      }
+    }
   }
 
   &__link {
+    display: flex;
     width: 42px;
     height: 42px;
     padding: 6px;
     color: var(--color-icon-default);
     transition: color var(--transition-default);
 
+    @include vp-767 {
+      width: 36px;
+      height: 36px;
+    }
+
     @include hover-focus {
       color: var(--color-icon-accent);
+    }
+  }
+
+  &__burger {
+    border: 0;
+    background-color: var(--color-button-sec-bg);
+    cursor: pointer;
+  }
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+
+    @include vp-767 {
+      width: 24px;
+      height: 24px;
     }
   }
 }

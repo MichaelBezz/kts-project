@@ -39,4 +39,4 @@ const Nav: React.FC<NavProps> = ({ className }) => {
   );
 };
 
-export default Nav;
+export default React.memo(Nav);

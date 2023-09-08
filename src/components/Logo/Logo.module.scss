@@ -7,11 +7,23 @@
   color: var(--color-icon-default);
   transition: color var(--transition-default);
 
+  @include vp-767 {
+    width: 96px;
+    height: 30px;
+  }
+
   @include hover-focus {
     color: var(--color-icon-accent);
   }
 
   &__icon {
-    flex-shrink: 0;
+    flex: 0 0 auto;
+    width: 132px;
+    height: 42px;
+
+    @include vp-767 {
+      width: 96px;
+      height: 30px;
+    }
   }
 }

@@ -1,4 +1,7 @@
+@import 'styles/mixins';
+
 .header {
+  position: relative;
   padding: var(--space-xl) 0;
   background-color: var(--color-header-bg);
   border-bottom: 2px solid var(--color-header-border);
@@ -11,14 +14,36 @@
 
   &__logo {
     flex: 0 0 132px;
+
+    @include vp-767 {
+      flex-basis: 96px;
+    }
   }
 
   &__nav {
     margin: 0 20px 2px;
+
+    @include vp-767 {
+      display: none;
+      margin: 0;
+
+      .is-opened & {
+        position: absolute;
+        top: calc(100% + 2px);
+        right: 0;
+        left: 0;
+        display: block;
+      }
+    }
   }
 
   &__user-nav {
     max-width: 150px;
     margin: 0 -6px 0 46px;
+
+    @include vp-767 {
+      max-width: initial;
+      margin: 0;
+    }
   }
 }
