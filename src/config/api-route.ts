@@ -1,3 +1,4 @@
 export enum APIRoute {
-  Products = '/products'
+  Products = '/products',
+  Categories = '/categories'
 }

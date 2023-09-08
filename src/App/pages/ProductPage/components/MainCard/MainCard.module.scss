@@ -3,10 +3,11 @@
   column-gap: var(--space-xxxl);
 
   &__slider {
-    flex: 1 1 600px;
+    flex: 0 1 600px;
   }
 
   &__content {
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
   }
