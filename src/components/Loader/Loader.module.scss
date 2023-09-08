@@ -20,6 +20,15 @@
     height: 60px;
   }
 
+  &--general {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+  }
+
   &--primary {
     color: var(--color-loader-bg);
   }

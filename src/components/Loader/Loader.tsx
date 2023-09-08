@@ -6,7 +6,7 @@ import styles from './Loader.module.scss';
 export type LoaderProps = {
   className?: string;
   /** Размер */
-  size?: 's' | 'm' | 'l';
+  size?: 's' | 'm' | 'l' | 'general';
   /** Цвет */
   color?: 'primary' | 'secondary';
 };
@@ -19,7 +19,7 @@ const Loader: React.FC<LoaderProps> = ({ className, size = 'l', color = 'primary
       {[styles[`loader--${color}`]]: color},
       className
     )}>
-      <LoaderIcon className="loader__icon" />
+      <LoaderIcon className={styles['loader__icon']} />
     </div>
   );
 };

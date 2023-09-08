@@ -19,35 +19,33 @@ const CardList: React.FC<CardListProps> = ({ className, products }) => {
 
   return (
     <section className={cn(styles['card-list'], className)}>
-      <div className="container">
-        <div className={styles['card-list__header']}>
-          <Text tag="h2" view="p-32">
-            Total Product
-          </Text>
+      <div className={styles['card-list__header']}>
+        <Text tag="h2" view="p-32">
+          Total Product
+        </Text>
 
-          <Text tag="p" view="p-20" weight="bold" color="accent">
-            {products.length}
-          </Text>
-        </div>
-
-        <ul className={styles['card-list__body']}>
-          {products.slice(0, 9).map((product) => (
-            <li key={product.id} className={styles['card-list__item']}>
-              <Card
-                image={product.images[0]}
-                captionSlot={product.category.name}
-                title={product.title}
-                subtitle={product.description}
-                contentSlot={`$${product.price}`}
-                onClick={() => navigate(generatePath(AppRoute.Product, {id: `${product.id}`}))}
-                actionSlot={<Button buttonStyle="primary">Add to Cart</Button>}
-              />
-            </li>
-          ))}
-        </ul>
-
-        <Pagination className={styles['card-list__pagination']} />
+        <Text tag="p" view="p-20" weight="bold" color="accent">
+          {products.length}
+        </Text>
       </div>
+
+      <ul className={styles['card-list__body']}>
+        {products.slice(0, 9).map((product) => (
+          <li key={product.id} className={styles['card-list__item']}>
+            <Card
+              image={product.images[0]}
+              captionSlot={product.category.name}
+              title={product.title}
+              subtitle={product.description}
+              contentSlot={`$${product.price}`}
+              onClick={() => navigate(generatePath(AppRoute.Product, {id: `${product.id}`}))}
+              actionSlot={<Button buttonStyle="primary">Add to Cart</Button>}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <Pagination className={styles['card-list__pagination']} />
     </section>
   );
 };
