@@ -1,7 +1,8 @@
 import cn from 'classnames';
 import * as React from 'react';
 import Text from 'components/Text';
-import ArrowIcon from 'components/icons/ArrowIcon';
+import ArrowLeftIcon from 'components/icons/ArrowLeftIcon';
+import ArrowRightIcon from 'components/icons/ArrowRightIcon';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
@@ -15,7 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({ className }) => {
         <li className={styles['pagination__item']}>
           <button className={styles['pagination__button']} type="button" disabled>
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
-              <ArrowIcon width={32} height={32} />
+              <ArrowLeftIcon width={32} height={32} />
             </Text>
           </button>
         </li>
@@ -47,7 +48,7 @@ const Pagination: React.FC<PaginationProps> = ({ className }) => {
         <li className={styles['pagination__item']}>
           <button className={styles['pagination__button']} type="button">
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
-              <ArrowIcon width={32} height={32} />
+              <ArrowRightIcon width={32} height={32} />
             </Text>
           </button>
         </li>

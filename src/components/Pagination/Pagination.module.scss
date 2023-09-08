@@ -15,10 +15,6 @@
   &__item {
     &:first-child {
       margin-right: 18px;
-
-      svg {
-        transform: rotate(180deg);
-      }
     }
 
     &:last-child {
