@@ -1,0 +1,37 @@
+.main-card {
+  display: flex;
+  column-gap: var(--space-xxxl);
+
+  &__slider {
+    flex: 1 1 600px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__description {
+    margin-top: var(--space-xl);
+  }
+
+  &__price {
+    margin-top: 88px;
+  }
+
+  &__controls {
+    display: flex;
+    gap: var(--space-xxxl);
+    margin-top: var(--space-xxxl);
+  }
+
+  &__button {
+    &--buy {
+      min-width: 135px;
+    }
+
+    &--add {
+      min-width: 155px;
+    }
+  }
+}
