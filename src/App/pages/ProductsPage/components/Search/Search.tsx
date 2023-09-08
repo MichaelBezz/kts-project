@@ -18,7 +18,7 @@ const Search: React.FC<SearchProps> = ({ className }) => {
         placeholder="Search product"
       />
 
-      <Button className={styles['search__button']}>
+      <Button className={styles['search__button']} buttonStyle="primary">
         Find now
       </Button>
     </div>

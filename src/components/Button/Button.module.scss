@@ -5,38 +5,80 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-xxs);
-  min-height: 52px;
-  padding: var(--space-s) var(--space-l);
-  background-color: var(--color-button-primary-bg);
+  padding: 0;
+  background-color: var(--color-transparent);
   border: var(--border-none);
-  transition: background-color var(--transition-default);
+  transition: color var(--transition-default), background-color var(--transition-default);
   user-select: none;
   cursor: pointer;
-
-  @include hover-focus {
-    background-color: var(--color-button-primary-bg-hover);
-  }
-
-  @include active {
-    background-color: var(--color-button-primary-bg-active);
-  }
 
   &:disabled {
     pointer-events: none;
     cursor: default;
   }
 
-  &--disabled {
-    background-color: var(--color-button-primary-bg-disabled);
-    pointer-events: none;
-    cursor: default;
+  &--primary {
+    min-height: 52px;
+    padding: var(--space-s) var(--space-l);
+    color: var(--color-button-primary-text);
+    background-color: var(--color-button-primary-bg);
+
+    @include hover-focus {
+      background-color: var(--color-button-primary-bg-hover);
+    }
+
+    @include active {
+      background-color: var(--color-button-primary-bg-active);
+    }
+
+    &.button--disabled {
+      background-color: var(--color-button-primary-bg-disabled);
+      pointer-events: none;
+      cursor: default;
+    }
   }
 
-  &__loader {
+  &--secondary {
+    min-height: 52px;
+    padding: var(--space-s) var(--space-l);
+    color: var(--color-button-secondary-text);
+    background-color: var(--color-button-secondary-bg);
+    border: 1px solid var(--color-button-secondary-border);
+
+    @include hover-focus {
+      color: var(--color-button-secondary-text-hover);
+    }
+
+    @include active {
+      color: var(--color-button-secondary-text-active);
+    }
+
+    &.button--disabled {
+      color: var(--color-button-secondary-text-disabled);
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  &--with-icon {
+    gap: var(--space-xl);
+    min-height: 48px;
+    padding: var(--space-xxs) var(--space-xs) var(--space-xxs) 0;
+    border: var(--border-none);
+
+    .button__text {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+  }
+
+  &__loader,
+  &__icon {
     flex: 0 0 auto;
+    display: flex;
   }
 
   &__text {
-    color: var(--color-button-primary-text);
+    display: flex;
   }
 }

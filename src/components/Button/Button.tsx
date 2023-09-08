@@ -6,6 +6,10 @@ import styles from './Button.module.scss';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
+  /** Тип кнопки */
+  buttonStyle?: 'primary' | 'secondary';
+  /** Слот для иконки */
+  iconSlot?: React.ReactNode;
   /** Состояние загрузки */
   loading?: boolean;
   /** Состояние блокировки */
@@ -16,6 +20,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button: React.FC<ButtonProps> = ({
   className,
+  buttonStyle,
+  iconSlot,
   loading,
   disabled,
   children,
@@ -25,6 +31,8 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={cn(
         styles['button'],
+        {[styles[`button--${buttonStyle}`]]: buttonStyle},
+        {[styles['button--with-icon']]: !!iconSlot},
         {[styles['button--disabled']]: disabled},
         className
       )}
@@ -34,6 +42,10 @@ const Button: React.FC<ButtonProps> = ({
     >
       {loading && (
         <Loader className={styles['button__loader']} size="s" color="secondary" />
+      )}
+
+      {!!iconSlot && (
+        <div className={styles['button__icon']}>{iconSlot}</div>
       )}
 
       <Text className={styles['button__text']} tag="span" view="button">
