@@ -1,0 +1,12 @@
+.related-cards {
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(auto, 360px));
+    justify-content: space-between;
+    column-gap: var(--space-xxl);
+    margin: 0;
+    margin-top: var(--space-xxl);
+    padding: 0;
+    list-style: none;
+  }
+}

@@ -1,1 +1,11 @@
-.product-page {}
+.product-page {
+  padding: 58px 0 100px;
+
+  &__product {
+    margin-top: var(--space-xxl);
+  }
+
+  &__cards {
+    margin-top: var(--space-xxxl);
+  }
+}
