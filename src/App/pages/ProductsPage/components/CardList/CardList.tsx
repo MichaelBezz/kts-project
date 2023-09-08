@@ -6,12 +6,12 @@ import Card from 'components/Card';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
-import { TProducts } from 'types/product';
+import { TProduct } from 'types/product';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
   className?: string;
-  products: TProducts;
+  products: TProduct[];
 };
 
 const CardList: React.FC<CardListProps> = ({ className, products }) => {

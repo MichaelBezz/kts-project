@@ -3,19 +3,19 @@ import Loader from 'components/Loader';
 import Text from 'components/Text';
 import { APIRoute } from 'config/api-route';
 import { api } from 'services/api';
-import { TProducts } from 'types/product';
+import { TProduct } from 'types/product';
 import CardList from './components/CardList';
 import Filter from './components/Filter';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
 
 const ProductsPage: React.FC = () => {
-  const [products, setProducts] = React.useState<TProducts>([]);
+  const [products, setProducts] = React.useState<TProduct[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     const getData = async () => {
-      const { data } = await api.get<TProducts>(APIRoute.Products);
+      const { data } = await api.get<TProduct[]>(APIRoute.Products);
       setProducts(data);
       setIsLoading(false);
     };

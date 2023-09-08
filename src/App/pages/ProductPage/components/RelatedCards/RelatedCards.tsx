@@ -7,7 +7,7 @@ import Text from 'components/Text';
 import { APIRoute } from 'config/api-route';
 import { AppRoute } from 'config/app-route';
 import { api } from 'services/api';
-import { TProducts, TProduct } from 'types/product';
+import { TProduct } from 'types/product';
 import styles from './RelatedCards.module.scss';
 
 export type RelatedCardsProps = {
@@ -16,13 +16,13 @@ export type RelatedCardsProps = {
 };
 
 const RelatedCards: React.FC<RelatedCardsProps> = ({ className, product }) => {
-  const [products, setProducts] = React.useState<TProducts>([]);
+  const [products, setProducts] = React.useState<TProduct[]>([]);
 
   const navigate = useNavigate();
 
   React.useEffect(() => {
     const getData = async (id: number) => {
-      const { data } = await api.get<TProducts>(`${APIRoute.Categories}/${id}${APIRoute.Products}`);
+      const { data } = await api.get<TProduct[]>(`${APIRoute.Categories}/${id}${APIRoute.Products}`);
       setProducts(data);
     };
 

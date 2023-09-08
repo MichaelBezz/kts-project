@@ -1,18 +1,10 @@
-export type TProductCategory = {
-  id: number;
-  name: string;
-  image: string;
-};
-
-export type TProductImages = string[];
+import { TCategory } from 'types/category';
 
 export type TProduct = {
   id: number;
   title: string;
   price: number;
   description: string;
-  category: TProductCategory;
-  images: TProductImages;
+  category: TCategory;
+  images: string[];
 };
-
-export type TProducts = TProduct[];
