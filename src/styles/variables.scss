@@ -62,6 +62,9 @@
   --color-pagination-bg:                  var(--color-transparent);
   --color-pagination-bg-current:          var(--color-breaker-bay);
   --color-pagination-bg-active:           var(--color-dark-green-copper);
+  --color-slider-button-bg:               var(--color-black);
+  --color-slider-button-icon:             var(--color-white);
+  --color-slider-button-icon-hover:       var(--color-breaker-bay);
 
   // Animation
   // -------------------------------------
@@ -90,4 +93,9 @@
 
   --border-none:                          0;
   --border-radius-cycle:                  50%;
+
+  // Z-index
+  // -------------------------------------
+
+  --z-index-slider-button:                10;
 }

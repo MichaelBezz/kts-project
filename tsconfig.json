@@ -25,6 +25,6 @@
       "types": ["types/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "swiper.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
