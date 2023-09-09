@@ -3,7 +3,6 @@ import * as React from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Card from 'components/Card';
-import Pagination from 'components/Pagination';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
 import { TProduct } from 'types/product';
@@ -11,10 +10,11 @@ import styles from './CardList.module.scss';
 
 export type CardListProps = {
   className?: string;
+  totalProduct: number;
   products: TProduct[];
 };
 
-const CardList: React.FC<CardListProps> = ({ className, products }) => {
+const CardList: React.FC<CardListProps> = ({ className, totalProduct, products }) => {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ const CardList: React.FC<CardListProps> = ({ className, products }) => {
         </Text>
 
         <Text tag="p" view="p-20" weight="bold" color="accent">
-          {products.length}
+          {totalProduct}
         </Text>
       </div>
 
@@ -44,8 +44,6 @@ const CardList: React.FC<CardListProps> = ({ className, products }) => {
           </li>
         ))}
       </ul>
-
-      <Pagination className={styles['card-list__pagination']} />
     </section>
   );
 };

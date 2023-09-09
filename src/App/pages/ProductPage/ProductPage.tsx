@@ -2,37 +2,37 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import GoBackButton from 'components/GoBackButton';
 import Loader from 'components/Loader';
-import { APIRoute } from 'config/api-route';
-import { api } from 'services/api';
+import { fetchProductById, fetchProductsByCategory } from 'services/api';
 import { TProduct } from 'types/product';
 import MainCard from './components/MainCard';
 import RelatedCards from './components/RelatedCards';
 import styles from './ProductPage.module.scss';
 
 const ProductPage: React.FC = () => {
-  const [product, setProduct] = React.useState<TProduct>({} as TProduct);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [product, setProduct] = React.useState<TProduct | null>(null);
+  const [relatedProducts, setRelatedProducts] = React.useState<TProduct[] | null>(null);
 
   const { id } = useParams<{ id: string }>();
 
   React.useEffect(() => {
-    const getData = async (id: string) => {
-      const { data: mainProduct } = await api.get<TProduct>(`${APIRoute.Products}/${id}`);
-      setProduct(mainProduct);
-
-      setIsLoading(false);
+    const fetchData = async (id: string) => {
+      const data = await fetchProductById(id);
+      setProduct(data);
     };
 
-    if (id) {
-      getData(id);
-    }
-
-    return () => {
-      setIsLoading(true);
-    };
+    id && fetchData(id);
   }, [id]);
 
-  if (isLoading) {
+  React.useEffect(() => {
+    const fetchData = async (id: number) => {
+      const data = await fetchProductsByCategory(id, 0, 3);
+      setRelatedProducts(data);
+    };
+
+    product && fetchData(product.category.id);
+  }, [product]);
+
+  if (product === null || relatedProducts === null) {
     return (<Loader size="general" />);
   }
 
@@ -48,7 +48,7 @@ const ProductPage: React.FC = () => {
 
         <RelatedCards
           className={styles['product-page__cards']}
-          product={product}
+          products={relatedProducts}
         />
       </div>
     </div>

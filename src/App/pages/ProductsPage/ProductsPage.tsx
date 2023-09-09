@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Loader from 'components/Loader';
+import Pagination from 'components/Pagination';
 import Text from 'components/Text';
-import { APIRoute } from 'config/api-route';
-import { api } from 'services/api';
+import { fetchProducts } from 'services/api';
 import { TProduct } from 'types/product';
 import CardList from './components/CardList';
 import Filter from './components/Filter';
@@ -10,24 +10,28 @@ import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
 
 const ProductsPage: React.FC = () => {
-  const [products, setProducts] = React.useState<TProduct[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [products, setProducts] = React.useState<TProduct[] | null>(null);
+  const [totalProduct, setTotalProduct] = React.useState<number>(0);
 
   React.useEffect(() => {
-    const getData = async () => {
-      const { data } = await api.get<TProduct[]>(APIRoute.Products);
-      setProducts(data);
-      setIsLoading(false);
+    const fetchData = async () => {
+      const data = await fetchProducts();
+      setTotalProduct(data.length);
     };
 
-    getData();
-
-    return () => {
-      setIsLoading(true);
-    };
+    fetchData();
   }, []);
 
-  if (isLoading) {
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts(0, 9);
+      setProducts(data);
+    };
+
+    fetchData();
+  }, []);
+
+  if (products === null) {
     return (<Loader size="general" />);
   }
 
@@ -50,7 +54,12 @@ const ProductsPage: React.FC = () => {
 
         <CardList
           className={styles['products-page__cards']}
+          totalProduct={totalProduct}
           products={products}
+        />
+
+        <Pagination
+          className={styles['products-page__pagination']}
         />
       </div>
     </div>

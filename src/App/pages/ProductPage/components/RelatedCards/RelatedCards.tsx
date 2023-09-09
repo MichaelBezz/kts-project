@@ -4,30 +4,17 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import Text from 'components/Text';
-import { APIRoute } from 'config/api-route';
 import { AppRoute } from 'config/app-route';
-import { api } from 'services/api';
 import { TProduct } from 'types/product';
 import styles from './RelatedCards.module.scss';
 
 export type RelatedCardsProps = {
   className?: string;
-  product: TProduct;
+  products: TProduct[];
 };
 
-const RelatedCards: React.FC<RelatedCardsProps> = ({ className, product }) => {
-  const [products, setProducts] = React.useState<TProduct[]>([]);
-
+const RelatedCards: React.FC<RelatedCardsProps> = ({ className, products }) => {
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    const getData = async (id: number) => {
-      const { data } = await api.get<TProduct[]>(`${APIRoute.Categories}/${id}${APIRoute.Products}`);
-      setProducts(data);
-    };
-
-    getData(product.category.id);
-  }, [product]);
 
   return (
     <div className={cn(styles['related-cards'], className)}>
@@ -36,7 +23,7 @@ const RelatedCards: React.FC<RelatedCardsProps> = ({ className, product }) => {
       </Text>
 
       <ul className={styles['related-cards__list']}>
-        {products.slice(0, 3).map((product) => (
+        {products.map((product) => (
           <li key={product.id}>
             <Card
               image={product.images[0]}

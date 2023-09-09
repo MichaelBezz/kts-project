@@ -38,12 +38,4 @@
       grid-template-columns: 1fr;
     }
   }
-
-  &__pagination {
-    margin-top: var(--space-xxxl);
-
-    @include vp-767 {
-      margin-top: var(--space-xl);
-    }
-  }
 }

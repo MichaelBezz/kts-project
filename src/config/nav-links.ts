@@ -6,7 +6,7 @@ export const NAV_LINKS = [
     text: 'Products'
   },
   {
-    route: '#',
+    route: '#todo',
     text: 'Categories'
   },
   {
