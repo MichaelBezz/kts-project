@@ -14,7 +14,7 @@ const PAGE_SIZE = 9;
 const ProductsPage: React.FC = () => {
   const [products, setProducts] = React.useState<TProduct[] | null>(null);
   const [totalCount, setTotalCount] = React.useState<number>(0);
-  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [currentPage, setCurrentPage] = React.useState<number>(0);
 
   React.useEffect(() => {
     const fetchData = async () => {
