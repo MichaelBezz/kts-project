@@ -4,6 +4,7 @@
   position: relative;
 
   &__list {
+    z-index: var(--z-index-dropdown-list);
     position: absolute;
     top: calc(100% + var(--space-xxs));
     right: 0;

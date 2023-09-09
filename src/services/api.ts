@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { APIRoute } from 'config/api-route';
+import { TCategory } from 'types/category';
 import { TProduct } from 'types/product';
 
 const BACKEND_URL = 'https://api.escuelajs.co/api/v1';
@@ -37,5 +38,10 @@ export const fetchProductsByCategory = async (id: number, offset = 0, limit = 0)
   const { data } = await api.get<TProduct[]>(
     `${APIRoute.Categories}/${id}${APIRoute.Products}?offset=${offset}&limit=${limit}`
   );
+  return data;
+};
+
+export const fetchCategories = async () => {
+  const { data } = await api.get<TCategory[]>(APIRoute.Categories);
   return data;
 };

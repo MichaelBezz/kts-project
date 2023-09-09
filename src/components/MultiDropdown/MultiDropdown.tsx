@@ -47,6 +47,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   disabled,
   getTitle
 }) => {
+  const dropdownRef = React.useRef<HTMLDivElement | null>(null);
+
   const [items, setItems] = React.useState<Option[]>(options);
   const [checkedItems, setCheckedItems] = React.useState<Option[]>(value);
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
@@ -62,7 +64,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   React.useEffect(() => {
     const handleDocumentClick = (event: MouseEvent) => {
-      const isDropdown = (event.target as HTMLElement).closest('.multi-dropdown');
+      const isDropdown = dropdownRef.current?.contains(event.target as HTMLElement);
       !isDropdown && setIsOpened(false);
     };
 
@@ -107,7 +109,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const icon = <ArrowDownIcon color="secondary" />;
 
   return (
-    <div className={cn(styles['multi-dropdown'], className)}>
+    <div className={cn(styles['multi-dropdown'], className)} ref={dropdownRef}>
       <Input
         value={checkedItems.length && !isOpened ? getTitle(checkedItems) : ''}
         placeholder={!checkedItems.length || isOpened ? getTitle(checkedItems) : ''}
