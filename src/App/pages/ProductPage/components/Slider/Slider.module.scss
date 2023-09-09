@@ -2,7 +2,6 @@
 
 .slider {
   position: relative;
-  max-width: 600px;
 
   &__slide {
     position: relative;
@@ -37,6 +36,10 @@
     padding: 0 var(--space-xl);
     transform: translateY(-50%);
     pointer-events: none;
+
+    @include vp-1023 {
+      padding: 0 var(--space-xs);
+    }
   }
 
   &__button {
@@ -54,6 +57,11 @@
     pointer-events: initial;
     user-select: none;
     cursor: pointer;
+
+    @include vp-1023 {
+      width: 42px;
+      height: 42px;
+    }
 
     @include hover {
       color: var(--color-slider-button-icon-hover);

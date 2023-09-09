@@ -31,8 +31,8 @@ const Slider: React.FC<SliderProps> = ({ className, imageSrc }) => {
       speed: 800,
       effect: 'fade',
       navigation: {
-        nextEl: prevButtonRef.current,
-        prevEl: nextButtonRef.current
+        nextEl: nextButtonRef.current,
+        prevEl: prevButtonRef.current
       }
     };
 

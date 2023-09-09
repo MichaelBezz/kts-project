@@ -1,32 +1,72 @@
-.main-card {
-  display: flex;
-  column-gap: var(--space-xxxl);
+@import 'styles/mixins';
 
-  &__slider {
-    flex: 0 1 600px;
+.main-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 40px;
+
+  @include vp-1279 {
+    gap: var(--space-xl);
+  }
+
+  @include vp-767 {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   &__content {
-    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    padding-left: var(--space-xxs);
+
+    @include vp-1279 {
+      gap: var(--space-xl);
+      padding: 0;
+    }
   }
 
   &__description {
     margin-top: var(--space-xl);
+
+    @include vp-1279 {
+      margin: 0;
+    }
   }
 
   &__price {
     margin-top: 88px;
+
+    @include vp-1279 {
+      margin-top: auto;
+    }
   }
 
   &__controls {
     display: flex;
+    align-items: center;
     gap: var(--space-xxxl);
     margin-top: var(--space-xxxl);
+
+    @include vp-1279 {
+      margin: 0;
+    }
+
+    @include vp-1023 {
+      gap: var(--space-xl);
+    }
+
+    @include vp-767 {
+      flex-direction: column;
+      align-items: initial;
+      gap: var(--space-xs);
+    }
   }
 
   &__button {
+    @include vp-1279 {
+      min-width: initial;
+      width: 100%;
+    }
+
     &--buy {
       min-width: 135px;
     }
