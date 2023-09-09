@@ -15,10 +15,18 @@
   &__item {
     &:first-child {
       margin-right: 18px;
+
+      @include vp-767 {
+        margin-right: 6px;
+      }
     }
 
     &:last-child {
       margin-left: 18px;
+
+      @include vp-767 {
+        margin-left: 6px;
+      }
     }
   }
 
@@ -36,14 +44,14 @@
     user-select: none;
     cursor: pointer;
 
-    @include hover-focus {
-      &:not(.pagination__button--current) {
+    @include hover {
+      &:not(.is-current) {
         color: var(--color-pagination-text-hover);
       }
     }
 
     @include active {
-      &:not(.pagination__button--current) {
+      &:not(.is-current) {
         background-color: var(--color-pagination-bg-active);
       }
     }
@@ -54,15 +62,15 @@
       pointer-events: none;
       cursor: default;
     }
-
-    &--current {
-      color: var(--color-pagination-text-current);
-      background-color: var(--color-pagination-bg-current);
-    }
   }
 
   &__button-text {
     display: flex;
     align-items: center;
+  }
+
+  .is-current {
+    color: var(--color-pagination-text-current);
+    background-color: var(--color-pagination-bg-current);
   }
 }

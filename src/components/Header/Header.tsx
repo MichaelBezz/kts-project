@@ -10,12 +10,12 @@ export type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
-  const [isOpened, setIsOpened] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   return (
     <header className={cn(
       styles['header'],
-      {[styles['is-opened']]: isOpened},
+      {[styles['is-open']]: isOpen},
       className
     )}>
       <div className={cn(styles['header__wrapper'], 'container')}>
@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
         <UserNav
           className={styles['header__user-nav']}
-          onClick={() => setIsOpened((prevState) => !prevState)}
+          onClick={() => setIsOpen((prevState) => !prevState)}
         />
       </div>
     </header>

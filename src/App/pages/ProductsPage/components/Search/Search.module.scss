@@ -1,7 +1,15 @@
+@import 'styles/mixins';
+
 .search {
   display: flex;
   align-items: center;
   gap: var(--space-xl);
+
+  @include vp-767 {
+    flex-direction: column;
+    align-items: initial;
+    gap: var(--space-m);
+  }
 
   &__input {
     flex: 1 1 auto;
@@ -9,5 +17,9 @@
 
   &__button {
     flex-basis: 138px;
+
+    @include vp-767 {
+      flex-basis: auto;
+    }
   }
 }

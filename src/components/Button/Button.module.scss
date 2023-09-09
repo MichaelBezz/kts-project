@@ -26,7 +26,7 @@
     color: var(--color-button-primary-text);
     background-color: var(--color-button-primary-bg);
 
-    @include hover-focus {
+    @include hover {
       background-color: var(--color-button-primary-bg-hover);
     }
 
@@ -48,7 +48,7 @@
     background-color: var(--color-button-sec-bg);
     border: 1px solid var(--color-button-sec-border);
 
-    @include hover-focus {
+    @include hover {
       color: var(--color-button-sec-text-hover);
       border-color: var(--color-button-sec-border-hover);
     }

@@ -42,15 +42,15 @@
   --color-button-primary-bg-active:       var(--color-dark-green-copper);
   --color-button-primary-bg-disabled:     var(--color-gainsboro);
 
+  --color-button-sec-text:                var(--color-black);
+  --color-button-sec-text-hover:          var(--color-breaker-bay);
+  --color-button-sec-text-active:         var(--color-dark-green-copper);
+  --color-button-sec-text-disabled:       var(--color-gainsboro);
   --color-button-sec-bg:                  var(--color-transparent);
   --color-button-sec-border:              var(--color-spun-pearl);
   --color-button-sec-border-hover:        var(--color-breaker-bay);
   --color-button-sec-border-active:       var(--color-dark-green-copper);
   --color-button-sec-border-disabled:     var(--color-gainsboro);
-  --color-button-sec-text:                var(--color-black);
-  --color-button-sec-text-hover:          var(--color-breaker-bay);
-  --color-button-sec-text-active:         var(--color-dark-green-copper);
-  --color-button-sec-text-disabled:       var(--color-gainsboro);
 
   --color-input-text:                     var(--color-black);
   --color-input-text-disabled:            rgba(0, 0, 0, 0.2);
@@ -68,6 +68,10 @@
   --color-card-bg:                        var(--color-white);
   --color-card-image-bg:                  var(--color-gainsboro);
 
+  --color-slider-button-bg:               var(--color-black);
+  --color-slider-button-icon:             var(--color-white);
+  --color-slider-button-icon-hover:       var(--color-breaker-bay);
+
   --color-pagination-text:                var(--color-black);
   --color-pagination-text-current:        var(--color-white);
   --color-pagination-text-hover:          var(--color-breaker-bay);
@@ -75,10 +79,6 @@
   --color-pagination-bg:                  var(--color-transparent);
   --color-pagination-bg-current:          var(--color-breaker-bay);
   --color-pagination-bg-active:           var(--color-dark-green-copper);
-
-  --color-slider-button-bg:               var(--color-black);
-  --color-slider-button-icon:             var(--color-white);
-  --color-slider-button-icon-hover:       var(--color-breaker-bay);
 
   // Animation
   // -------------------------------------
@@ -101,6 +101,7 @@
   --space-s:                              14px;
   --space-xs:                             12px;
   --space-xxs:                            8px;
+  --space-xxxs:                           6px;
 
   // Border
   // -------------------------------------

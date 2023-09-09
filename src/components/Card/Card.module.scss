@@ -37,6 +37,10 @@
     flex-direction: column;
     row-gap: var(--space-xxl);
     padding: var(--space-xxxl) var(--space-xs);
+
+    @include vp-1279 {
+      padding: var(--space-xl) var(--space-xs);
+    }
   }
 
   &__body {
@@ -52,6 +56,16 @@
     align-items: center;
     column-gap: 26px;
     margin-top: auto;
+
+    @include vp-1279 {
+      grid-template-columns: 1fr auto;
+      column-gap: var(--space-s);
+    }
+
+    @include vp-767 {
+      grid-template-columns: 1fr;
+      gap: var(--space-s);
+    }
 
     &--without-slot {
       grid-template-columns: 1fr;

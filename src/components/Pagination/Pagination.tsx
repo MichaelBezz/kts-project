@@ -21,7 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({ className }) => {
           </button>
         </li>
         <li className={styles['pagination__item']}>
-          <button className={cn(styles['pagination__button'], styles['pagination__button--current'])} type="button">
+          <button className={cn(styles['pagination__button'], styles['is-current'])} type="button">
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">1</Text>
           </button>
         </li>

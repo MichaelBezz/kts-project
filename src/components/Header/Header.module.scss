@@ -27,7 +27,7 @@
       display: none;
       margin: 0;
 
-      .is-opened & {
+      .is-open & {
         position: absolute;
         top: calc(100% + 2px);
         right: 0;

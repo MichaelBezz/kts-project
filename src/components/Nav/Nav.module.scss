@@ -29,11 +29,11 @@
   &__link {
     position: relative;
     display: flex;
-    padding: 6px 0;
+    padding: var(--space-xxxs) 0;
     color: var(--color-text-primary);
     transition: color var(--transition-default);
 
-    @include hover-focus {
+    @include hover {
       color: var(--color-text-accent);
     }
 

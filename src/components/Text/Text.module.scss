@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .text {
   font-family: var(--ff-roboto);
   font-style: normal;
@@ -14,42 +16,70 @@
     font-size: 18px;
     line-height: 1;
     font-weight: 400;
+
+    @include vp-767 {
+      font-size: 16px;
+    }
   }
 
   &--title {
     font-size: 44px;
     line-height: 1.09;
     font-weight: 700;
+
+    @include vp-767 {
+      font-size: 32px;
+    }
   }
 
   &--p-32 {
     font-size: 32px;
     line-height: 1.5;
     font-weight: 700;
+
+    @include vp-767 {
+      font-size: 24px;
+    }
   }
 
   &--p-20 {
     font-size: 20px;
     line-height: 1.2;
     font-weight: 400;
+
+    @include vp-767 {
+      font-size: 18px;
+    }
   }
 
   &--p-18 {
     font-size: 18px;
     line-height: 1.22;
     font-weight: 400;
+
+    @include vp-767 {
+      font-size: 16px;
+    }
   }
 
   &--p-16 {
     font-size: 16px;
     line-height: 1.25;
     font-weight: 400;
+
+    @include vp-767 {
+      font-size: 14px;
+    }
   }
 
   &--p-14 {
     font-size: 14px;
     line-height: 1.29;
     font-weight: 400;
+
+    @include vp-767 {
+      font-size: 12px;
+    }
   }
 
   &--normal {
