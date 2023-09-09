@@ -9,14 +9,17 @@ import Filter from './components/Filter';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
 
+const PAGE_SIZE = 9;
+
 const ProductsPage: React.FC = () => {
   const [products, setProducts] = React.useState<TProduct[] | null>(null);
-  const [totalProduct, setTotalProduct] = React.useState<number>(0);
+  const [totalCount, setTotalCount] = React.useState<number>(0);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   React.useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts();
-      setTotalProduct(data.length);
+      setTotalCount(data.length);
     };
 
     fetchData();
@@ -24,12 +27,22 @@ const ProductsPage: React.FC = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchProducts(0, 9);
+      const data = await fetchProducts(currentPage, PAGE_SIZE);
       setProducts(data);
     };
 
     fetchData();
-  }, []);
+  }, [currentPage]);
+
+  const handelPaginationClick = (page: number) => {
+    setCurrentPage(page);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
 
   if (products === null) {
     return (<Loader size="general" />);
@@ -54,12 +67,16 @@ const ProductsPage: React.FC = () => {
 
         <CardList
           className={styles['products-page__cards']}
-          totalProduct={totalProduct}
+          totalProduct={totalCount}
           products={products}
         />
 
         <Pagination
           className={styles['products-page__pagination']}
+          currentPage={currentPage}
+          totalCount={totalCount}
+          pageSize={PAGE_SIZE}
+          onPageChange={handelPaginationClick}
         />
       </div>
     </div>

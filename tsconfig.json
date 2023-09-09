@@ -22,7 +22,8 @@
       "styles": ["styles/*"],
       "utils": ["utils/*"],
       "services": ["services/*"],
-      "types": ["types/*"]
+      "types": ["types/*"],
+      "hooks": ["hooks/*"]
     }
   },
   "include": ["src", "swiper.d.ts"],
