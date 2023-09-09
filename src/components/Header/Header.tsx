@@ -12,6 +12,10 @@ export type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
+  const handelBurgerClick = React.useCallback(() => {
+    setIsOpen((prevState) => !prevState);
+  }, []);
+
   return (
     <header className={cn(
       styles['header'],
@@ -25,11 +29,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
         <UserNav
           className={styles['header__user-nav']}
-          onClick={() => setIsOpen((prevState) => !prevState)}
+          onClick={handelBurgerClick}
         />
       </div>
     </header>
   );
 };
 
-export default Header;
+export default React.memo(Header);

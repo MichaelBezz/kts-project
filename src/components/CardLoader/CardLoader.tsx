@@ -22,4 +22,4 @@ const CardLoader: React.FC = (props) => {
   );
 };
 
-export default CardLoader;
+export default React.memo(CardLoader);

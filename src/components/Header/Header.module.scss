@@ -28,6 +28,7 @@
       margin: 0;
 
       .is-open & {
+        z-index: var(--z-index-mobile-menu);
         position: absolute;
         top: calc(100% + 2px);
         right: 0;

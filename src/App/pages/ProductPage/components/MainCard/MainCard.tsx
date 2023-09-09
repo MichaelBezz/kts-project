@@ -47,4 +47,4 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
   );
 };
 
-export default MainCard;
+export default React.memo(MainCard);

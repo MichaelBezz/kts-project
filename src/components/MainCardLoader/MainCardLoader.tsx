@@ -23,4 +23,4 @@ const MainCardLoader: React.FC = (props) => {
   );
 };
 
-export default MainCardLoader;
+export default React.memo(MainCardLoader);

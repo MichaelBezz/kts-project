@@ -34,16 +34,6 @@ const ProductsPage: React.FC = () => {
     fetchData();
   }, [currentPage]);
 
-  const handelPaginationClick = (page: number) => {
-    setCurrentPage(page);
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-  };
-
   if (products === null) {
     return (<Loader size="general" />);
   }
@@ -76,7 +66,7 @@ const ProductsPage: React.FC = () => {
           currentPage={currentPage}
           totalCount={totalCount}
           pageSize={PAGE_SIZE}
-          onPageChange={handelPaginationClick}
+          onPageChange={setCurrentPage}
         />
       </div>
     </div>

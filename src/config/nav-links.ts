@@ -6,11 +6,11 @@ export const NAV_LINKS = [
     text: 'Products'
   },
   {
-    route: '#todo',
+    route: '#categories',
     text: 'Categories'
   },
   {
-    route: '#',
+    route: '#about',
     text: 'About us'
   }
 ];

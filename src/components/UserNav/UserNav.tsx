@@ -16,12 +16,12 @@ const UserNav: React.FC<UserNavProps> = ({ className, onClick }) => {
     <div className={cn(styles['user-nav'], className)}>
       <ul className={styles['user-nav__list']}>
         <li className={styles['user-nav__item']}>
-          <Link className={styles['user-nav__link']} to="#" aria-label="Cart">
+          <Link className={styles['user-nav__link']} to="#cart" aria-label="Cart">
             <CartIcon className={styles['user-nav__icon']} width={30} height={30} />
           </Link>
         </li>
         <li className={styles['user-nav__item']}>
-          <Link className={styles['user-nav__link']} to="#" aria-label="Account">
+          <Link className={styles['user-nav__link']} to="#account" aria-label="Account">
             <UserIcon className={styles['user-nav__icon']} width={30} height={30} />
           </Link>
         </li>

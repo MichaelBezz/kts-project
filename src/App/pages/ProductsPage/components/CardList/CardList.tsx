@@ -30,7 +30,7 @@ const CardList: React.FC<CardListProps> = ({ className, totalProduct, products }
       </div>
 
       <ul className={styles['card-list__body']}>
-        {products.slice(0, 9).map((product) => (
+        {products.map((product) => (
           <li key={product.id} className={styles['card-list__item']}>
             <Card
               image={product.images[0]}

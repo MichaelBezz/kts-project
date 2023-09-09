@@ -24,4 +24,4 @@ const Loader: React.FC<LoaderProps> = ({ className, size = 'l', color = 'primary
   );
 };
 
-export default Loader;
+export default React.memo(Loader);

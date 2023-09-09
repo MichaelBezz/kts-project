@@ -12,6 +12,7 @@ body {
 }
 
 html {
+  margin-left: calc(100vw - 100%);
   font-family: var(--ff-roboto);
   font-style: normal;
   font-size: 20px;
