@@ -6,11 +6,11 @@ export const NAV_LINKS = [
     text: 'Products'
   },
   {
-    route: AppRoute.Categories,
+    route: '#',
     text: 'Categories'
   },
   {
-    route: AppRoute.About,
+    route: '#',
     text: 'About us'
   }
 ];
