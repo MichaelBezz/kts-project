@@ -58,11 +58,11 @@ const Pagination: React.FC<PaginationProps> = ({
           </button>
         </li>
 
-        {paginationRange.map((pageNumber) => {
+        {paginationRange.map((pageNumber, index) => {
           if (pageNumber === DOTS) {
             return (
-              <li key={pageNumber} className={styles['pagination__item']}>
-                <div className={styles['pagination__button']}>
+              <li key={`${pageNumber}-${index}`} className={styles['pagination__item']}>
+                <div className={cn(styles['pagination__button'], styles['pagination__button--disabled'])}>
                   <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
                     {DOTS}
                   </Text>
@@ -72,7 +72,7 @@ const Pagination: React.FC<PaginationProps> = ({
           }
 
           return (
-            <li key={pageNumber} className={styles['pagination__item']}>
+            <li key={`${pageNumber}-${index}`} className={styles['pagination__item']}>
               <button
                 className={cn(
                   styles['pagination__button'],

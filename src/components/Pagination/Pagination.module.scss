@@ -56,9 +56,13 @@
       }
     }
 
-    &:disabled,
-    &--disabled {
+    &:disabled {
       color: var(--color-pagination-text-disabled);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    &--disabled {
       pointer-events: none;
       cursor: default;
     }
