@@ -12,33 +12,43 @@ export type MainCardProps = {
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
-  const { title, description, price, images } = product;
-
   return (
     <div className={cn(styles['main-card'], className)}>
       <div className={styles['main-card__slider']}>
-        <Slider imageSrc={images}/>
+        <Slider imageSrc={product.images}/>
       </div>
 
       <div className={styles['main-card__content']}>
         <Text className={styles['main-card__title']} tag="h1" view="title">
-          {title}
+          {product.title}
         </Text>
 
         <Text className={styles['main-card__description']} tag="p" view="p-20" color="secondary">
-          {description}
+          {product.description}
         </Text>
 
         <Text className={styles['main-card__price']} tag="p" view="title">
-          {`$${price}`}
+          {`$${product.price}`}
         </Text>
 
         <div className={styles['main-card__controls']}>
-          <Button className={cn(styles['main-card__button'], styles['main-card__button--buy'])} buttonStyle="primary">
+          <Button
+            className={cn(
+              styles['main-card__button'],
+              styles['main-card__button--buy']
+            )}
+            buttonStyle="primary"
+          >
             Buy Now
           </Button>
 
-          <Button className={cn(styles['main-card__button'], styles['main-card__button--add'])} buttonStyle="secondary">
+          <Button
+            className={cn(
+              styles['main-card__button'],
+              styles['main-card__button--add']
+            )}
+            buttonStyle="secondary"
+          >
             Add to Cart
           </Button>
         </div>
