@@ -13,24 +13,21 @@
 
   &__body {
     display: grid;
-    grid-template-columns: repeat(3, minmax(auto, 360px));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     justify-content: space-between;
-    gap: var(--space-xxl);
+    column-gap: 80px;
+    row-gap: 30px;
     margin: 0;
     margin-top: var(--space-xxl);
     padding: 0;
     list-style: none;
 
-    @include vp-1023 {
-      grid-template-columns: repeat(2, minmax(auto, 1fr));
+    @include vp-1279 {
+      gap: 30px;
     }
 
     @include vp-767 {
       margin-top: var(--space-xl);
-    }
-
-    @include vp-424 {
-      grid-template-columns: 1fr;
     }
   }
 }
