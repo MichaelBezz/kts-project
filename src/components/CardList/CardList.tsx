@@ -11,31 +11,34 @@ import styles from './CardList.module.scss';
 
 export type CardListProps = {
   className?: string;
-  totalProduct: number;
+  title: string;
   products: TProduct[];
-  isLoading: boolean;
-  cardPerPage: number;
+  productCount?: number;
+  isLoading?: boolean;
+  loaderCount?: number;
 };
 
-const CardList: React.FC<CardListProps> = ({ className, totalProduct, products, isLoading, cardPerPage }) => {
+const CardList: React.FC<CardListProps> = ({ className, title, products, productCount, isLoading, loaderCount }) => {
   const navigate = useNavigate();
 
   return (
     <section className={cn(styles['card-list'], className)}>
       <div className={styles['card-list__header']}>
         <Text tag="h2" view="p-32">
-          Total Product
+          {title}
         </Text>
 
-        <Text tag="p" view="p-20" weight="bold" color="accent">
-          {totalProduct}
-        </Text>
+        {productCount && (
+          <Text tag="p" view="p-20" weight="bold" color="accent">
+            {productCount}
+          </Text>
+        )}
       </div>
 
       {isLoading ? (
         <CardLoader
           className={styles['card-list__body']}
-          cards={cardPerPage}
+          cards={loaderCount}
         />
       ) : (
         <ul className={styles['card-list__body']}>

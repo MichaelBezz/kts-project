@@ -1,10 +1,10 @@
 import * as React from 'react';
+import CardList from 'components/CardList';
 import Loader from 'components/Loader';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
 import { fetchProducts } from 'services/api';
 import { TProduct } from 'types/product';
-import CardList from './components/CardList';
 import Filter from './components/Filter';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
@@ -13,14 +13,14 @@ const CARD_PER_PAGE = 9;
 
 const ProductsPage: React.FC = () => {
   const [products, setProducts] = React.useState<TProduct[] | null>(null);
-  const [totalCount, setTotalCount] = React.useState<number>(0);
+  const [productCount, setProductCount] = React.useState<number>(0);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts();
-      setTotalCount(data.length);
+      setProductCount(data.length);
     };
 
     fetchData();
@@ -63,16 +63,17 @@ const ProductsPage: React.FC = () => {
 
         <CardList
           className={styles['products-page__cards']}
-          totalProduct={totalCount}
+          title={'Total Product'}
           products={products}
+          productCount={productCount}
           isLoading={isLoading}
-          cardPerPage={CARD_PER_PAGE}
+          loaderCount={CARD_PER_PAGE}
         />
 
         <Pagination
           className={styles['products-page__pagination']}
           currentPage={currentPage}
-          totalCount={totalCount}
+          totalCount={productCount}
           pageSize={CARD_PER_PAGE}
           onPageChange={setCurrentPage}
         />

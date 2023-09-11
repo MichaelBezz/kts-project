@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import CardList from 'components/CardList';
 import GoBackButton from 'components/GoBackButton';
 import Loader from 'components/Loader';
 import { fetchProductById, fetchProductsByCategory } from 'services/api';
 import { TProduct } from 'types/product';
 import MainCard from './components/MainCard';
-import RelatedCards from './components/RelatedCards';
 import styles from './ProductPage.module.scss';
 
 const ProductPage: React.FC = () => {
@@ -46,8 +46,9 @@ const ProductPage: React.FC = () => {
           product={product}
         />
 
-        <RelatedCards
+        <CardList
           className={styles['product-page__cards']}
+          title={'Related Items'}
           products={relatedProducts}
         />
       </div>
