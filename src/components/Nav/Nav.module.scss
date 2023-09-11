@@ -38,6 +38,7 @@
     }
 
     &--active {
+      font-weight: 700;
       color: var(--color-text-accent);
 
       &:after {
@@ -54,5 +55,9 @@
         }
       }
     }
+  }
+
+  &__text {
+    font-weight: inherit;
   }
 }
