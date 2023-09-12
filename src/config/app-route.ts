@@ -1,7 +1,7 @@
 export enum AppRoute {
-  Index = '/',
-  Product = '/products/:id',
-  Categories = '/categories',
-  About = '/about',
-  NotFound = '*'
+  index = '/',
+  product = '/products/:id',
+  categories = '/categories',
+  about = '/about',
+  notFound = '*'
 }

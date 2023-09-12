@@ -50,7 +50,7 @@ const CardList: React.FC<CardListProps> = ({ className, title, products, product
                 title={product.title}
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
-                onClick={() => navigate(generatePath(AppRoute.Product, {id: `${product.id}`}))}
+                onClick={() => navigate(generatePath(AppRoute.product, {id: `${product.id}`}))}
                 actionSlot={<Button buttonStyle="primary">Add to Cart</Button>}
               />
             </li>

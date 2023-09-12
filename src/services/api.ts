@@ -25,23 +25,23 @@ export const createAPI = (): AxiosInstance => {
 export const api = createAPI();
 
 export const fetchProducts = async (offset = 0, limit = 0) => {
-  const { data } = await api.get<TProduct[]>(`${APIRoute.Products}?offset=${offset}&limit=${limit}`);
+  const { data } = await api.get<TProduct[]>(`${APIRoute.products}?offset=${offset}&limit=${limit}`);
   return data;
 };
 
 export const fetchProductById = async (id: string) => {
-  const { data } = await api.get<TProduct>(`${APIRoute.Products}/${id}`);
+  const { data } = await api.get<TProduct>(`${APIRoute.products}/${id}`);
   return data;
 };
 
 export const fetchProductsByCategory = async (id: number, offset = 0, limit = 0) => {
   const { data } = await api.get<TProduct[]>(
-    `${APIRoute.Categories}/${id}${APIRoute.Products}?offset=${offset}&limit=${limit}`
+    `${APIRoute.categories}/${id}${APIRoute.products}?offset=${offset}&limit=${limit}`
   );
   return data;
 };
 
 export const fetchCategories = async () => {
-  const { data } = await api.get<TCategory[]>(APIRoute.Categories);
+  const { data } = await api.get<TCategory[]>(APIRoute.categories);
   return data;
 };

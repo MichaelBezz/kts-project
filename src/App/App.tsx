@@ -10,10 +10,10 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Index} element={<Layout />}>
+        <Route path={AppRoute.index} element={<Layout />}>
           <Route index element={<ProductsPage />} />
-          <Route path={AppRoute.Product} element={<ProductPage />} />
-          <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
+          <Route path={AppRoute.product} element={<ProductPage />} />
+          <Route path={AppRoute.notFound} element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
