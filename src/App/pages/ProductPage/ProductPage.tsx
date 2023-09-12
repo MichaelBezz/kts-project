@@ -17,10 +17,10 @@ const ProductPage: React.FC = () => {
   React.useEffect(() => {
     const fetchData = async (id: string) => {
       const product = await fetchProductById(id);
-      const relatedProduct = await fetchProductsByCategory(product.category.id, 0, 3);
+      const relatedProducts = await fetchProductsByCategory(product.category.id, 0, 3);
 
       setProduct(product);
-      setRelatedProducts(relatedProduct);
+      setRelatedProducts(relatedProducts);
     };
 
     id && fetchData(id);
