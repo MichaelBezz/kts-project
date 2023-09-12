@@ -24,24 +24,24 @@ export const createAPI = (): AxiosInstance => {
 
 export const api = createAPI();
 
-export const fetchProducts = async (offset = 0, limit = 0) => {
+export const fetchProducts = async (offset = 0, limit = 0): Promise<TProduct[]> => {
   const { data } = await api.get<TProduct[]>(`${APIRoute.products}?offset=${offset}&limit=${limit}`);
   return data;
 };
 
-export const fetchProductById = async (id: string) => {
+export const fetchProductById = async (id: string): Promise<TProduct> => {
   const { data } = await api.get<TProduct>(`${APIRoute.products}/${id}`);
   return data;
 };
 
-export const fetchProductsByCategory = async (id: number, offset = 0, limit = 0) => {
+export const fetchProductsByCategory = async (id: number, offset = 0, limit = 0): Promise<TProduct[]> => {
   const { data } = await api.get<TProduct[]>(
     `${APIRoute.categories}/${id}${APIRoute.products}?offset=${offset}&limit=${limit}`
   );
   return data;
 };
 
-export const fetchCategories = async () => {
+export const fetchCategories = async (): Promise<TCategory[]> => {
   const { data } = await api.get<TCategory[]>(APIRoute.categories);
   return data;
 };
