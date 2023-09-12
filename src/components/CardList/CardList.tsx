@@ -62,4 +62,4 @@ const CardList: React.FC<CardListProps> = ({ className, title, products, product
   );
 };
 
-export default CardList;
+export default React.memo(CardList);

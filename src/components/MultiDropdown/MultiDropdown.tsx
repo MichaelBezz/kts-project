@@ -57,7 +57,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   React.useEffect(() => {setIsOpened(false)}, [disabled]);
 
   React.useEffect(() => {
-    if (isOpened === false) {
+    if (!isOpened) {
       setItems(options);
     }
   }, [isOpened, options]);

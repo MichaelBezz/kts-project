@@ -30,10 +30,6 @@ const Pagination: React.FC<PaginationProps> = ({
     pageSize
   }) ?? [];
 
-  if (currentPage === 0 || paginationRange.length < 2) {
-    return null;
-  }
-
   const handelNextButtonClick = () => {
     onPageChange(currentPage + 1);
   };
@@ -41,6 +37,10 @@ const Pagination: React.FC<PaginationProps> = ({
   const handelPrevButtonClick = () => {
     onPageChange(currentPage - 1);
   };
+
+  if (currentPage === 0 || paginationRange.length < 2) {
+    return null;
+  }
 
   return (
     <div className={cn(styles['pagination'], className)}>

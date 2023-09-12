@@ -17,7 +17,7 @@ const Nav: React.FC<NavProps> = ({ className }) => {
           <li key={route} className={styles['nav__item']}>
             <NavLink
               className={({ isActive }) =>
-              `${styles['nav__link']} ${isActive ? styles['nav__link--active'] : ''}`
+              `${styles['nav__link']} ${isActive && styles['nav__link--active']}`
               }
               to={route}
             >
