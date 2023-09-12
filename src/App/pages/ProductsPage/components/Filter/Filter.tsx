@@ -1,8 +1,6 @@
-import cn from 'classnames';
 import * as React from 'react';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
 import { fetchCategories } from 'services/api';
-import styles from './Filter.module.scss';
 
 export type FilterProps = {
   className?: string;
@@ -29,12 +27,14 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
   }, []);
 
   return (
-    <div className={cn(styles['filter'], className)}>
+    <div className={className}>
       <MultiDropdown
         options={options}
         value={[]}
         onChange={() => {}}
-        getTitle={(values: Option[]) => values.length === 0 ? 'Filter': values.map(({ value }) => value).join(', ')}
+        getTitle={(values: Option[]) =>
+          values.length === 0 ? 'Filter': values.map(({ value }) => value).join(', ')
+        }
       />
     </div>
   );
