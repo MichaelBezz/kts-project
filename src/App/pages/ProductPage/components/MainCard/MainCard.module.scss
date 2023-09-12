@@ -6,7 +6,7 @@
   column-gap: 40px;
 
   @include vp-1279 {
-    gap: var(--space-xl);
+    gap: $space-xl;
   }
 
   @include vp-767 {
@@ -16,16 +16,16 @@
   &__content {
     display: flex;
     flex-direction: column;
-    padding-left: var(--space-xxs);
+    padding-left: $space-xxs;
 
     @include vp-1279 {
-      gap: var(--space-xl);
+      gap: $space-xl;
       padding: 0;
     }
   }
 
   &__description {
-    margin-top: var(--space-xl);
+    margin-top: $space-xl;
 
     @include vp-1279 {
       margin: 0;
@@ -43,21 +43,21 @@
   &__controls {
     display: flex;
     align-items: center;
-    gap: var(--space-xxxl);
-    margin-top: var(--space-xxxl);
+    gap: $space-xxxl;
+    margin-top: $space-xxxl;
 
     @include vp-1279 {
       margin: 0;
     }
 
     @include vp-1023 {
-      gap: var(--space-xl);
+      gap: $space-xl;
     }
 
     @include vp-767 {
       flex-direction: column;
       align-items: initial;
-      gap: var(--space-xs);
+      gap: $space-xs;
     }
   }
 

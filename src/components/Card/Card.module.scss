@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: var(--color-card-bg);
-  transition: box-shadow var(--transition-default);
+  background-color: $color-card-bg;
+  transition: box-shadow $transition-default;
 
   @include hover-focus {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
@@ -13,7 +13,7 @@
 
   &__image {
     position: relative;
-    background-color: var(--color-card-image-bg);
+    background-color: $color-card-image-bg;
     overflow: hidden;
 
     &::before {
@@ -36,18 +36,18 @@
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    row-gap: var(--space-xxl);
-    padding: var(--space-xxxl) var(--space-xs);
+    row-gap: $space-xxl;
+    padding: $space-xxxl $space-xs;
 
     @include vp-1279 {
-      padding: var(--space-xl) var(--space-xs);
+      padding: $space-xl $space-xs;
     }
   }
 
   &__body {
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: var(--space-xxs);
+    row-gap: $space-xxs;
   }
 
   &__footer {
@@ -60,12 +60,12 @@
 
     @include vp-1279 {
       grid-template-columns: 1fr auto;
-      column-gap: var(--space-s);
+      column-gap: $space-s;
     }
 
     @include vp-767 {
       grid-template-columns: 1fr;
-      gap: var(--space-s);
+      gap: $space-s;
     }
 
     &--without-slot {

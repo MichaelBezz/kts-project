@@ -37,27 +37,27 @@
     min-width: 38px;
     height: 42px;
     padding: 5px 3px;
-    color: var(--color-pagination-text);
-    background-color: var(--color-pagination-bg);
-    border: var(--border-none);
-    transition: color var(--transition-default), background-color var(--transition-default);
+    color: $color-pagination-text;
+    background-color: $color-pagination-bg;
+    border: $border-none;
+    transition: color $transition-default, background-color $transition-default;
     user-select: none;
     cursor: pointer;
 
     @include hover {
       &:not(.is-current) {
-        color: var(--color-pagination-text-hover);
+        color: $color-pagination-text-hover;
       }
     }
 
     @include active {
       &:not(.is-current) {
-        background-color: var(--color-pagination-bg-active);
+        background-color: $color-pagination-bg-active;
       }
     }
 
     &:disabled {
-      color: var(--color-pagination-text-disabled);
+      color: $color-pagination-text-disabled;
       pointer-events: none;
       cursor: default;
     }
@@ -74,7 +74,7 @@
   }
 
   .is-current {
-    color: var(--color-pagination-text-current);
-    background-color: var(--color-pagination-bg-current);
+    color: $color-pagination-text-current;
+    background-color: $color-pagination-bg-current;
   }
 }

@@ -3,14 +3,14 @@
   color: inherit;
 
   &--primary {
-    color: var(--color-icon-primary);
+    color: $color-icon-primary;
   }
 
   &--secondary {
-    color: var(--color-icon-secondary);
+    color: $color-icon-secondary;
   }
 
   &--accent {
-    color: var(--color-icon-accent);
+    color: $color-icon-accent;
   }
 }

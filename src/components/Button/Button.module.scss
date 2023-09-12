@@ -4,14 +4,14 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: var(--space-xxs);
+  gap: $space-xxs;
   padding: 0;
-  background-color: var(--color-transparent);
-  border: var(--border-none);
+  background-color: $color-transparent;
+  border: $border-none;
   transition:
-    color var(--transition-default),
-    background-color var(--transition-default),
-    border-color var(--transition-default);
+    color $transition-default,
+    background-color $transition-default,
+    border-color $transition-default;
   user-select: none;
   cursor: pointer;
 
@@ -22,20 +22,20 @@
 
   &--primary {
     min-height: 52px;
-    padding: var(--space-s) var(--space-l);
-    color: var(--color-button-primary-text);
-    background-color: var(--color-button-primary-bg);
+    padding: $space-s $space-l;
+    color: $color-button-primary-text;
+    background-color: $color-button-primary-bg;
 
     @include hover {
-      background-color: var(--color-button-primary-bg-hover);
+      background-color: $color-button-primary-bg-hover;
     }
 
     @include active {
-      background-color: var(--color-button-primary-bg-active);
+      background-color: $color-button-primary-bg-active;
     }
 
     &.button--disabled {
-      background-color: var(--color-button-primary-bg-disabled);
+      background-color: $color-button-primary-bg-disabled;
       pointer-events: none;
       cursor: default;
     }
@@ -43,34 +43,34 @@
 
   &--secondary {
     min-height: 52px;
-    padding: var(--space-s) var(--space-l);
-    color: var(--color-button-sec-text);
-    background-color: var(--color-button-sec-bg);
-    border: 1px solid var(--color-button-sec-border);
+    padding: $space-s $space-l;
+    color: $color-button-sec-text;
+    background-color: $color-button-sec-bg;
+    border: 1px solid $color-button-sec-border;
 
     @include hover {
-      color: var(--color-button-sec-text-hover);
-      border-color: var(--color-button-sec-border-hover);
+      color: $color-button-sec-text-hover;
+      border-color: $color-button-sec-border-hover;
     }
 
     @include active {
-      color: var(--color-button-sec-text-active);
-      border-color: var(--color-button-sec-border-active);
+      color: $color-button-sec-text-active;
+      border-color: $color-button-sec-border-active;
     }
 
     &.button--disabled {
-      color: var(--color-button-sec-text-disabled);
-      border-color: var(--color-button-sec-border-disabled);
+      color: $color-button-sec-text-disabled;
+      border-color: $color-button-sec-border-disabled;
       pointer-events: none;
       cursor: default;
     }
   }
 
   &--with-icon {
-    gap: var(--space-xl);
+    gap: $space-xl;
     min-height: 48px;
-    padding: var(--space-xxs) var(--space-xs) var(--space-xxs) 0;
-    border: var(--border-none);
+    padding: $space-xxs $space-xs $space-xxs 0;
+    border: $border-none;
 
     .button__text {
       font-size: 20px;

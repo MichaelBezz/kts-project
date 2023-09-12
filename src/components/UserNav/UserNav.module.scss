@@ -5,13 +5,13 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-xs);
+    gap: $space-xs;
     margin: 0;
     padding: 0;
     list-style: none;
 
     @include vp-767 {
-      gap: var(--space-xxxs);
+      gap: $space-xxxs;
     }
   }
 
@@ -32,9 +32,9 @@
     display: flex;
     width: 42px;
     height: 42px;
-    padding: var(--space-xxxs);
-    color: var(--color-icon-default);
-    transition: color var(--transition-default);
+    padding: $space-xxxs;
+    color: $color-icon-default;
+    transition: color $transition-default;
 
     @include vp-767 {
       width: 36px;
@@ -42,13 +42,13 @@
     }
 
     @include hover {
-      color: var(--color-icon-accent);
+      color: $color-icon-accent;
     }
   }
 
   &__burger {
     border: 0;
-    background-color: var(--color-button-sec-bg);
+    background-color: $color-button-sec-bg;
     cursor: pointer;
   }
 

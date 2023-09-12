@@ -8,14 +8,14 @@
   }
 
   &__product {
-    margin-top: var(--space-xxl);
+    margin-top: $space-xxl;
 
     @include vp-767 {
-      margin-top: var(--space-xl);
+      margin-top: $space-xl;
     }
   }
 
   &__cards {
-    margin-top: var(--space-xxxl);
+    margin-top: $space-xxxl;
   }
 }

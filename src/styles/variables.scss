@@ -1,118 +1,116 @@
-:root {
-  // Colors
-  // -------------------------------------
+// Colors
+// -------------------------------------
 
-  // Default
+// Default
 
-  --color-black:                          #000000;
-  --color-white:                          #ffffff;
-  --color-transparent:                    rgba(255, 255, 255, 0);
+$color-black:                          #000000;
+$color-white:                          #ffffff;
+$color-transparent:                    rgba(255, 255, 255, 0);
 
-  --color-maire:                          #151411;
-  --color-snow:                           #fafafa;
-  --color-white-smoke:                    #f3f3f3;
-  --color-gainsboro:                      #d9d9d9;
-  --color-spun-pearl:                     #afadb5;
-  --color-ziggurat:                       #86aaa7;
-  --color-breaker-bay:                    #518581;
-  --color-dark-green-copper:              #487773;
+$color-maire:                          #151411;
+$color-snow:                           #fafafa;
+$color-white-smoke:                    #f3f3f3;
+$color-gainsboro:                      #d9d9d9;
+$color-spun-pearl:                     #afadb5;
+$color-ziggurat:                       #86aaa7;
+$color-breaker-bay:                    #518581;
+$color-dark-green-copper:              #487773;
 
-  // Project palette
+// Project palette
 
-  --color-header-bg:                      var(--color-white);
-  --color-header-border:                  var(--color-white-smoke);
+$color-header-bg:                      $color-white;
+$color-header-border:                  $color-white-smoke;
 
-  --color-page-bg:                        var(--color-snow);
+$color-page-bg:                        $color-snow;
 
-  --color-text-primary:                   var(--color-black);
-  --color-text-secondary:                 var(--color-spun-pearl);
-  --color-text-accent:                    var(--color-breaker-bay);
+$color-text-primary:                   $color-black;
+$color-text-secondary:                 $color-spun-pearl;
+$color-text-accent:                    $color-breaker-bay;
 
-  --color-icon-default:                   var(--color-maire);
-  --color-icon-primary:                   var(--color-black);
-  --color-icon-secondary:                 var(--color-spun-pearl);
-  --color-icon-accent:                    var(--color-breaker-bay);
+$color-icon-default:                   $color-maire;
+$color-icon-primary:                   $color-black;
+$color-icon-secondary:                 $color-spun-pearl;
+$color-icon-accent:                    $color-breaker-bay;
 
-  --color-loader-bg:                      var(--color-breaker-bay);
-  --color-loader-bg-secondary:            var(--color-white);
+$color-loader-bg:                      $color-breaker-bay;
+$color-loader-bg-secondary:            $color-white;
 
-  --color-button-primary-text:            var(--color-white);
-  --color-button-primary-bg:              var(--color-breaker-bay);
-  --color-button-primary-bg-hover:        var(--color-ziggurat);
-  --color-button-primary-bg-active:       var(--color-dark-green-copper);
-  --color-button-primary-bg-disabled:     var(--color-gainsboro);
+$color-button-primary-text:            $color-white;
+$color-button-primary-bg:              $color-breaker-bay;
+$color-button-primary-bg-hover:        $color-ziggurat;
+$color-button-primary-bg-active:       $color-dark-green-copper;
+$color-button-primary-bg-disabled:     $color-gainsboro;
 
-  --color-button-sec-text:                var(--color-black);
-  --color-button-sec-text-hover:          var(--color-breaker-bay);
-  --color-button-sec-text-active:         var(--color-dark-green-copper);
-  --color-button-sec-text-disabled:       var(--color-gainsboro);
-  --color-button-sec-bg:                  var(--color-transparent);
-  --color-button-sec-border:              var(--color-spun-pearl);
-  --color-button-sec-border-hover:        var(--color-breaker-bay);
-  --color-button-sec-border-active:       var(--color-dark-green-copper);
-  --color-button-sec-border-disabled:     var(--color-gainsboro);
+$color-button-sec-text:                $color-black;
+$color-button-sec-text-hover:          $color-breaker-bay;
+$color-button-sec-text-active:         $color-dark-green-copper;
+$color-button-sec-text-disabled:       $color-gainsboro;
+$color-button-sec-bg:                  $color-transparent;
+$color-button-sec-border:              $color-spun-pearl;
+$color-button-sec-border-hover:        $color-breaker-bay;
+$color-button-sec-border-active:       $color-dark-green-copper;
+$color-button-sec-border-disabled:     $color-gainsboro;
 
-  --color-input-text:                     var(--color-black);
-  --color-input-text-disabled:            rgba(0, 0, 0, 0.2);
-  --color-input-placeholder:              var(--color-spun-pearl);
-  --color-input-bg:                       var(--color-white);
-  --color-input-border:                   var(--color-white);
-  --color-input-border-focus:             var(--color-breaker-bay);
+$color-input-text:                     $color-black;
+$color-input-text-disabled:            rgba(0, 0, 0, 0.2);
+$color-input-placeholder:              $color-spun-pearl;
+$color-input-bg:                       $color-white;
+$color-input-border:                   $color-white;
+$color-input-border-focus:             $color-breaker-bay;
 
-  --color-dropdown-bg:                    var(--color-white);
-  --color-dropdown-text:                  var(--color-black);
-  --color-dropdown-text-hover:            var(--color-spun-pearl);
-  --color-dropdown-text-focus:            var(--color-breaker-bay);
-  --color-dropdown-text-active:           var(--color-breaker-bay);
+$color-dropdown-bg:                    $color-white;
+$color-dropdown-text:                  $color-black;
+$color-dropdown-text-hover:            $color-spun-pearl;
+$color-dropdown-text-focus:            $color-breaker-bay;
+$color-dropdown-text-active:           $color-breaker-bay;
 
-  --color-card-bg:                        var(--color-white);
-  --color-card-image-bg:                  var(--color-gainsboro);
+$color-card-bg:                        $color-white;
+$color-card-image-bg:                  $color-gainsboro;
 
-  --color-slider-button-bg:               var(--color-black);
-  --color-slider-button-icon:             var(--color-white);
-  --color-slider-button-icon-hover:       var(--color-breaker-bay);
+$color-slider-button-bg:               $color-black;
+$color-slider-button-icon:             $color-white;
+$color-slider-button-icon-hover:       $color-breaker-bay;
 
-  --color-pagination-text:                var(--color-black);
-  --color-pagination-text-current:        var(--color-white);
-  --color-pagination-text-hover:          var(--color-breaker-bay);
-  --color-pagination-text-disabled:       var(--color-spun-pearl);
-  --color-pagination-bg:                  var(--color-transparent);
-  --color-pagination-bg-current:          var(--color-breaker-bay);
-  --color-pagination-bg-active:           var(--color-dark-green-copper);
+$color-pagination-text:                $color-black;
+$color-pagination-text-current:        $color-white;
+$color-pagination-text-hover:          $color-breaker-bay;
+$color-pagination-text-disabled:       $color-spun-pearl;
+$color-pagination-bg:                  $color-transparent;
+$color-pagination-bg-current:          $color-breaker-bay;
+$color-pagination-bg-active:           $color-dark-green-copper;
 
-  // Animation
-  // -------------------------------------
+// Animation
+// -------------------------------------
 
-  --transition-default:                   0.3s ease;
+$transition-default:                   0.3s ease;
 
-  // Typography
-  // -------------------------------------
+// Typography
+// -------------------------------------
 
-  --ff-roboto:                            'Roboto', Arial, sans-serif;
+$ff-roboto:                            'Roboto', Arial, sans-serif;
 
-  // Offset
-  // -------------------------------------
+// Offset
+// -------------------------------------
 
-  --space-xxxl:                           48px;
-  --space-xxl:                            32px;
-  --space-xl:                             24px;
-  --space-l:                              20px;
-  --space-m:                              16px;
-  --space-s:                              14px;
-  --space-xs:                             12px;
-  --space-xxs:                            8px;
-  --space-xxxs:                           6px;
+$space-xxxl:                           48px;
+$space-xxl:                            32px;
+$space-xl:                             24px;
+$space-l:                              20px;
+$space-m:                              16px;
+$space-s:                              14px;
+$space-xs:                             12px;
+$space-xxs:                            8px;
+$space-xxxs:                           6px;
 
-  // Border
-  // -------------------------------------
+// Border
+// -------------------------------------
 
-  --border-none:                          0;
-  --border-radius-cycle:                  50%;
+$border-none:                          0;
+$border-radius-cycle:                  50%;
 
-  // Z-index
-  // -------------------------------------
+// Z-index
+// -------------------------------------
 
-  --z-index-mobile-menu:                  30;
-  --z-index-dropdown-list:                10;
-  --z-index-slider-button:                10;
-}
+$z-index-mobile-menu:                  30;
+$z-index-dropdown-list:                10;
+$z-index-slider-button:                10;

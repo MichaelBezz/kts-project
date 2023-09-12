@@ -5,7 +5,7 @@
 
   &__slide {
     position: relative;
-    background-color: var(--color-card-image-bg);
+    background-color: $color-card-image-bg;
     overflow: hidden;
 
     &::before {
@@ -25,7 +25,7 @@
   }
 
   &__controls {
-    z-index: var(--z-index-slider-button);
+    z-index: $z-index-slider-button;
     position: absolute;
     top: 50%;
     right: 0;
@@ -33,12 +33,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 var(--space-xl);
+    padding: 0 $space-xl;
     transform: translateY(-50%);
     pointer-events: none;
 
     @include vp-1023 {
-      padding: 0 var(--space-xs);
+      padding: 0 $space-xs;
     }
   }
 
@@ -49,11 +49,11 @@
     width: 64px;
     height: 64px;
     padding: 0;
-    color: var(--color-slider-button-icon);
-    background-color: var(--color-slider-button-bg);
-    border: var(--border-none);
-    border-radius: var(--border-radius-cycle);
-    transition: color var(--transition-default);
+    color: $color-slider-button-icon;
+    background-color: $color-slider-button-bg;
+    border: $border-none;
+    border-radius: $border-radius-cycle;
+    transition: color $transition-default;
     pointer-events: initial;
     user-select: none;
     cursor: pointer;
@@ -64,7 +64,7 @@
     }
 
     @include hover {
-      color: var(--color-slider-button-icon-hover);
+      color: $color-slider-button-icon-hover;
     }
 
     &:disabled {

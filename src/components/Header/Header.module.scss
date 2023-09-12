@@ -2,9 +2,9 @@
 
 .header {
   position: relative;
-  padding: var(--space-xl) 0;
-  background-color: var(--color-header-bg);
-  border-bottom: 2px solid var(--color-header-border);
+  padding: $space-xl 0;
+  background-color: $color-header-bg;
+  border-bottom: 2px solid $color-header-border;
 
   &__wrapper {
     display: flex;
@@ -28,7 +28,7 @@
       margin: 0;
 
       .is-open & {
-        z-index: var(--z-index-mobile-menu);
+        z-index: $z-index-mobile-menu;
         position: absolute;
         top: calc(100% + 2px);
         right: 0;

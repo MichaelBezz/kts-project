@@ -4,8 +4,8 @@
   display: flex;
   width: 132px;
   height: 42px;
-  color: var(--color-icon-default);
-  transition: color var(--transition-default);
+  color: $color-icon-default;
+  transition: color $transition-default;
 
   @include vp-767 {
     width: 96px;
@@ -13,7 +13,7 @@
   }
 
   @include hover {
-    color: var(--color-icon-accent);
+    color: $color-icon-accent;
   }
 
   &__icon {

@@ -1,7 +1,7 @@
 @import 'styles/mixins';
 
 .text {
-  font-family: var(--ff-roboto);
+  font-family: $ff-roboto;
   font-style: normal;
   color: inherit;
 
@@ -95,14 +95,14 @@
   }
 
   &--primary {
-    color: var(--color-text-primary);
+    color: $color-text-primary;
   }
 
   &--secondary {
-    color: var(--color-text-secondary);
+    color: $color-text-secondary;
   }
 
   &--accent {
-    color: var(--color-text-accent);
+    color: $color-text-accent;
   }
 }
