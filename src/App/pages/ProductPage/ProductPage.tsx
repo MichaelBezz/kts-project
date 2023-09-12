@@ -16,21 +16,15 @@ const ProductPage: React.FC = () => {
 
   React.useEffect(() => {
     const fetchData = async (id: string) => {
-      const data = await fetchProductById(id);
-      setProduct(data);
+      const product = await fetchProductById(id);
+      const relatedProduct = await fetchProductsByCategory(product.category.id, 0, 3);
+
+      setProduct(product);
+      setRelatedProducts(relatedProduct);
     };
 
     id && fetchData(id);
   }, [id]);
-
-  React.useEffect(() => {
-    const fetchData = async (id: number) => {
-      const data = await fetchProductsByCategory(id, 0, 3);
-      setRelatedProducts(data);
-    };
-
-    product && fetchData(product.category.id);
-  }, [product]);
 
   if (product === null || relatedProducts === null) {
     return (<Loader size="general" />);
