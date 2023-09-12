@@ -4,6 +4,14 @@
   display: inline-block;
   color: inherit;
 
+  &--left {
+    transform: rotate(90deg);
+  }
+
+  &--right {
+    transform: rotate(-90deg);
+  }
+
   &--primary {
     color: $color-icon-primary;
   }

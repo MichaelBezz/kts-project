@@ -7,6 +7,7 @@ export type IconProps = React.SVGAttributes<SVGElement> & {
   width?: number;
   height?: number;
   color?: 'primary' | 'secondary' | 'accent';
+  direction?: 'left' | 'right';
 };
 
 const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
@@ -14,12 +15,18 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
   width = 24,
   height = 24,
   color,
+  direction,
   children,
   ...props
 }) => {
   return(
     <svg
-      className={cn(styles.icon, {[styles[`icon--${color}`]]: color}, className)}
+      className={cn(
+        styles.icon,
+        {[styles[`icon--${color}`]]: color},
+        {[styles[`icon--${direction}`]]: direction},
+        className
+      )}
       width={width}
       height={height}
       preserveAspectRatio="xMidYMid meet"

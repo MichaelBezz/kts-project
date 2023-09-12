@@ -1,8 +1,7 @@
 import cn from 'classnames';
 import * as React from 'react';
 import Text from 'components/Text';
-import ArrowLeftIcon from 'components/icons/ArrowLeftIcon';
-import ArrowRightIcon from 'components/icons/ArrowRightIcon';
+import ArrowDefaultIcon from 'components/icons/ArrowDefaultIcon';
 import { usePagination, DOTS } from 'hooks/usePagination';
 import styles from './Pagination.module.scss';
 
@@ -53,7 +52,7 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={handelPrevButtonClick}
           >
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
-              <ArrowLeftIcon width={32} height={32} />
+              <ArrowDefaultIcon width={32} height={32} direction="left" />
             </Text>
           </button>
         </li>
@@ -97,7 +96,7 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={handelNextButtonClick}
           >
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
-              <ArrowRightIcon width={32} height={32} />
+              <ArrowDefaultIcon width={32} height={32} direction="right" />
             </Text>
           </button>
         </li>

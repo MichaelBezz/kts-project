@@ -2,8 +2,7 @@ import cn from 'classnames';
 import * as React from 'react';
 import { register } from 'swiper/element/bundle';
 import { Swiper, SwiperOptions } from 'swiper/types';
-import ArrowLeftIcon from 'components/icons/ArrowLeftIcon';
-import ArrowRightIcon from 'components/icons/ArrowRightIcon';
+import ArrowDefaultIcon from 'components/icons/ArrowDefaultIcon';
 import styles from './Slider.module.scss';
 
 export type SliderProps = {
@@ -60,7 +59,7 @@ const Slider: React.FC<SliderProps> = ({ className, imageSrc }) => {
           ref={prevButtonRef}
           type="button"
         >
-          <ArrowLeftIcon width={30} height={30} />
+          <ArrowDefaultIcon width={30} height={30} direction="left" />
         </button>
 
         <button
@@ -68,7 +67,7 @@ const Slider: React.FC<SliderProps> = ({ className, imageSrc }) => {
           ref={nextButtonRef}
           type="button"
         >
-          <ArrowRightIcon width={30} height={30} />
+          <ArrowDefaultIcon width={30} height={30} direction="right" />
         </button>
       </div>
     </div>
