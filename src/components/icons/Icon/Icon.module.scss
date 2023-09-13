@@ -1,0 +1,26 @@
+@import 'styles/mixins';
+
+.icon {
+  display: inline-block;
+  color: inherit;
+
+  &--left {
+    transform: rotate(90deg);
+  }
+
+  &--right {
+    transform: rotate(-90deg);
+  }
+
+  &--primary {
+    color: $color-icon-primary;
+  }
+
+  &--secondary {
+    color: $color-icon-secondary;
+  }
+
+  &--accent {
+    color: $color-icon-accent;
+  }
+}

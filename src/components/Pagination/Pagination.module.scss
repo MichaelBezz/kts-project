@@ -1,0 +1,80 @@
+@import 'styles/mixins';
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    &:first-child {
+      margin-right: 18px;
+
+      @include vp-767 {
+        margin-right: 6px;
+      }
+    }
+
+    &:last-child {
+      margin-left: 18px;
+
+      @include vp-767 {
+        margin-left: 6px;
+      }
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 38px;
+    height: 42px;
+    padding: 5px 3px;
+    color: $color-pagination-text;
+    background-color: $color-pagination-bg;
+    border: $border-none;
+    transition: color $transition-default, background-color $transition-default;
+    user-select: none;
+    cursor: pointer;
+
+    @include hover {
+      &:not(.is-current) {
+        color: $color-pagination-text-hover;
+      }
+    }
+
+    @include active {
+      &:not(.is-current) {
+        background-color: $color-pagination-bg-active;
+      }
+    }
+
+    &:disabled {
+      color: $color-pagination-text-disabled;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    &--disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  &__button-text {
+    display: flex;
+    align-items: center;
+  }
+
+  .is-current {
+    color: $color-pagination-text-current;
+    background-color: $color-pagination-bg-current;
+  }
+}

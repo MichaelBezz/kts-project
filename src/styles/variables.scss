@@ -1,0 +1,116 @@
+// Colors
+// ------------------------------------
+
+// Default
+
+$color-black:                          #000000;
+$color-white:                          #ffffff;
+$color-transparent:                    rgba(255, 255, 255, 0);
+
+$color-maire:                          #151411;
+$color-snow:                           #fafafa;
+$color-white-smoke:                    #f3f3f3;
+$color-gainsboro:                      #d9d9d9;
+$color-spun-pearl:                     #afadb5;
+$color-ziggurat:                       #86aaa7;
+$color-breaker-bay:                    #518581;
+$color-dark-green-copper:              #487773;
+
+// Project palette
+
+$color-header-bg:                      $color-white;
+$color-header-border:                  $color-white-smoke;
+
+$color-page-bg:                        $color-snow;
+
+$color-text-primary:                   $color-black;
+$color-text-secondary:                 $color-spun-pearl;
+$color-text-accent:                    $color-breaker-bay;
+
+$color-icon-default:                   $color-maire;
+$color-icon-primary:                   $color-black;
+$color-icon-secondary:                 $color-spun-pearl;
+$color-icon-accent:                    $color-breaker-bay;
+
+$color-loader-bg:                      $color-breaker-bay;
+$color-loader-bg-secondary:            $color-white;
+
+$color-button-primary-text:            $color-white;
+$color-button-primary-bg:              $color-breaker-bay;
+$color-button-primary-bg-hover:        $color-ziggurat;
+$color-button-primary-bg-active:       $color-dark-green-copper;
+$color-button-primary-bg-disabled:     $color-gainsboro;
+
+$color-button-sec-text:                $color-black;
+$color-button-sec-text-hover:          $color-breaker-bay;
+$color-button-sec-text-active:         $color-dark-green-copper;
+$color-button-sec-text-disabled:       $color-gainsboro;
+$color-button-sec-bg:                  $color-transparent;
+$color-button-sec-border:              $color-spun-pearl;
+$color-button-sec-border-hover:        $color-breaker-bay;
+$color-button-sec-border-active:       $color-dark-green-copper;
+$color-button-sec-border-disabled:     $color-gainsboro;
+
+$color-input-text:                     $color-black;
+$color-input-text-disabled:            rgba(0, 0, 0, 0.2);
+$color-input-placeholder:              $color-spun-pearl;
+$color-input-bg:                       $color-white;
+$color-input-border:                   $color-white;
+$color-input-border-focus:             $color-breaker-bay;
+
+$color-dropdown-bg:                    $color-white;
+$color-dropdown-text:                  $color-black;
+$color-dropdown-text-hover:            $color-spun-pearl;
+$color-dropdown-text-focus:            $color-breaker-bay;
+$color-dropdown-text-active:           $color-breaker-bay;
+
+$color-card-bg:                        $color-white;
+$color-card-image-bg:                  $color-gainsboro;
+
+$color-slider-button-bg:               $color-black;
+$color-slider-button-icon:             $color-white;
+$color-slider-button-icon-hover:       $color-breaker-bay;
+
+$color-pagination-text:                $color-black;
+$color-pagination-text-current:        $color-white;
+$color-pagination-text-hover:          $color-breaker-bay;
+$color-pagination-text-disabled:       $color-spun-pearl;
+$color-pagination-bg:                  $color-transparent;
+$color-pagination-bg-current:          $color-breaker-bay;
+$color-pagination-bg-active:           $color-dark-green-copper;
+
+// Animation
+// ------------------------------------
+
+$transition-default:                   0.3s ease;
+
+// Typography
+// ------------------------------------
+
+$ff-roboto:                            'Roboto', Arial, sans-serif;
+
+// Offset
+// ------------------------------------
+
+$space-xxxl:                           48px;
+$space-xxl:                            32px;
+$space-xl:                             24px;
+$space-l:                              20px;
+$space-m:                              16px;
+$space-s:                              14px;
+$space-xs:                             12px;
+$space-xxs:                            8px;
+$space-xxxs:                           6px;
+
+// Border
+// ------------------------------------
+
+$border-none:                          0;
+$border-radius-cycle:                  50%;
+
+// Z-index
+// ------------------------------------
+
+$z-index-mobile-menu:                  30;
+$z-index-dropdown-list:                10;
+$z-index-slider-button:                10;

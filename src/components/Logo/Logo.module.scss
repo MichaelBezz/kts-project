@@ -1,0 +1,29 @@
+@import 'styles/mixins';
+
+.logo {
+  display: flex;
+  width: 132px;
+  height: 42px;
+  color: $color-icon-default;
+  transition: color $transition-default;
+
+  @include vp-767 {
+    width: 96px;
+    height: 30px;
+  }
+
+  @include hover {
+    color: $color-icon-accent;
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 132px;
+    height: 42px;
+
+    @include vp-767 {
+      width: 96px;
+      height: 30px;
+    }
+  }
+}

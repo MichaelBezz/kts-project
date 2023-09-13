@@ -1,0 +1,76 @@
+@import 'styles/mixins';
+
+.slider {
+  position: relative;
+
+  &__slide {
+    position: relative;
+    background-color: $color-card-image-bg;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      padding-bottom: calc(600 / 600 * 100%);
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__controls {
+    z-index: $z-index-slider-button;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 $space-xl;
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    @include vp-1023 {
+      padding: 0 $space-xs;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    color: $color-slider-button-icon;
+    background-color: $color-slider-button-bg;
+    border: $border-none;
+    border-radius: $border-radius-cycle;
+    transition: color $transition-default;
+    pointer-events: initial;
+    user-select: none;
+    cursor: pointer;
+
+    @include vp-1023 {
+      width: 42px;
+      height: 42px;
+    }
+
+    @include hover {
+      color: $color-slider-button-icon-hover;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}

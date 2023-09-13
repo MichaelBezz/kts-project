@@ -1,0 +1,90 @@
+@import 'styles/mixins';
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: $space-xxs;
+  padding: 0;
+  background-color: $color-transparent;
+  border: $border-none;
+  transition:
+    color $transition-default,
+    background-color $transition-default,
+    border-color $transition-default;
+  user-select: none;
+  cursor: pointer;
+
+  &:disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  &--primary {
+    min-height: 52px;
+    padding: $space-s $space-l;
+    color: $color-button-primary-text;
+    background-color: $color-button-primary-bg;
+
+    @include hover {
+      background-color: $color-button-primary-bg-hover;
+    }
+
+    @include active {
+      background-color: $color-button-primary-bg-active;
+    }
+
+    &.button--disabled {
+      background-color: $color-button-primary-bg-disabled;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  &--secondary {
+    min-height: 52px;
+    padding: $space-s $space-l;
+    color: $color-button-sec-text;
+    background-color: $color-button-sec-bg;
+    border: 1px solid $color-button-sec-border;
+
+    @include hover {
+      color: $color-button-sec-text-hover;
+      border-color: $color-button-sec-border-hover;
+    }
+
+    @include active {
+      color: $color-button-sec-text-active;
+      border-color: $color-button-sec-border-active;
+    }
+
+    &.button--disabled {
+      color: $color-button-sec-text-disabled;
+      border-color: $color-button-sec-border-disabled;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  &--with-icon {
+    gap: $space-xl;
+    min-height: 48px;
+    padding: $space-xxs $space-xs $space-xxs 0;
+    border: $border-none;
+
+    .button__text {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+  }
+
+  &__loader,
+  &__icon {
+    flex: 0 0 auto;
+    display: flex;
+  }
+
+  &__text {
+    display: flex;
+  }
+}

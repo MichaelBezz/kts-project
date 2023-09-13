@@ -1,0 +1,52 @@
+@import 'styles/mixins';
+
+.input {
+  position: relative;
+  background-color: $color-input-bg;
+
+  &__field {
+    display: block;
+    width: 100%;
+    height: 52px;
+    padding: $space-s $space-xs;
+    font-family: $ff-roboto;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: $color-input-text;
+    border: 1px solid $color-input-border;
+    transition:
+      color $transition-default,
+      background-color $transition-default,
+      border-color $transition-default;
+
+    &--with-slot {
+      padding-right: 44px;
+    }
+
+    &::placeholder {
+      color: $color-input-placeholder;
+    }
+
+    &:focus-visible {
+      border-color: $color-input-border-focus;
+      outline: none;
+    }
+
+    &:disabled {
+      color: $color-input-text-disabled;
+      background-color: $color-input-bg;
+      border-color: $color-input-border;
+    }
+  }
+
+  &__slot {
+    position: absolute;
+    top: 50%;
+    right: $space-xs;
+    display: flex;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}

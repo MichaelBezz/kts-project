@@ -1,0 +1,50 @@
+@import 'styles/mixins';
+
+.header {
+  position: relative;
+  padding: $space-xl 0;
+  background-color: $color-header-bg;
+  border-bottom: 2px solid $color-header-border;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    flex: 0 0 132px;
+
+    @include vp-767 {
+      flex-basis: 96px;
+    }
+  }
+
+  &__nav {
+    margin: 0 20px 2px;
+
+    @include vp-767 {
+      display: none;
+      margin: 0;
+
+      .is-open & {
+        z-index: $z-index-mobile-menu;
+        position: absolute;
+        top: calc(100% + 2px);
+        right: 0;
+        left: 0;
+        display: block;
+      }
+    }
+  }
+
+  &__user-nav {
+    max-width: 150px;
+    margin: 0 -6px 0 46px;
+
+    @include vp-767 {
+      max-width: initial;
+      margin: 0;
+    }
+  }
+}

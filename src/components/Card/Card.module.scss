@@ -1,0 +1,75 @@
+@import 'styles/mixins';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $color-card-bg;
+  transition: box-shadow $transition-default;
+
+  @include hover-focus {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &__image {
+    position: relative;
+    background-color: $color-card-image-bg;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      padding-bottom: calc(360 / 360 * 100%);
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-xxl;
+    padding: $space-xxxl $space-xs;
+
+    @include vp-1279 {
+      padding: $space-xl $space-xs;
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: $space-xxs;
+  }
+
+  &__footer {
+    display: grid;
+    grid-template-columns: 1fr minmax(155px, 1fr);
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 26px;
+    margin-top: auto;
+
+    @include vp-1279 {
+      grid-template-columns: 1fr auto;
+      column-gap: $space-s;
+    }
+
+    @include vp-767 {
+      grid-template-columns: 1fr;
+      gap: $space-s;
+    }
+
+    &--without-slot {
+      grid-template-columns: 1fr;
+    }
+  }
+}

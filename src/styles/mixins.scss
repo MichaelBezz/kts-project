@@ -1,0 +1,66 @@
+// Import
+// ---------------------------------
+
+@import "variables";
+
+// Mixins
+// ---------------------------------
+
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin focus {
+  &:focus {
+    @content;
+  }
+}
+
+@mixin active {
+  &:active {
+    @content;
+  }
+}
+
+@mixin hover-focus {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  &:focus {
+    @content;
+  }
+}
+
+// Desktop first
+// ---------------------------------
+
+@mixin vp-1279 {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+@mixin vp-1023 {
+  @media (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin vp-767 {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin vp-424 {
+  @media (max-width: 424px) {
+    @content;
+  }
+}

@@ -1,0 +1,66 @@
+@import 'styles/mixins';
+
+.products-page {
+  padding: 98px 0;
+
+  @include vp-767 {
+    padding: 30px 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-xl;
+    max-width: 54%;
+    margin: 0 auto;
+
+    @include vp-1279 {
+      max-width: 80%;
+    }
+
+    @include vp-767 {
+      gap: $space-m;
+      max-width: initial;
+    }
+  }
+
+  &__title,
+  &__description {
+    text-align: center;
+  }
+
+  &__search {
+    margin-top: 56px;
+
+    @include vp-767 {
+      margin-top: $space-xxl;
+    }
+  }
+
+  &__filter {
+    max-width: 300px;
+    margin-top: $space-xl;
+
+    @include vp-767 {
+      max-width: initial;
+      margin-top: $space-xxl;
+    }
+  }
+
+  &__cards {
+    margin-top: $space-xxxl;
+
+    @include vp-767 {
+      margin-top: $space-xl;
+    }
+  }
+
+  &__pagination {
+    margin-top: $space-xxxl;
+
+    @include vp-767 {
+      margin-top: $space-xl;
+    }
+  }
+}

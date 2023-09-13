@@ -1,0 +1,78 @@
+@import 'styles/mixins';
+
+.main-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 40px;
+
+  @include vp-1279 {
+    gap: $space-xl;
+  }
+
+  @include vp-767 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding-left: $space-xxs;
+
+    @include vp-1279 {
+      gap: $space-xl;
+      padding: 0;
+    }
+  }
+
+  &__description {
+    margin-top: $space-xl;
+
+    @include vp-1279 {
+      margin: 0;
+    }
+  }
+
+  &__price {
+    margin-top: 88px;
+
+    @include vp-1279 {
+      margin-top: auto;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: $space-xxxl;
+    margin-top: $space-xxxl;
+
+    @include vp-1279 {
+      margin: 0;
+    }
+
+    @include vp-1023 {
+      gap: $space-xl;
+    }
+
+    @include vp-767 {
+      flex-direction: column;
+      align-items: initial;
+      gap: $space-xs;
+    }
+  }
+
+  &__button {
+    @include vp-1279 {
+      min-width: initial;
+      width: 100%;
+    }
+
+    &--buy {
+      min-width: 135px;
+    }
+
+    &--add {
+      min-width: 155px;
+    }
+  }
+}
