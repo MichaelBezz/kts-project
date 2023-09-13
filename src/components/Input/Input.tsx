@@ -16,18 +16,7 @@ export type InputProps = Omit<
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, value = '', onChange, afterSlot, ...props }, ref) => {
-    const [inputValue, setInputValue] = React.useState<string>(value);
-
-    React.useEffect(() => {setInputValue(value)}, [value]);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-
-      setInputValue(value);
-      onChange(value);
-    };
-
+  ({ className, value, onChange, afterSlot, ...props }, ref) => {
     return(
       <div className={cn(styles['input'], className)}>
         <input
@@ -37,8 +26,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
           ref={ref}
           type="text"
-          value={inputValue}
-          onChange={handleChange}
+          value={value}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange(event.target.value)
+          }
           {...props}
         />
 

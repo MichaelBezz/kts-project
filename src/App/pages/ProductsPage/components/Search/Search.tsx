@@ -9,12 +9,14 @@ export type SearchProps = {
 };
 
 const Search: React.FC<SearchProps> = ({ className }) => {
+  const [value, setValue] = React.useState<string>('');
+
   return (
     <div className={cn(styles['search'], className)}>
       <Input
         className={styles['search__input']}
-        value=""
-        onChange={() => {}}
+        value={value}
+        onChange={setValue}
         placeholder="Search product"
       />
 

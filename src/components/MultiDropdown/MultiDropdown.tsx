@@ -26,19 +26,6 @@ export type MultiDropdownProps = {
   getTitle: (value: Option[]) => string;
 };
 
-const formatOptionValue = (value: string): string =>
-  value.trim().toLowerCase();
-
-const filterOptionsByValue = (currentValue: string, options: Option[]): Option[] => {
-  const target = formatOptionValue(currentValue);
-
-  return options.filter(({value}) => formatOptionValue(value).includes(target));
-};
-
-const checkOptionByKey = (currentKey: string, options: Option[]): boolean => {
-  return options.some(({key}) => key === currentKey);
-};
-
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
   className,
   options,
@@ -49,28 +36,41 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 }) => {
   const dropdownRef = React.useRef<HTMLDivElement | null>(null);
 
-  const [items, setItems] = React.useState<Option[]>(options);
-  const [checkedItems, setCheckedItems] = React.useState<Option[]>(value);
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
+  const [isTyping, setIsTyping] = React.useState<boolean>(false);
+  const [filter, setFilter] = React.useState<string>('');
 
-  React.useEffect(() => {setItems(options)}, [options]);
-  React.useEffect(() => {setIsOpened(false)}, [disabled]);
+  const selectedSet = React.useMemo(() => new Set(value), [value]);
+
+  const filteredOptions = React.useMemo(() =>
+    options.filter(({ value }) =>
+      value.trim().toLowerCase().includes(filter.trim().toLowerCase())
+    ),
+  [options, filter]);
 
   React.useEffect(() => {
-    if (!isOpened) {
-      setItems(options);
+    if (disabled) {
+      setIsOpened(false);
+      setIsTyping(false);
+      setFilter('');
     }
-  }, [isOpened, options]);
+  }, [disabled]);
 
   React.useEffect(() => {
     const handleDocumentClick = (event: MouseEvent) => {
       const isDropdown = dropdownRef.current?.contains(event.target as HTMLElement);
-      !isDropdown && setIsOpened(false);
+      if (!isDropdown) {
+        setIsOpened(false);
+        setIsTyping(false);
+        setFilter('');
+      }
     };
 
     const handelDocumentKeydown = (event: KeyboardEvent) => {
       if (event.key === ('Escape' || 'Esc')) {
         setIsOpened(false);
+        setIsTyping(false);
+        setFilter('');
       }
     };
 
@@ -85,57 +85,66 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   const handelDropdownClick = () => {
     setIsOpened(true);
-  };
-
-  const handelDropdownChange = (value: string) => {
-    setItems(filterOptionsByValue(value, options));
+    setIsTyping(true);
   };
 
   const handleOptionChange = (option: Option) => {
-    const isChecked = checkOptionByKey(option.key, checkedItems);
-    let newState: Option[];
+    setIsTyping(false);
 
-    if (isChecked) {
-      newState = checkedItems.filter(({key}) => key !== option.key);
-      onChange(newState);
-    } else {
-      newState = [...checkedItems, option];
-      onChange([option]);
+    if (selectedSet.has(option)) {
+      onChange(value.filter(({ key }) => key !== option.key));
+      return;
     }
 
-    setCheckedItems(newState);
+    onChange([...value, option]);
   };
 
-  const icon = <ArrowDownIcon color="secondary" />;
+  const title = React.useMemo(() => getTitle(value), [getTitle, value]);
+
+  const inputValue = React.useMemo(() => {
+    if (!isOpened) {
+      if (value.length === 0) {
+        return '';
+      }
+
+      return title;
+    }
+
+    if (isTyping) {
+      return filter;
+    }
+
+    return '';
+  }, [isOpened, isTyping, value.length, title, filter]);
 
   return (
     <div className={cn(styles['multi-dropdown'], className)} ref={dropdownRef}>
       <Input
-        value={checkedItems.length && !isOpened ? getTitle(checkedItems) : ''}
-        placeholder={!checkedItems.length || isOpened ? getTitle(checkedItems) : ''}
-        afterSlot={icon}
+        value={inputValue}
+        placeholder={title}
+        afterSlot={<ArrowDownIcon color="secondary" />}
         disabled={disabled}
         onClick={handelDropdownClick}
-        onChange={handelDropdownChange}
+        onChange={setFilter}
       />
 
       {isOpened && (
         <ul className={styles['multi-dropdown__list']}>
-          {items.map(({key, value}: Option) => (
-            <li key={key} className={styles['multi-dropdown__item']}>
+          {filteredOptions.map((option: Option) => (
+            <li key={option.key} className={styles['multi-dropdown__item']}>
               <input
                 className={cn(styles['multi-dropdown__input'], 'visually-hidden')}
-                id={`dropdown-${key}`}
+                id={`dropdown-${option.key}`}
                 type="checkbox"
-                checked={checkOptionByKey(key, checkedItems)}
-                onChange={() => handleOptionChange({key, value})}
+                checked={selectedSet.has(option)}
+                onChange={() => handleOptionChange(option)}
               />
 
               <label
                 className={styles['multi-dropdown__label']}
-                htmlFor={`dropdown-${key}`}
+                htmlFor={`dropdown-${option.key}`}
               >
-                {value}
+                {option.value}
               </label>
             </li>
           ))}

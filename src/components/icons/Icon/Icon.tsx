@@ -22,7 +22,7 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
   return(
     <svg
       className={cn(
-        styles.icon,
+        styles['icon'],
         {[styles[`icon--${color}`]]: color},
         {[styles[`icon--${direction}`]]: direction},
         className

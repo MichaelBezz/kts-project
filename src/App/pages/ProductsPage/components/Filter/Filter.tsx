@@ -8,6 +8,7 @@ export type FilterProps = {
 
 const Filter: React.FC<FilterProps> = ({ className }) => {
   const [options, setOptions] = React.useState<Option[]>([]);
+  const [value, setValue] = React.useState<Option[]>([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -30,8 +31,8 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
     <div className={className}>
       <MultiDropdown
         options={options}
-        value={[]}
-        onChange={() => {}}
+        value={value}
+        onChange={setValue}
         getTitle={(values: Option[]) =>
           values.length === 0 ? 'Filter': values.map(({ value }) => value).join(', ')
         }
