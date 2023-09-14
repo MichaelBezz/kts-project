@@ -3,7 +3,7 @@ import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 import { APIRoute } from 'config/api-route';
 import { ILocalStore } from 'hooks/useLocalStore';
 import { api } from 'services/api';
-import { TProduct } from 'types/product';
+import { ProductApi, ProductModel, normalizeProduct } from 'store/models/product';
 import { Meta } from 'utils/meta';
 
 type PrivateFields = '_list' | '_meta';
@@ -11,7 +11,7 @@ type PrivateFields = '_list' | '_meta';
 export default class ProductsStor implements ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _list: TProduct[] = [];
+  private _list: ProductModel[] = [];
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -25,7 +25,7 @@ export default class ProductsStor implements ILocalStore {
     });
   }
 
-  get list(): TProduct[] {
+  get list(): ProductModel[] {
     return this._list;
   }
 
@@ -41,18 +41,22 @@ export default class ProductsStor implements ILocalStore {
     this._meta = Meta.loading;
     this._list = [];
 
-    const { data } = await this._api.get<TProduct[]>(
+    const { data } = await this._api.get<ProductApi[]>(
       `${APIRoute.products}?offset=${offset}&limit=${limit}`
     );
 
     runInAction(() => {
-      if (data) {
-        this._meta = Meta.success;
-        this._list = data;
-        return;
+      if (!data) {
+        this._meta = Meta.error;
       }
 
-      this._meta = Meta.error;
+      try {
+        this._meta = Meta.success;
+        this._list = data.map(normalizeProduct);
+      } catch (error) {
+        this._meta = Meta.error;
+        this._list = [];
+      }
     });
   }
 

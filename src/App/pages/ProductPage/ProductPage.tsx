@@ -4,13 +4,13 @@ import CardList from 'components/CardList';
 import GoBackButton from 'components/GoBackButton';
 import Loader from 'components/Loader';
 import { fetchProductById, fetchProductsByCategory } from 'services/api';
-import { TProduct } from 'types/product';
+import { ProductModel } from 'store/models/product';
 import MainCard from './components/MainCard';
 import styles from './ProductPage.module.scss';
 
 const ProductPage: React.FC = () => {
-  const [product, setProduct] = React.useState<TProduct | null>(null);
-  const [relatedProducts, setRelatedProducts] = React.useState<TProduct[] | null>(null);
+  const [product, setProduct] = React.useState<ProductModel | null>(null);
+  const [relatedProducts, setRelatedProducts] = React.useState<ProductModel[] | null>(null);
 
   const { id } = useParams<{ id: string }>();
 

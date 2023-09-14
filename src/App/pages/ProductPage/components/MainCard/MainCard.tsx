@@ -2,13 +2,13 @@ import cn from 'classnames';
 import * as React from 'react';
 import Button from 'components/Button';
 import Text from 'components/Text';
-import { TProduct } from 'types/product';
+import { ProductModel } from 'store/models/product';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
 export type MainCardProps = {
   className?: string;
-  product: TProduct;
+  product: ProductModel;
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {

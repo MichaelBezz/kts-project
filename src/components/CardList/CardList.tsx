@@ -6,13 +6,13 @@ import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
-import { TProduct } from 'types/product';
+import { ProductModel } from 'store/models/product';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
   className?: string;
   title: string;
-  products: TProduct[];
+  products: ProductModel[];
   productCount?: number;
   isLoading?: boolean;
   loaderCount?: number;
