@@ -4,6 +4,7 @@ import { APIRoute } from 'config/api-route';
 import { ILocalStore } from 'hooks/useLocalStore';
 import { api } from 'services/api';
 import { ProductApi, ProductModel, normalizeProduct } from 'store/models/product';
+import { CollectionModel, getInitialCollectionModel, normalizeCollection, linearizeCollection } from 'store/models/shared';
 import { Meta } from 'utils/meta';
 
 type PrivateFields = '_list' | '_meta';
@@ -11,7 +12,7 @@ type PrivateFields = '_list' | '_meta';
 export default class ProductsStor implements ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _list: ProductModel[] = [];
+  private _list: CollectionModel<number, ProductModel> = getInitialCollectionModel();
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -26,7 +27,7 @@ export default class ProductsStor implements ILocalStore {
   }
 
   get list(): ProductModel[] {
-    return this._list;
+    return linearizeCollection(this._list);
   }
 
   get meta(): Meta {
@@ -39,7 +40,7 @@ export default class ProductsStor implements ILocalStore {
 
   async getList(offset = 0, limit = 0): Promise<void> {
     this._meta = Meta.loading;
-    this._list = [];
+    this._list = getInitialCollectionModel();
 
     const { data } = await this._api.get<ProductApi[]>(
       `${APIRoute.products}?offset=${offset}&limit=${limit}`
@@ -51,11 +52,11 @@ export default class ProductsStor implements ILocalStore {
       }
 
       try {
+        this._list = normalizeCollection(data, (item) => item.id, normalizeProduct);
         this._meta = Meta.success;
-        this._list = data.map(normalizeProduct);
       } catch (error) {
+        this._list = getInitialCollectionModel();
         this._meta = Meta.error;
-        this._list = [];
       }
     });
   }
