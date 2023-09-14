@@ -23,7 +23,8 @@
       "utils": ["utils/*"],
       "services": ["services/*"],
       "types": ["types/*"],
-      "hooks": ["hooks/*"]
+      "hooks": ["hooks/*"],
+      "store": ["store/*"]
     }
   },
   "include": ["src", "swiper.d.ts"],

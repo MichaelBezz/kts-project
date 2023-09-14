@@ -1,10 +1,12 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import CardList from 'components/CardList';
 import Loader from 'components/Loader';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
+import { useLocalStore } from 'hooks/useLocalStore';
 import { fetchProducts } from 'services/api';
-import { TProduct } from 'types/product';
+import ProductsStor from 'store/ProductsStor';
 import Filter from './components/Filter';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
@@ -12,10 +14,10 @@ import styles from './ProductsPage.module.scss';
 const CARD_PER_PAGE = 9;
 
 const ProductsPage: React.FC = () => {
-  const [products, setProducts] = React.useState<TProduct[] | null>(null);
+  const productsStore = useLocalStore(() => new ProductsStor());
+
   const [productCount, setProductCount] = React.useState<number>(0);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -27,20 +29,11 @@ const ProductsPage: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
+    const offset = currentPage * CARD_PER_PAGE - CARD_PER_PAGE;
+    productsStore.getList(offset, CARD_PER_PAGE);
+  }, [productsStore, currentPage]);
 
-      const offset = currentPage * CARD_PER_PAGE - CARD_PER_PAGE;
-      const data = await fetchProducts(offset, CARD_PER_PAGE);
-
-      setProducts(data);
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, [currentPage]);
-
-  if (products === null) {
+  if (productsStore.isLoading) {
     return (<Loader size="general" />);
   }
 
@@ -64,9 +57,9 @@ const ProductsPage: React.FC = () => {
         <CardList
           className={styles['products-page__cards']}
           title={'Total Product'}
-          products={products}
+          products={productsStore.list}
           productCount={productCount}
-          isLoading={isLoading}
+          isLoading={productsStore.isLoading}
           loaderCount={CARD_PER_PAGE}
         />
 
@@ -82,4 +75,4 @@ const ProductsPage: React.FC = () => {
   );
 };
 
-export default ProductsPage;
+export default observer(ProductsPage);
