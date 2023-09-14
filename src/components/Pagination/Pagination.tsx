@@ -92,7 +92,7 @@ const Pagination: React.FC<PaginationProps> = ({
           <button
             className={styles['pagination__button']}
             type="button"
-            disabled={currentPage === paginationRange.at(- 1)}
+            disabled={currentPage === paginationRange.at(-1)}
             onClick={handelNextButtonClick}
           >
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">

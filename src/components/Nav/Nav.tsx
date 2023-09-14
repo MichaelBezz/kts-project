@@ -2,12 +2,27 @@ import cn from 'classnames';
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Text from 'components/Text';
-import { NAV_LINKS } from 'config/nav-links';
+import { AppRoute } from 'config/app-route';
 import styles from './Nav.module.scss';
 
 export type NavProps = {
   className?: string;
 };
+
+export const NAV_LINKS = [
+  {
+    route: AppRoute.index,
+    text: 'Products'
+  },
+  {
+    route: AppRoute.categories,
+    text: 'Categories'
+  },
+  {
+    route: AppRoute.about,
+    text: 'About us'
+  }
+];
 
 const Nav: React.FC<NavProps> = ({ className }) => {
   return (
