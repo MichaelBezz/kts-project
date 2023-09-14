@@ -4,9 +4,9 @@ import CardList from 'components/CardList';
 import Loader from 'components/Loader';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
-import { useLocalStore } from 'hooks/useLocalStore';
 import { fetchProducts } from 'services/api';
-import ProductsStor from 'store/ProductsStor';
+import ProductsStore from 'store/ProductsStore';
+import { useLocalStore } from 'store/hooks/useLocalStore';
 import Filter from './components/Filter';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
@@ -14,7 +14,7 @@ import styles from './ProductsPage.module.scss';
 const CARD_PER_PAGE = 9;
 
 const ProductsPage: React.FC = () => {
-  const productsStore = useLocalStore(() => new ProductsStor());
+  const productsStore = useLocalStore(() => new ProductsStore());
 
   const [productCount, setProductCount] = React.useState<number>(0);
   const [currentPage, setCurrentPage] = React.useState<number>(1);

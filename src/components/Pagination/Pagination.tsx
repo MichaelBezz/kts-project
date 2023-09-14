@@ -2,7 +2,7 @@ import cn from 'classnames';
 import * as React from 'react';
 import Text from 'components/Text';
 import ArrowDefaultIcon from 'components/icons/ArrowDefaultIcon';
-import { usePagination, DOTS } from 'hooks/usePagination';
+import { usePagination, DOTS } from './hooks/usePagination';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
