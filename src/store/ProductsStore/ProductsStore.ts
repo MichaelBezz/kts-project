@@ -40,8 +40,8 @@ export default class ProductsStore implements ILocalStore {
   }
 
   async getList(offset = 0, limit = 0): Promise<void> {
-    this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
+    this._meta = Meta.loading;
 
     try {
       const { data } = await this._api.get<ProductApi[]>(

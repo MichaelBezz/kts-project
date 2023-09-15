@@ -1,31 +1,28 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
-import { fetchCategories } from 'services/api';
+import CategoriesStore from 'store/CategoriesStore';
+import { useLocalStore } from 'store/hooks/useLocalStore';
 
 export type FilterProps = {
   className?: string;
 };
 
 const Filter: React.FC<FilterProps> = ({ className }) => {
-  const [options, setOptions] = React.useState<Option[]>([]);
+  const categoriesStore = useLocalStore(() => new CategoriesStore());
+
   const [value, setValue] = React.useState<Option[]>([]);
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchCategories();
+    categoriesStore.getCategories();
+  }, [categoriesStore]);
 
-      const dropdownOptions = data.map(({id, name}) => {
-        return ({
-          key: `${id}`,
-          value: name
-        });
-      });
-
-      setOptions(dropdownOptions);
-    };
-
-    fetchData();
-  }, []);
+  const options: Option[] = React.useMemo(() => {
+    return categoriesStore.categories.map(({id, name}) => ({
+      key: `${id}`,
+      value: name
+    }));
+  }, [categoriesStore.categories]);
 
   return (
     <div className={className}>
@@ -41,4 +38,4 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
   );
 };
 
-export default Filter;
+export default observer(Filter);
