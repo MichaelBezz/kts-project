@@ -28,11 +28,6 @@ export const fetchProducts = async (offset = 0, limit = 0): Promise<ProductApi[]
   return data;
 };
 
-export const fetchProductById = async (id: string): Promise<ProductApi> => {
-  const { data } = await api.get<ProductApi>(`${APIRoute.products}/${id}`);
-  return data;
-};
-
 export const fetchProductsByCategory = async (id: number, offset = 0, limit = 0): Promise<ProductApi[]> => {
   const { data } = await api.get<ProductApi[]>(
     `${APIRoute.categories}/${id}${APIRoute.products}?offset=${offset}&limit=${limit}`

@@ -10,6 +10,12 @@ export type CategoryModel = {
   image: string;
 };
 
+export const getInitialCategoryModel = (): CategoryModel => ({
+  id: 0,
+  name: '',
+  image: ''
+});
+
 export const normalizeCategory = (from: CategoryApi): CategoryModel => ({
   id: from.id,
   name: from.name,

@@ -1,32 +1,36 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import CardList from 'components/CardList';
 import GoBackButton from 'components/GoBackButton';
 import Loader from 'components/Loader';
-import { fetchProductById, fetchProductsByCategory } from 'services/api';
+import { fetchProductsByCategory } from 'services/api';
+import ProductStore from 'store/ProductStore';
+import { useLocalStore } from 'store/hooks/useLocalStore';
 import { ProductModel } from 'store/models/product';
 import MainCard from './components/MainCard';
 import styles from './ProductPage.module.scss';
 
 const ProductPage: React.FC = () => {
-  const [product, setProduct] = React.useState<ProductModel | null>(null);
+  const productStore = useLocalStore(() => new ProductStore());
+
   const [relatedProducts, setRelatedProducts] = React.useState<ProductModel[] | null>(null);
 
   const { id } = useParams<{ id: string }>();
 
   React.useEffect(() => {
-    const fetchData = async (id: string) => {
-      const product = await fetchProductById(id);
-      const relatedProducts = await fetchProductsByCategory(product.category.id, 0, 3);
+    id && productStore.getProduct(id);
 
-      setProduct(product);
-      setRelatedProducts(relatedProducts);
-    };
+    // const fetchData = async (id: string) => {
+    //   const relatedProducts = await fetchProductsByCategory(product.category.id, 0, 3);
 
-    id && fetchData(id);
-  }, [id]);
+    //   setRelatedProducts(relatedProducts);
+    // };
 
-  if (product === null || relatedProducts === null) {
+    // id && fetchData(id);
+  }, [id, productStore]);
+
+  if (productStore.isLoading) {
     return (<Loader size="general" />);
   }
 
@@ -37,17 +41,17 @@ const ProductPage: React.FC = () => {
 
         <MainCard
           className={styles['product-page__product']}
-          product={product}
+          product={productStore.product}
         />
 
-        <CardList
+        {/* <CardList
           className={styles['product-page__cards']}
           title={'Related Items'}
           products={relatedProducts}
-        />
+        /> */}
       </div>
     </div>
   );
 };
 
-export default ProductPage;
+export default observer(ProductPage);
