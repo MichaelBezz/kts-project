@@ -1,37 +1,31 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import CardList from 'components/CardList';
 import Loader from 'components/Loader';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
-import { fetchProducts } from 'services/api';
 import ProductsStore from 'store/ProductsStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
-import Filter from './components/Filter';
-import Search from './components/Search';
+// import Filter from './components/Filter';
+// import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
-
-const CARD_PER_PAGE = 9;
 
 const ProductsPage: React.FC = () => {
   const productsStore = useLocalStore(() => new ProductsStore());
-
-  const [productCount, setProductCount] = React.useState<number>(0);
-  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchProducts();
-      setProductCount(data.length);
-    };
+    productsStore.getProductCount();
+    productsStore.getProducts();
+  }, [productsStore]);
 
-    fetchData();
-  }, []);
+  const handelPaginationChange = React.useCallback((page: number) => {
+    searchParams.set('page', `${page}`);
+    setSearchParams(searchParams);
 
-  React.useEffect(() => {
-    const offset = currentPage * CARD_PER_PAGE - CARD_PER_PAGE;
-    productsStore.getProducts(offset, CARD_PER_PAGE);
-  }, [productsStore, currentPage]);
+    productsStore.setCurrentPage(page);
+  }, [searchParams, setSearchParams, productsStore]);
 
   if (productsStore.isLoading) {
     return (<Loader size="general" />);
@@ -51,24 +45,24 @@ const ProductsPage: React.FC = () => {
           </Text>
         </div>
 
-        <Search className={styles['products-page__search']} />
-        <Filter className={styles['products-page__filter']} />
+        {/* <Search className={styles['products-page__search']} /> */}
+        {/* <Filter className={styles['products-page__filter']} /> */}
 
         <CardList
           className={styles['products-page__cards']}
           title={'Total Product'}
           products={productsStore.products}
-          productCount={productCount}
+          productCount={productsStore.productCount}
           isLoading={productsStore.isLoading}
-          loaderCount={CARD_PER_PAGE}
+          loaderCount={productsStore.productLimit}
         />
 
         <Pagination
           className={styles['products-page__pagination']}
-          currentPage={currentPage}
-          totalCount={productCount}
-          pageSize={CARD_PER_PAGE}
-          onPageChange={setCurrentPage}
+          currentPage={productsStore.currentPage}
+          totalCount={productsStore.productCount ?? 0}
+          pageSize={productsStore.productLimit}
+          onPageChange={handelPaginationChange}
         />
       </div>
     </div>
