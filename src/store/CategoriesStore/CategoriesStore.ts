@@ -8,30 +8,46 @@ import { CollectionModel, getInitialCollectionModel, normalizeCollection, linear
 import { Meta } from 'utils/meta';
 
 export interface ICategoriesStore {
-  getCategories: () => void;
+  setCurrentCategory: (category: string) => void;
+  getCategories: () => Promise<void>;
 };
 
-type PrivateFields = '_categories' | '_meta';
+type PrivateFields =
+  | '_categories'
+  | '_currentCategory'
+  | '_meta';
 
 export default class CategoriesStore implements ICategoriesStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
   private _categories: CollectionModel<number, CategoryModel> = getInitialCollectionModel();
+  private _currentCategory: string | null = null;
   private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<CategoriesStore, PrivateFields>(this, {
       _categories: observable.ref,
-      _meta: observable,
       categories: computed,
+
+      _currentCategory: observable,
+      currentCategory: computed,
+
+      _meta: observable,
       meta: computed,
+
       isLoading: computed,
+
+      setCurrentCategory: action.bound,
       getCategories: action.bound
     });
   }
 
   get categories(): CategoryModel[] {
     return linearizeCollection(this._categories);
+  }
+
+  get currentCategory(): string | null {
+    return this._currentCategory;
   }
 
   get meta(): Meta {
@@ -42,12 +58,16 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
     return this._meta === Meta.loading;
   }
 
+  setCurrentCategory(category: string): void {
+    this._currentCategory = category;
+  }
+
   async getCategories(): Promise<void> {
     this._categories = getInitialCollectionModel();
     this._meta = Meta.loading;
 
     try {
-      const { data } = await this._api.get<CategoryApi[]>(APIRoute.categories);
+      const { data } = await this._api.get<CategoryApi[]>(`${APIRoute.categories}`);
 
       runInAction(() => {
         this._categories = normalizeCollection(data, (category) => category.id, normalizeCategory);

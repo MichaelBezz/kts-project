@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Text from 'components/Text';
-// import Filter from './components/Filter';
+import Filter from './components/Filter';
 import ProductList from './components/ProductList';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
@@ -21,7 +21,7 @@ const ProductsPage: React.FC = () => {
         </div>
 
         <Search className={styles['products-page__search']} />
-        {/* <Filter className={styles['products-page__filter']} /> */}
+        <Filter className={styles['products-page__filter']} />
         <ProductList className={styles['products-page__cards']} />
       </div>
     </div>

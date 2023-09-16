@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
-import MultiDropdown, { Option } from 'components/MultiDropdown';
+import Dropdown, { Option } from 'components/Dropdown';
 import CategoriesStore from 'store/CategoriesStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
 
@@ -11,7 +11,7 @@ export type FilterProps = {
 const Filter: React.FC<FilterProps> = ({ className }) => {
   const categoriesStore = useLocalStore(() => new CategoriesStore());
 
-  const [value, setValue] = React.useState<Option[]>([]);
+  const [selectedOption, setSelectedOption] = React.useState<Option | null>(null);
 
   React.useEffect(() => {
     categoriesStore.getCategories();
@@ -24,15 +24,23 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
     }));
   }, [categoriesStore.categories]);
 
+  const getTitle = React.useCallback((value: Option | null): string => {
+    return value === null ? 'Filter' : value.value;
+  }, []);
+
+  const handelDropdownChange = React.useCallback((option: Option | null) => {
+    setSelectedOption(option);
+    console.log(option)
+  }, []);
+
   return (
     <div className={className}>
-      <MultiDropdown
+      <Dropdown
         options={options}
-        value={value}
-        onChange={setValue}
-        getTitle={(values: Option[]) =>
-          values.length === 0 ? 'Filter': values.map(({ value }) => value).join(', ')
-        }
+        value={selectedOption}
+        onChange={handelDropdownChange}
+        getTitle={getTitle}
+        disabled={categoriesStore.isLoading}
       />
     </div>
   );
