@@ -12,7 +12,8 @@ import { Meta } from 'utils/meta';
 export interface IProductsStore {
   setProductLimit: (limit: number) => void;
   setCurrentPage: (page: number) => void;
-  setSearchParam: (param: QueryParam) => void;
+  setCurrentSearch: (param: QueryParam) => void;
+  // setCurrentCategory: (category: number) => void;
   getProductCount: () => Promise<void>;
   getProducts: () => Promise<void>;
 };
@@ -22,7 +23,8 @@ type PrivateFields =
   | '_productCount'
   | '_productLimit'
   | '_currentPage'
-  | '_searchParam'
+  | '_currentSearch'
+  // | '_currentCategory'
   | '_meta';
 
 export default class ProductsStore implements IProductsStore, ILocalStore {
@@ -35,7 +37,10 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   private _currentPage: number = rootStore.query.getParam('page')
     ? Number(rootStore.query.getParam('page'))
     : 1;
-  private _searchParam: QueryParam = rootStore.query.getParam('search');
+  private _currentSearch: QueryParam = rootStore.query.getParam('search');
+  // private _currentCategory: number | null = rootStore.query.getParam('category')
+  //   ? Number(rootStore.query.getParam('category'))
+  //   : null;
 
   private _meta: Meta = Meta.initial;
 
@@ -53,7 +58,9 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
       _currentPage: observable,
       currentPage: computed,
 
-      _searchParam: observable,
+      _currentSearch: observable,
+
+      // _currentCategory: observable,
 
       _meta: observable,
       meta: computed,
@@ -64,7 +71,8 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
 
       setProductLimit: action.bound,
       setCurrentPage: action.bound,
-      setSearchParam: action.bound,
+      setCurrentSearch: action.bound,
+      // setCurrentCategory: action.bound,
       getProductCount: action.bound,
       getProducts: action.bound
     });
@@ -110,9 +118,13 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     this._currentPage = page;
   }
 
-  setSearchParam(param: QueryParam): void {
-    this._searchParam = param;
+  setCurrentSearch(param: QueryParam): void {
+    this._currentSearch = param;
   }
+
+  // setCurrentCategory(category: number): void {
+  //   this._currentCategory = category;
+  // };
 
   async getProductCount(): Promise<void> {
     this._productCount = null;
@@ -124,7 +136,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
         params: {
           offset: 0,
           limit: 0,
-          title: this._searchParam
+          title: this._currentSearch
         }
       });
 
@@ -148,9 +160,12 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
         params: {
           offset: this._currentPage * this._productLimit - this._productLimit,
           limit: this._productLimit,
-          title: this._searchParam
+          title: this._currentSearch,
+          // categoryId: this._currentCategory
         }
       });
+
+      this.getProductCount();
 
       runInAction(() => {
         this._products = normalizeCollection(data, (item) => item.id, normalizeProduct);
@@ -165,6 +180,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   destroy(): void {
     this._queryPageReaction();
     this._querySearchReaction();
+    // this._queryCategoryReaction();
   }
 
   private readonly _queryPageReaction: IReactionDisposer = reaction(
@@ -180,10 +196,19 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   private readonly _querySearchReaction: IReactionDisposer = reaction(
     () => rootStore.query.getParam('search'),
     (search) => {
-      this._searchParam = search as string;
+      this.setCurrentSearch(search);
       this.setCurrentPage(1);
-      this.getProductCount();
       this.getProducts();
     }
   );
+
+  // private readonly _queryCategoryReaction: IReactionDisposer = reaction(
+  //   () => rootStore.query.getParam('category'),
+  //   (category) => {
+  //     this._currentCategory = Number(category);
+  //     this.setCurrentPage(1);
+  //     this.getProductCount();
+  //     this.getProducts();
+  //   }
+  // );
 }

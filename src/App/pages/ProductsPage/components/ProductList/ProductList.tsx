@@ -25,7 +25,6 @@ const ProductList: React.FC<ProductListProps> = ({ className }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   React.useEffect(() => {
-    productsStore.getProductCount();
     productsStore.getProducts();
   }, [productsStore]);
 
