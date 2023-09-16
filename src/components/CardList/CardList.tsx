@@ -13,7 +13,7 @@ export type CardListProps = {
   className?: string;
   title: string;
   products: ProductModel[];
-  productCount?: number;
+  productCount?: number | null;
   isLoading?: boolean;
   loaderCount?: number;
 };

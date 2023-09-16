@@ -8,7 +8,7 @@ import { Meta } from 'utils/meta';
 
 export interface IProductStore {
   getProduct: (id: string) => void;
-}
+};
 
 type PrivateFields = '_product' | '_meta';
 

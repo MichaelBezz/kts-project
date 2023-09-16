@@ -9,7 +9,7 @@ import { Meta } from 'utils/meta';
 
 export interface ICategoriesStore {
   getCategories: () => void;
-}
+};
 
 type PrivateFields = '_categories' | '_meta';
 

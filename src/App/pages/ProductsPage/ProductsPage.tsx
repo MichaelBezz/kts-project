@@ -30,7 +30,7 @@ const ProductsPage: React.FC = () => {
 
   React.useEffect(() => {
     const offset = currentPage * CARD_PER_PAGE - CARD_PER_PAGE;
-    productsStore.getList(offset, CARD_PER_PAGE);
+    productsStore.getProducts(offset, CARD_PER_PAGE);
   }, [productsStore, currentPage]);
 
   if (productsStore.isLoading) {
@@ -57,7 +57,7 @@ const ProductsPage: React.FC = () => {
         <CardList
           className={styles['products-page__cards']}
           title={'Total Product'}
-          products={productsStore.list}
+          products={productsStore.products}
           productCount={productCount}
           isLoading={productsStore.isLoading}
           loaderCount={CARD_PER_PAGE}

@@ -1,22 +1,23 @@
 import * as React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { AppRoute } from 'config/app-route';
+import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductPage from './pages/ProductPage';
 import ProductsPage from './pages/ProductsPage';
 
 const App: React.FC = () => {
+  useQueryParamsStoreInit();
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.index} element={<Layout />}>
-          <Route index element={<ProductsPage />} />
-          <Route path={AppRoute.product} element={<ProductPage />} />
-          <Route path={AppRoute.notFound} element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path={AppRoute.index} element={<Layout />}>
+        <Route index element={<ProductsPage />} />
+        <Route path={AppRoute.product} element={<ProductPage />} />
+        <Route path={AppRoute.notFound} element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 };
 

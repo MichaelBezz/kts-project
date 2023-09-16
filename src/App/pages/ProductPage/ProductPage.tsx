@@ -1,20 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import CardList from 'components/CardList';
+// import CardList from 'components/CardList';
 import GoBackButton from 'components/GoBackButton';
 import Loader from 'components/Loader';
-import { fetchProductsByCategory } from 'services/api';
 import ProductStore from 'store/ProductStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
-import { ProductModel } from 'store/models/product';
+// import { ProductModel } from 'store/models/product';
 import MainCard from './components/MainCard';
 import styles from './ProductPage.module.scss';
 
 const ProductPage: React.FC = () => {
   const productStore = useLocalStore(() => new ProductStore());
 
-  const [relatedProducts, setRelatedProducts] = React.useState<ProductModel[] | null>(null);
+  // const [relatedProducts, setRelatedProducts] = React.useState<ProductModel[] | null>(null);
 
   const { id } = useParams<{ id: string }>();
 
