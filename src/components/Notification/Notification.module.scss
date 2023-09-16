@@ -1,0 +1,6 @@
+@import 'styles/mixins';
+
+.notification {
+  display: flex;
+  padding: $space-xxl 0;
+}

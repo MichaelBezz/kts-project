@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import Loader from 'components/Loader';
+import Notification from 'components/Notification';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
@@ -49,6 +50,14 @@ const ProductList: React.FC<ProductListProps> = ({ className }) => {
         )}
       </div>
 
+      {(productsStore.isSuccess && !productsStore.products.length) && (
+        <Notification>Product not found. Try again.</Notification>
+      )}
+
+      {productsStore.isError  && (
+        <Notification>Error. Try again.</Notification>
+      )}
+
       {productsStore.isLoading ? (
         <CardLoader className={styles['product-list__body']} cards={productsStore.productLimit}/>
       ) : (
@@ -71,13 +80,13 @@ const ProductList: React.FC<ProductListProps> = ({ className }) => {
         </ul>
       )}
 
-        <Pagination
-          className={styles['product-list__pagination']}
-          currentPage={productsStore.currentPage}
-          totalCount={productsStore.productCount ?? 0}
-          pageSize={productsStore.productLimit}
-          onPageChange={handelPaginationChange}
-        />
+      <Pagination
+        className={styles['product-list__pagination']}
+        currentPage={productsStore.currentPage}
+        totalCount={productsStore.productCount ?? 0}
+        pageSize={productsStore.productLimit}
+        onPageChange={handelPaginationChange}
+      />
     </div>
   );
 };

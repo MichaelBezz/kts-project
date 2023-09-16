@@ -3,6 +3,7 @@ import { makeObservable, observable, computed, action, runInAction, reaction, IR
 import { APIRoute } from 'config/api-route';
 import { api } from 'services/api';
 import rootStore from 'store/RootStore';
+import { QueryParam } from 'store/RootStore/QueryParamsStore';
 import { ILocalStore } from 'store/hooks/useLocalStore';
 import { ProductApi, ProductModel, normalizeProduct } from 'store/models/product';
 import { CollectionModel, getInitialCollectionModel, normalizeCollection, linearizeCollection } from 'store/models/shared';
@@ -11,6 +12,7 @@ import { Meta } from 'utils/meta';
 export interface IProductsStore {
   setProductLimit: (limit: number) => void;
   setCurrentPage: (page: number) => void;
+  setSearchParam: (param: QueryParam) => void;
   getProductCount: () => Promise<void>;
   getProducts: () => Promise<void>;
 };
@@ -20,6 +22,7 @@ type PrivateFields =
   | '_productCount'
   | '_productLimit'
   | '_currentPage'
+  | '_searchParam'
   | '_meta';
 
 export default class ProductsStore implements IProductsStore, ILocalStore {
@@ -32,6 +35,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   private _currentPage: number = rootStore.query.getParam('page')
     ? Number(rootStore.query.getParam('page'))
     : 1;
+  private _searchParam: QueryParam = rootStore.query.getParam('search');
 
   private _meta: Meta = Meta.initial;
 
@@ -49,15 +53,20 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
       _currentPage: observable,
       currentPage: computed,
 
+      _searchParam: observable,
+
       _meta: observable,
       meta: computed,
 
       isLoading: computed,
+      isSuccess: computed,
+      isError: computed,
 
       setProductLimit: action.bound,
       setCurrentPage: action.bound,
+      setSearchParam: action.bound,
       getProductCount: action.bound,
-      getProducts: action.bound,
+      getProducts: action.bound
     });
   }
 
@@ -85,6 +94,14 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     return this._meta === Meta.loading;
   }
 
+  get isSuccess(): boolean {
+    return this._meta === Meta.success;
+  }
+
+  get isError(): boolean {
+    return this._meta === Meta.error;
+  }
+
   setProductLimit(limit: number): void {
     this._productLimit = limit;
   }
@@ -93,12 +110,23 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     this._currentPage = page;
   }
 
+  setSearchParam(param: QueryParam): void {
+    this._searchParam = param;
+  }
+
   async getProductCount(): Promise<void> {
     this._productCount = null;
     this._meta = Meta.loading;
 
     try {
-      const { data } = await this._api.get<ProductApi[]>(`${APIRoute.products}`);
+      const { data } = await this._api<ProductApi[]>({
+        url: APIRoute.products,
+        params: {
+          offset: 0,
+          limit: 0,
+          title: this._searchParam
+        }
+      });
 
       runInAction(() => {
         this._productCount = data.length;
@@ -119,7 +147,8 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
         url: APIRoute.products,
         params: {
           offset: this._currentPage * this._productLimit - this._productLimit,
-          limit: this._productLimit
+          limit: this._productLimit,
+          title: this._searchParam
         }
       });
 
@@ -135,24 +164,26 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
 
   destroy(): void {
     this._queryPageReaction();
-  //   // this._querySearchReaction();
+    this._querySearchReaction();
   }
 
   private readonly _queryPageReaction: IReactionDisposer = reaction(
     () => rootStore.query.getParam('page'),
     (page) => {
       if (page) {
+        this.setCurrentPage(+page);
         this.getProducts();
       }
     }
   );
 
-  // // private readonly _querySearchReaction: IReactionDisposer = reaction(
-  // //   () => rootStore.query.getParam('search'),
-  // //   (search) => {
-  // //     if (search) {
-  // //       // this._searchTitle = search as string;
-  // //     }
-  // //   }
-  // // );
+  private readonly _querySearchReaction: IReactionDisposer = reaction(
+    () => rootStore.query.getParam('search'),
+    (search) => {
+      this._searchParam = search as string;
+      this.setCurrentPage(1);
+      this.getProductCount();
+      this.getProducts();
+    }
+  );
 }
