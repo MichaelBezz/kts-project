@@ -55,12 +55,4 @@
       margin-top: $space-xl;
     }
   }
-
-  &__pagination {
-    margin-top: $space-xxxl;
-
-    @include vp-767 {
-      margin-top: $space-xl;
-    }
-  }
 }
