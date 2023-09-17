@@ -4,7 +4,9 @@ import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import ProductsStore from 'store/ProductsStore';
 import rootStore from 'store/RootStore';
+import { useLocalStore } from 'store/hooks/useLocalStore';
 import styles from './Search.module.scss';
 
 export type SearchProps = {
@@ -13,6 +15,7 @@ export type SearchProps = {
 
 const Search: React.FC<SearchProps> = ({ className }) => {
   const searchParam = rootStore.query.getParam('search');
+  const productsStore = useLocalStore(() => new ProductsStore());
 
   const [value, setValue] = React.useState<string>('');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,8 +24,12 @@ const Search: React.FC<SearchProps> = ({ className }) => {
     setValue(searchParam ? String(searchParam) : '');
   }, [searchParam]);
 
-  const handelSearchChange = React.useCallback((value: string) => {
+  const handelInputChange = React.useCallback((value: string) => {
     setValue(value);
+  }, []);
+
+  const handelFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (value) {
       searchParams.set('search', value);
@@ -32,25 +39,28 @@ const Search: React.FC<SearchProps> = ({ className }) => {
 
     searchParams.delete('page');
     setSearchParams(searchParams);
-  }, [searchParams, setSearchParams]);
+  }, [value, searchParams, setSearchParams]);
 
   return (
     <form
       className={cn(styles['search'], className)}
       action="#"
       method="post"
+      onSubmit={handelFormSubmit}
     >
       <Input
         className={styles['search__input']}
         value={value}
-        onChange={handelSearchChange}
+        onChange={handelInputChange}
         placeholder="Search product"
+        disabled={productsStore.isLoading}
       />
 
       <Button
         className={styles['search__button']}
         buttonStyle="primary"
         type="submit"
+        disabled={productsStore.isLoading}
       >
         Find now
       </Button>

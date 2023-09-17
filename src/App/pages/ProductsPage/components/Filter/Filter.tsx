@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Dropdown, { Option } from 'components/Dropdown';
 import CategoriesStore from 'store/CategoriesStore';
+import ProductsStore from 'store/ProductsStore';
 import rootStore from 'store/RootStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
 import { transformCategoryToOption } from 'store/models/product';
@@ -13,6 +14,7 @@ export type FilterProps = {
 
 const Filter: React.FC<FilterProps> = ({ className }) => {
   const categoryParam = rootStore.query.getParam('category');
+  const productsStore = useLocalStore(() => new ProductsStore());
   const categoriesStore = useLocalStore(() => new CategoriesStore());
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,7 +49,7 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
         valueId={String(categoryParam) ?? null}
         onChange={handelDropdownChange}
         getTitle={getTitle}
-        disabled={categoriesStore.isLoading}
+        disabled={categoriesStore.isLoading || productsStore.isLoading}
       />
     </div>
   );
