@@ -16,8 +16,8 @@ export type DropdownProps = {
   className?: string;
   /** Массив возможных вариантов для выбора */
   options: Option[];
-  /** Текущее выбранное значение поля, может быть пустым */
-  value: Option | null;
+  /** Текущее id выбранного значения поля, может быть пустым */
+  valueId: string | null;
   /** Callback, вызываемый при выборе варианта */
   onChange: (value: Option | null) => void;
   /** Заблокирован ли дропдаун */
@@ -29,7 +29,7 @@ export type DropdownProps = {
 const Dropdown: React.FC<DropdownProps> = ({
   className,
   options,
-  value,
+  valueId,
   onChange,
   disabled,
   getTitle
@@ -39,13 +39,21 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [isTyping, setIsTyping] = React.useState<boolean>(false);
   const [filter, setFilter] = React.useState<string>('');
-  const [selectedOption, setSelectedOption] = React.useState<Option | null>(value);
+  const [selectedOption, setSelectedOption] = React.useState<Option | null>(null);
 
   const filteredOptions = React.useMemo(() =>
     options.filter(({ value }) =>
       value.trim().toLowerCase().includes(filter.trim().toLowerCase())
     ),
   [options, filter]);
+
+  const optionParam = React.useMemo(() => {
+    return options.find(({ key }) => key === valueId) ?? null;
+  }, [options, valueId]);
+
+  React.useEffect(() => {
+    setSelectedOption(optionParam);
+  }, [optionParam]);
 
   React.useEffect(() => {
     if (disabled) {
@@ -100,11 +108,11 @@ const Dropdown: React.FC<DropdownProps> = ({
     onChange(option);
   };
 
-  const title = React.useMemo(() => getTitle(value), [getTitle, value]);
+  const title = React.useMemo(() => getTitle(selectedOption), [getTitle, selectedOption]);
 
   const inputValue = React.useMemo(() => {
     if (!isOpened) {
-      if (value === null) {
+      if (selectedOption === null) {
         return '';
       }
 
@@ -116,7 +124,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
 
     return '';
-  }, [isOpened, isTyping, value, title, filter]);
+  }, [isOpened, isTyping, selectedOption, title, filter]);
 
   return (
     <div className={cn(styles['dropdown'], className)} ref={dropdownRef}>

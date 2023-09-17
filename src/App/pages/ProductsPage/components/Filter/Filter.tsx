@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Dropdown, { Option } from 'components/Dropdown';
 import CategoriesStore from 'store/CategoriesStore';
-// import rootStore from 'store/RootStore';
+import rootStore from 'store/RootStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
 import { transformCategoryToOption } from 'store/models/product';
 
@@ -12,10 +12,9 @@ export type FilterProps = {
 };
 
 const Filter: React.FC<FilterProps> = ({ className }) => {
-  // const categoryParam = rootStore.query.getParam('category');
+  const categoryParam = rootStore.query.getParam('category');
   const categoriesStore = useLocalStore(() => new CategoriesStore());
 
-  const [selectedOption, setSelectedOption] = React.useState<Option | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   React.useEffect(() => {
@@ -31,8 +30,6 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
   }, []);
 
   const handelDropdownChange = React.useCallback((option: Option | null) => {
-    setSelectedOption(option);
-
     if (option) {
       searchParams.set('category', option.key);
     } else {
@@ -47,7 +44,7 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
     <div className={className}>
       <Dropdown
         options={options}
-        value={selectedOption}
+        valueId={String(categoryParam) ?? null}
         onChange={handelDropdownChange}
         getTitle={getTitle}
         disabled={categoriesStore.isLoading}
