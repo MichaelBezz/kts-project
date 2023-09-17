@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.product-list {
+.catalog {
   position: relative;
 
   &__header {
@@ -13,21 +13,8 @@
     }
   }
 
-  &__body {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(280px, 1fr));
-    justify-content: space-between;
-    column-gap: 80px;
-    row-gap: 30px;
-    margin: 0;
+  &__cards {
     margin-top: $space-xxl;
-    padding: 0;
-    list-style: none;
-
-    @include vp-1279 {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
 
     @include vp-767 {
       margin-top: $space-xl;

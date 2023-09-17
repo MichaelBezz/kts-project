@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Text from 'components/Text';
+import Catalog from './components/Catalog';
 import Filter from './components/Filter';
-import ProductList from './components/ProductList';
 import Search from './components/Search';
 import styles from './ProductsPage.module.scss';
 
@@ -22,7 +22,7 @@ const ProductsPage: React.FC = () => {
 
         <Search className={styles['products-page__search']} />
         <Filter className={styles['products-page__filter']} />
-        <ProductList className={styles['products-page__cards']} />
+        <Catalog className={styles['products-page__catalog']} />
       </div>
     </div>
   );
