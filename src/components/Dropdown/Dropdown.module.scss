@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.multi-dropdown {
+.dropdown {
   position: relative;
 
   &__list {
@@ -21,11 +21,11 @@
   }
 
   &__input {
-    &:checked + .multi-dropdown__label {
+    &:checked + .dropdown__label {
       color: $color-dropdown-text-active;
     }
 
-    &:focus-visible + .multi-dropdown__label {
+    &:focus-visible + .dropdown__label {
       outline: 1px solid $color-dropdown-text-focus;
     }
   }

@@ -1,3 +1,5 @@
+import { Option } from 'components/Dropdown';
+
 export type CategoryApi = {
   id: number;
   name: string;
@@ -20,4 +22,9 @@ export const normalizeCategory = (from: CategoryApi): CategoryModel => ({
   id: from.id,
   name: from.name,
   image: from.image
+});
+
+export const transformCategoryToOption = (category: CategoryModel): Option => ({
+  key: `${category.id}`,
+  value: category.name
 });

@@ -8,20 +8,17 @@ import { CollectionModel, getInitialCollectionModel, normalizeCollection, linear
 import { Meta } from 'utils/meta';
 
 export interface ICategoriesStore {
-  setCurrentCategory: (category: string) => void;
   getCategories: () => Promise<void>;
 };
 
 type PrivateFields =
   | '_categories'
-  | '_currentCategory'
   | '_meta';
 
 export default class CategoriesStore implements ICategoriesStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
   private _categories: CollectionModel<number, CategoryModel> = getInitialCollectionModel();
-  private _currentCategory: string | null = null;
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -29,15 +26,11 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
       _categories: observable.ref,
       categories: computed,
 
-      _currentCategory: observable,
-      currentCategory: computed,
-
       _meta: observable,
       meta: computed,
 
       isLoading: computed,
 
-      setCurrentCategory: action.bound,
       getCategories: action.bound
     });
   }
@@ -46,20 +39,12 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
     return linearizeCollection(this._categories);
   }
 
-  get currentCategory(): string | null {
-    return this._currentCategory;
-  }
-
   get meta(): Meta {
     return this._meta;
   }
 
   get isLoading(): boolean {
     return this._meta === Meta.loading;
-  }
-
-  setCurrentCategory(category: string): void {
-    this._currentCategory = category;
   }
 
   async getCategories(): Promise<void> {

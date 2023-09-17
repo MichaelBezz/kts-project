@@ -26,7 +26,7 @@ export type DropdownProps = {
   getTitle: (value: Option | null) => string;
 };
 
-const MultiDropdown: React.FC<DropdownProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   className,
   options,
   value,
@@ -119,7 +119,7 @@ const MultiDropdown: React.FC<DropdownProps> = ({
   }, [isOpened, isTyping, value, title, filter]);
 
   return (
-    <div className={cn(styles['multi-dropdown'], className)} ref={dropdownRef}>
+    <div className={cn(styles['dropdown'], className)} ref={dropdownRef}>
       <Input
         value={inputValue}
         placeholder={title}
@@ -130,11 +130,11 @@ const MultiDropdown: React.FC<DropdownProps> = ({
       />
 
       {isOpened && (
-        <ul className={styles['multi-dropdown__list']}>
+        <ul className={styles['dropdown__list']}>
           {filteredOptions.map((option: Option) => (
-            <li key={option.key} className={styles['multi-dropdown__item']}>
+            <li key={option.key} className={styles['dropdown__item']}>
               <input
-                className={cn(styles['multi-dropdown__input'], 'visually-hidden')}
+                className={cn(styles['dropdown__input'], 'visually-hidden')}
                 id={`dropdown-${option.key}`}
                 type="checkbox"
                 checked={selectedOption?.key === option.key}
@@ -142,7 +142,7 @@ const MultiDropdown: React.FC<DropdownProps> = ({
               />
 
               <label
-                className={styles['multi-dropdown__label']}
+                className={styles['dropdown__label']}
                 htmlFor={`dropdown-${option.key}`}
               >
                 {option.value}
@@ -155,4 +155,4 @@ const MultiDropdown: React.FC<DropdownProps> = ({
   );
 };
 
-export default MultiDropdown;
+export default Dropdown;
