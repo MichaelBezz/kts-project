@@ -1,0 +1,13 @@
+@import 'styles/mixins';
+
+.related-cards {
+  position: relative;
+
+  &__list {
+    margin-top: $space-xxl;
+
+    @include vp-767 {
+      margin-top: $space-xl;
+    }
+  }
+}

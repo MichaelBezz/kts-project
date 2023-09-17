@@ -10,7 +10,9 @@ export interface IProductStore {
   getProduct: (id: string) => void;
 };
 
-type PrivateFields = '_product' | '_meta';
+type PrivateFields =
+  | '_product'
+  | '_meta';
 
 export default class ProductStore implements IProductStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
@@ -21,10 +23,13 @@ export default class ProductStore implements IProductStore, ILocalStore {
   constructor() {
     makeObservable<ProductStore, PrivateFields>(this, {
       _product: observable.ref,
-      _meta: observable,
       product: computed,
+
+      _meta: observable,
       meta: computed,
+
       isLoading: computed,
+
       getProduct: action.bound
     });
   }
