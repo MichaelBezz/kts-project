@@ -24,7 +24,6 @@ export default class CartStore implements ICartStore {
       items: computed,
       count: computed,
 
-      setItems: action.bound,
       plusItem: action.bound,
       minusItem: action.bound,
       deleteItem: action.bound
@@ -41,10 +40,6 @@ export default class CartStore implements ICartStore {
 
   getItemCount(key: number): number {
     return this._items.get(key) ?? 0;
-  }
-
-  setItems(items: Map<number, number>): void {
-    this._items = items;
   }
 
   plusItem(key: number): void {
