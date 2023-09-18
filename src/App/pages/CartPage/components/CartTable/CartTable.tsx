@@ -16,13 +16,12 @@ const CartTable: React.FC<CartTableProps> = ({ className }) => {
   return (
     <div className={cn(styles['cart-table'], className)}>
       {!cartStore.count && (
-        <Message>Cart is empty.</Message>
+        <Message>Your cart is empty.</Message>
       )}
 
-      <CartItem productId={0} />
-      <CartItem productId={0} />
-      <CartItem productId={0} />
-      <CartItem productId={0} />
+      {cartStore.items.map((id) => (
+        <CartItem key={id} productId={id} />
+      ))}
     </div>
   );
 };

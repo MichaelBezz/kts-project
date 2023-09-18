@@ -77,10 +77,19 @@
     align-items: center;
     gap: $space-xs;
     min-width: 120px;
+
+    @include vp-424 {
+      width: 100%;
+    }
   }
 
   &__price {
     min-width: 62px;
+
+    @include vp-424 {
+      order: -1;
+      align-self: flex-end;
+    }
   }
 
   &__button {
@@ -99,6 +108,11 @@
     user-select: none;
     cursor: pointer;
 
+    @include vp-424 {
+      width: 100%;
+      border-radius: 20px;
+    }
+
     @include hover {
       background-color: $color-cart-button-hover;
     }
@@ -111,13 +125,6 @@
       opacity: 0.6;
       pointer-events: none;
       cursor: default;
-    }
-
-    &--delete {
-      @include vp-424 {
-        width: 100%;
-        border-radius: 0;
-      }
     }
   }
 }
