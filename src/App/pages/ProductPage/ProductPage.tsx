@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import GoBackButton from 'components/GoBackButton';
 import MainCardLoader from 'components/MainCardLoader';
+import Message from 'components/Message';
 import ProductStore from 'store/ProductStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
 import MainCard from './components/MainCard';
@@ -22,6 +23,14 @@ const ProductPage: React.FC = () => {
     <div className={styles['product-page']}>
       <div className="container">
         <GoBackButton />
+
+        {productStore.isError && (
+          <Message>Error. Try again.</Message>
+        )}
+
+        {(productStore.isSuccess && !productStore.product) && (
+          <Message>Product not found.</Message>
+        )}
 
         {productStore.isLoading ? (
           <MainCardLoader />

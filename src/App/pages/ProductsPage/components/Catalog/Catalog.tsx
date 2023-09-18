@@ -48,7 +48,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
       )}
 
       {(productsStore.isSuccess && !productsStore.products.length) && (
-        <Message>Product not found. Try again.</Message>
+        <Message>Product not found.</Message>
       )}
 
       <CardList

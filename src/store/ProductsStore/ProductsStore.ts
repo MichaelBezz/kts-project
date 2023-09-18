@@ -15,7 +15,7 @@ export interface IProductsStore {
   setSearchParam: (param: QueryParam) => void;
   setFilterParam: (param: QueryParam) => void;
   getProductCount: () => Promise<void>;
-  getProducts: () => Promise<void>;
+  getProducts: (recalculateCount: boolean) => Promise<void>;
 };
 
 type PrivateFields =
@@ -146,7 +146,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     }
   }
 
-  async getProducts(): Promise<void> {
+  async getProducts(recalculateCount = false): Promise<void> {
     this._products = getInitialCollectionModel();
     this._meta = Meta.loading;
 
@@ -161,7 +161,9 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
         }
       });
 
-      this.getProductCount();
+      if (recalculateCount || this._productCount === null) {
+        this.getProductCount();
+      }
 
       runInAction(() => {
         this._products = normalizeCollection(data, (item) => item.id, normalizeProduct);
@@ -197,7 +199,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     (search) => {
       this.setSearchParam(search);
       this.setPageParam('1');
-      this.getProducts();
+      this.getProducts(true);
     }
   );
 
@@ -206,7 +208,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     (category) => {
       this.setFilterParam(category);
       this.setPageParam('1');
-      this.getProducts();
+      this.getProducts(true);
     }
   );
 }

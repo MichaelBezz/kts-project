@@ -29,6 +29,8 @@ export default class ProductStore implements IProductStore, ILocalStore {
       meta: computed,
 
       isLoading: computed,
+      isSuccess: computed,
+      isError: computed,
 
       getProduct: action.bound
     });
@@ -44,6 +46,14 @@ export default class ProductStore implements IProductStore, ILocalStore {
 
   get isLoading(): boolean {
     return this._meta === Meta.loading;
+  }
+
+  get isSuccess(): boolean {
+    return this._meta === Meta.success;
+  }
+
+  get isError(): boolean {
+    return this._meta === Meta.error;
   }
 
   async getProduct(id: string): Promise<void> {

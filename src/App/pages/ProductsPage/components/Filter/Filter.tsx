@@ -49,7 +49,7 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
         valueId={String(categoryParam) ?? null}
         onChange={handelDropdownChange}
         getTitle={getTitle}
-        disabled={categoriesStore.isLoading || productsStore.isLoading}
+        disabled={productsStore.isLoading || categoriesStore.isLoading}
       />
     </div>
   );

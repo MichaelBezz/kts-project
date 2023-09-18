@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import CardList from 'components/CardList';
+import Message from 'components/Message';
 import Text from 'components/Text';
 import ProductsStore from 'store/ProductsStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
@@ -26,6 +27,14 @@ const RelatedCards: React.FC<RelatedCardsProps> = ({ className, categoryId }) =>
   return (
     <div className={cn(styles['related-cards'], className)}>
       <Text tag="h2" view="p-32">Related Items</Text>
+
+      {productsStore.isError && (
+        <Message>Error. Try again.</Message>
+      )}
+
+      {(productsStore.isSuccess && !productsStore.products.length) && (
+        <Message>There aren`t related items.</Message>
+      )}
 
       <CardList
         className={styles['related-cards__list']}

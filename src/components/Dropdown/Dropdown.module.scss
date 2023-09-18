@@ -9,10 +9,26 @@
     top: calc(100% + $space-xxs);
     right: 0;
     left: 0;
+    max-height: 25vh;
     margin: 0;
     padding: 0;
     list-style: none;
     background-color: $color-dropdown-bg;
+    overflow-y: scroll;
+
+    scrollbar-color: $color-dropdown-scroll $color-dropdown-scroll-bg;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $color-dropdown-scroll-bg;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dropdown-scroll;
+    }
   }
 
   &__item {

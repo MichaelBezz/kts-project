@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
 import Logo from 'components/Logo';
 import Nav from 'components/Nav';
 import UserNav from 'components/UserNav';
@@ -11,6 +12,12 @@ export type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
+  const location = useLocation();
+
+  React.useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   const handelBurgerClick = React.useCallback(() => {
     setIsOpen((prevState) => !prevState);
