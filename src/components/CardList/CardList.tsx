@@ -5,6 +5,7 @@ import Button from 'components/Button';
 import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import { AppRoute } from 'config/app-route';
+import rootStore from 'store/RootStore';
 import { ProductModel } from 'store/models/product';
 import styles from './CardList.module.scss';
 
@@ -16,7 +17,21 @@ export type CardListProps = {
 };
 
 const CardList: React.FC<CardListProps> = ({ className, products, productLimit, isLoading }) => {
+  const cartStore = rootStore.cart;
+
   const navigate = useNavigate();
+
+  const handelCardClick = (
+    event: React.MouseEvent<Element>,
+    id: string
+  ) => {
+    event.preventDefault();
+
+    const target = event.target as HTMLElement;
+    if (!target.closest('button')) {
+      navigate(generatePath(AppRoute.product, {id}));
+    }
+  };
 
   return (
     <div className={cn(styles['card-list'], className)}>
@@ -32,10 +47,15 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
                 title={product.title}
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
-                onClick={() => navigate(
-                  generatePath(AppRoute.product, {id: `${product.id}`})
+                onClick={(event) => handelCardClick(event, String(product.id))}
+                actionSlot={(
+                  <Button
+                    buttonStyle="primary"
+                    onClick={() => cartStore.plusItem(product.id)}
+                  >
+                    Add to Cart
+                  </Button>
                 )}
-                actionSlot={<Button buttonStyle="primary">Add to Cart</Button>}
               />
             </li>
           ))}

@@ -3,5 +3,6 @@ export enum AppRoute {
   product = '/products/:id',
   categories = '/categories',
   about = '/about',
+  cart = '/cart',
   notFound = '*'
 }

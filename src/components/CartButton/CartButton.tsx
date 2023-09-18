@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Text from 'components/Text';
@@ -33,4 +34,4 @@ const CartButton: React.FC<CartButtonProps> = ({ className }) => {
   );
 };
 
-export default CartButton;
+export default observer(CartButton);
