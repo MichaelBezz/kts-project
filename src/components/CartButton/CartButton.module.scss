@@ -1,0 +1,47 @@
+@import 'styles/mixins';
+
+.cart-button {
+  position: relative;
+  display: flex;
+  width: 42px;
+  height: 42px;
+  padding: $space-xxxs;
+  color: $color-icon-default;
+  transition: color $transition-default;
+
+  @include vp-767 {
+    width: 36px;
+    height: 36px;
+  }
+
+  @include hover {
+    color: $color-icon-accent;
+  }
+
+  &__count {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    min-width: 20px;
+    max-width: 30px;
+    padding: 0 $space-xxxs;
+    color: $color-cart-button-text;
+    background-color: $color-cart-button-bg;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  &__icon {
+    width: 30px;
+    height: 30px;
+
+    @include vp-767 {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
