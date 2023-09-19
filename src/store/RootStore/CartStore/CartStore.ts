@@ -1,5 +1,4 @@
 import { makeObservable, observable, computed, action } from 'mobx';
-import { getToken, saveToken } from 'services/local-storage';
 
 export const CART_STORE_TOKEN = 'cart-store-token';
 
@@ -10,11 +9,12 @@ export interface ICartStore {
   deleteItem: (key: number) => void;
 };
 
+type CartItems = Map<number, number>;
 type PrivateFields = '_items';
 
 export default class CartStore implements ICartStore {
-  private _items: Map<number, number> = getToken(CART_STORE_TOKEN)
-    ? new Map(JSON.parse(getToken(CART_STORE_TOKEN)))
+  private _items: CartItems = this.getItemsFromStore()
+    ? new Map(JSON.parse(this.getItemsFromStore()))
     : new Map();
 
   constructor() {
@@ -51,7 +51,7 @@ export default class CartStore implements ICartStore {
       this._items.set(key, 1);
     }
 
-    saveToken(CART_STORE_TOKEN, JSON.stringify(this._items));
+    this.saveItemsToStore(this._items);
   }
 
   minusItem(key: number): void {
@@ -63,12 +63,20 @@ export default class CartStore implements ICartStore {
       this._items.delete(key);
     }
 
-    saveToken(CART_STORE_TOKEN, JSON.stringify(this._items));
+    this.saveItemsToStore(this._items);
   }
 
   deleteItem(key: number): void {
     this._items.delete(key);
 
-    saveToken(CART_STORE_TOKEN, JSON.stringify(this._items));
+    this.saveItemsToStore(this._items);
+  }
+
+  getItemsFromStore(): string {
+    return localStorage.getItem(CART_STORE_TOKEN) ?? '';
+  }
+
+  saveItemsToStore(items: CartItems): void {
+    localStorage.setItem(CART_STORE_TOKEN, JSON.stringify(items));
   }
 }
