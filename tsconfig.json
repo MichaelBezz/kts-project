@@ -19,12 +19,11 @@
     "paths": {
       "components": ["components/*"],
       "config": ["config/*"],
-      "styles": ["styles/*"],
-      "utils": ["utils/*"],
+      "entities": ["entities/*"],
       "services": ["services/*"],
-      "types": ["types/*"],
-      "hooks": ["hooks/*"],
-      "store": ["store/*"]
+      "store": ["store/*"],
+      "styles": ["styles/*"],
+      "utils": ["utils/*"]
     }
   },
   "include": ["src", "swiper.d.ts"],
