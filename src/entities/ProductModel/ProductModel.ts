@@ -1,4 +1,4 @@
-import CategoryModel, { ICategory } from 'entities/CategoryModel';
+import { ICategory } from 'entities/CategoryModel';
 import { ProductServer, ProductId, IProduct, normalizeProduct } from 'entities/ProductModel';
 
 export default class ProductModel implements IProduct {
@@ -9,28 +9,24 @@ export default class ProductModel implements IProduct {
   readonly category: ICategory;
   readonly images: string[];
 
-  constructor(data: IProduct) {
-    this.id = data.id;
-    this.title = data.title;
-    this.price = data.price;
-    this.description = data.description;
-    this.category = data.category;
-    this.images = data.images;
+  constructor({ id, title, price, description, category, images }: IProduct = {
+    id: 0,
+    title: '',
+    price: 0,
+    description: '',
+    category: { id: 0, name: '', image: '' },
+    images: [''],
+  }) {
+    this.id = id;
+    this.title = title;
+    this.price = price;
+    this.description = description;
+    this.category = category;
+    this.images = images;
   }
 
   static fromJson(from: ProductServer): ProductModel {
     return new ProductModel(normalizeProduct(from));
-  }
-  /** DELL */
-  static getInitialProductModel(): ProductModel {
-    return new ProductModel({
-      id: 0,
-      title: '',
-      price: 0,
-      description: '',
-      category: CategoryModel.getInitialCategoryModel(),
-      images: ['']
-    });
   }
 
   static normalizeProductList(products: ProductServer[]) {

@@ -17,22 +17,21 @@ type PrivateFields =
 export default class ProductStore implements IProductStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _product: IProduct = ProductModel.getInitialProductModel();
+  private _product: IProduct = new ProductModel();
   private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<ProductStore, PrivateFields>(this, {
       _product: observable.ref,
-      product: computed,
-
       _meta: observable,
-      meta: computed,
 
+      product: computed,
+      meta: computed,
       isLoading: computed,
       isSuccess: computed,
       isError: computed,
 
-      getProduct: action.bound
+      getProduct: action.bound,
     });
   }
 
@@ -57,18 +56,20 @@ export default class ProductStore implements IProductStore, ILocalStore {
   }
 
   async getProduct(id: string): Promise<void> {
-    this._product = ProductModel.getInitialProductModel();
+    if (this._meta === Meta.loading) {
+      return;
+    }
+
     this._meta = Meta.loading;
 
-    try {
-      const { data } = await this._api.get<ProductServer>(`${APIRoute.products}/${id}`);
+    const { data } = await this._api.get<ProductServer>(`${APIRoute.products}/${id}`);
 
+    if (data) {
       runInAction(() => {
         this._product = ProductModel.fromJson(data);
         this._meta = Meta.success;
       });
-    } catch (error) {
-      this._product = ProductModel.getInitialProductModel();
+    } else {
       this._meta = Meta.error;
     }
   }

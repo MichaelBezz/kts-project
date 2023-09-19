@@ -5,22 +5,18 @@ export default class CategoryModel implements ICategory {
   readonly name: string;
   readonly image: string;
 
-  constructor(data: ICategory) {
-    this.id = data.id;
-    this.name = data.name;
-    this.image = data.image;
+  constructor({ id, name, image }: ICategory = {
+    id: 0,
+    name: '',
+    image: '',
+  }) {
+    this.id = id;
+    this.name = name;
+    this.image = image;
   }
 
   static fromJson(from: CategoryServer): CategoryModel {
     return new CategoryModel(normalizeCategory(from));
-  }
-
-  static getInitialCategoryModel(): CategoryModel {
-    return new CategoryModel({
-      id: 0,
-      name: '',
-      image: '',
-    });
   }
 
   static normalizeCategoryList(categories: CategoryServer[]) {

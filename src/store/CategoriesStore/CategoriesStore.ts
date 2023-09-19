@@ -47,16 +47,20 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
   }
 
   async getCategories(): Promise<void> {
+    if (this._meta === Meta.loading) {
+      return;
+    }
+
     this._meta = Meta.loading;
 
-    try {
-      const { data } = await this._api.get<CategoryServer[]>(`${APIRoute.categories}`);
+    const { data } = await this._api.get<CategoryServer[]>(`${APIRoute.categories}`);
 
+    if (data) {
       runInAction(() => {
         this._categoryList = new ListModel<ICategory>(CategoryModel.normalizeCategoryList(data));
         this._meta = Meta.success;
       });
-    } catch (error) {
+    } else {
       this._meta = Meta.error;
     }
   }

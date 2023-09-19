@@ -64,7 +64,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
       setSearchParam: action.bound,
       setFilterParam: action.bound,
       getProductCount: action.bound,
-      getProducts: action.bound
+      getProducts: action.bound,
     });
   }
 
@@ -117,44 +117,50 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   };
 
   async getProductCount(): Promise<void> {
-    this._productCount = null;
+    if (this._meta === Meta.loading) {
+      return;
+    }
+
     this._meta = Meta.loading;
 
-    try {
-      const { data } = await this._api<ProductServer[]>({
-        url: APIRoute.products,
-        params: {
-          offset: 0,
-          limit: 0,
-          title: this._searchParam,
-          categoryId: this._filterParam
-        }
-      });
+    const { data } = await this._api<ProductServer[]>({
+      url: APIRoute.products,
+      params: {
+        offset: 0,
+        limit: 0,
+        title: this._searchParam,
+        categoryId: this._filterParam,
+      }
+    });
 
+    if (data) {
       runInAction(() => {
         this._productCount = data.length;
         this._meta = Meta.success;
       });
-    } catch (error) {
-      this._productCount = null;
+    } else {
       this._meta = Meta.error;
     }
   }
 
   async getProducts(recalculateCount = false): Promise<void> {
+    if (this._meta === Meta.loading) {
+      return;
+    }
+
     this._meta = Meta.loading;
 
-    try {
-      const { data } = await this._api<ProductServer[]>({
-        url: APIRoute.products,
-        params: {
-          offset: Number(this._pageParam) * this._productLimit - this._productLimit,
-          limit: this._productLimit,
-          title: this._searchParam,
-          categoryId: this._filterParam
-        }
-      });
+    const { data } = await this._api<ProductServer[]>({
+      url: APIRoute.products,
+      params: {
+        offset: Number(this._pageParam) * this._productLimit - this._productLimit,
+        limit: this._productLimit,
+        title: this._searchParam,
+        categoryId: this._filterParam
+      }
+    });
 
+    if (data) {
       runInAction(() => {
         if (recalculateCount || this._productCount === null) {
           this.getProductCount();
@@ -163,7 +169,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
         this._productList = new ListModel<IProduct>(ProductModel.normalizeProductList(data));
         this._meta = Meta.success;
       });
-    } catch (error) {
+    } else {
       this._meta = Meta.error;
     }
   }

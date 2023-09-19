@@ -26,7 +26,7 @@ export default class CartStore implements ICartStore {
 
       plusItem: action.bound,
       minusItem: action.bound,
-      deleteItem: action.bound
+      deleteItem: action.bound,
     });
   }
 
