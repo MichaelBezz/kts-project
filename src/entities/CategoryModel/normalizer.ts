@@ -1,4 +1,4 @@
-import { CategoryServer, ICategory } from 'entities/category';
+import { CategoryServer, ICategory } from 'entities/CategoryModel';
 
 export const normalizeCategory = (from: CategoryServer): ICategory => ({
   id: from.id,

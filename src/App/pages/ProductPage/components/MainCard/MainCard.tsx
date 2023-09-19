@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
+import { IProduct } from 'entities/ProductModel';
 import rootStore from 'store/RootStore';
-import { ProductModel } from 'store/models/product';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
 export type MainCardProps = {
   className?: string;
-  product: ProductModel;
+  product: IProduct;
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {

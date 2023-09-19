@@ -1,4 +1,4 @@
-import { CategoryServer } from 'entities/category';
+import { CategoryServer } from 'entities/CategoryModel';
 
 export type ProductServer = {
   id: number;

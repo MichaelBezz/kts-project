@@ -1,5 +1,5 @@
-import CategoryModel, { ICategory } from 'entities/category';
-import { ProductServer, IProduct, normalizeProduct } from 'entities/product';
+import CategoryModel, { ICategory } from 'entities/CategoryModel';
+import { ProductServer, IProduct, normalizeProduct } from 'entities/ProductModel';
 
 export default class ProductModel implements IProduct {
   readonly id: number;

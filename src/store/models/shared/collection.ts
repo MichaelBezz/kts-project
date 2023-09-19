@@ -10,18 +10,17 @@ export const getInitialCollectionModel = (): CollectionModel<any, any> => ({
   entities: {}
 });
 
-export const normalizeCollection = <K extends string | number, T, N>(
+export const normalizeCollection = <K extends string | number, T>(
   items: T[],
-  getKeyForItem: (item: T) => K,
-  normalize: (item: T) => N
-): CollectionModel<K, N> => {
-  const collection: CollectionModel<K, N> = getInitialCollectionModel();
+  getKeyForItem: (item: T) => K
+): CollectionModel<K, T> => {
+  const collection: CollectionModel<K, T> = getInitialCollectionModel();
 
   items.forEach((item) => {
     const id = getKeyForItem(item);
 
     collection.order.push(id);
-    collection.entities[id] = normalize(item);
+    collection.entities[id] = item;
   });
 
   return collection;

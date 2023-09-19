@@ -6,7 +6,6 @@ import CategoriesStore from 'store/CategoriesStore';
 import ProductsStore from 'store/ProductsStore';
 import rootStore from 'store/RootStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
-import { transformCategoryToOption } from 'store/models/product';
 
 export type FilterProps = {
   className?: string;
@@ -24,7 +23,10 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
   }, [categoriesStore]);
 
   const options: Option[] = React.useMemo(() => {
-    return categoriesStore.categories.map(transformCategoryToOption);
+    return categoriesStore.categories.map(({id, name}) => ({
+      key: `${id}`,
+      value: name
+    }));
   }, [categoriesStore.categories]);
 
   const getTitle = React.useCallback((option: Option | null): string => {

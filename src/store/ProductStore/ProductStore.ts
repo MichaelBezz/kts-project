@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
+import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
 import { api } from 'services/api';
 import { ILocalStore } from 'store/hooks/useLocalStore';
-import { ProductApi, ProductModel, getInitialProductModel, normalizeProduct } from 'store/models/product';
 import { Meta } from 'utils/meta';
 
 export interface IProductStore {
@@ -17,7 +17,7 @@ type PrivateFields =
 export default class ProductStore implements IProductStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _product: ProductModel = getInitialProductModel();
+  private _product: IProduct = ProductModel.getInitialProductModel();
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -36,7 +36,7 @@ export default class ProductStore implements IProductStore, ILocalStore {
     });
   }
 
-  get product(): ProductModel {
+  get product(): IProduct {
     return this._product;
   }
 
@@ -57,18 +57,18 @@ export default class ProductStore implements IProductStore, ILocalStore {
   }
 
   async getProduct(id: string): Promise<void> {
-    this._product = getInitialProductModel();
+    this._product = ProductModel.getInitialProductModel();
     this._meta = Meta.loading;
 
     try {
-      const { data } = await this._api.get<ProductApi>(`${APIRoute.products}/${id}`);
+      const { data } = await this._api.get<ProductServer>(`${APIRoute.products}/${id}`);
 
       runInAction(() => {
-        this._product = normalizeProduct(data);
+        this._product = ProductModel.fromJson(data);
         this._meta = Meta.success;
       });
     } catch (error) {
-      this._product = getInitialProductModel();
+      this._product = ProductModel.getInitialProductModel();
       this._meta = Meta.error;
     }
   }

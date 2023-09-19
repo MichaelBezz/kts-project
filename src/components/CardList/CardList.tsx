@@ -5,13 +5,13 @@ import Button from 'components/Button';
 import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import { AppRoute } from 'config/app-route';
+import { IProduct } from 'entities/ProductModel';
 import rootStore from 'store/RootStore';
-import { ProductModel } from 'store/models/product';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
   className?: string;
-  products: ProductModel[];
+  products: IProduct[];
   productLimit: number;
   isLoading: boolean;
 };

@@ -1,4 +1,4 @@
-import { ICategory } from 'entities/category';
+import { ICategory } from 'entities/CategoryModel';
 
 export interface IProduct {
   id: number;

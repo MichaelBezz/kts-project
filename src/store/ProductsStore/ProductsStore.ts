@@ -1,11 +1,11 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction, reaction, IReactionDisposer } from 'mobx';
 import { APIRoute } from 'config/api-route';
+import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
 import { api } from 'services/api';
 import rootStore from 'store/RootStore';
 import { QueryParam } from 'store/RootStore/QueryParamsStore';
 import { ILocalStore } from 'store/hooks/useLocalStore';
-import { ProductApi, ProductModel, normalizeProduct } from 'store/models/product';
 import { CollectionModel, getInitialCollectionModel, normalizeCollection, linearizeCollection } from 'store/models/shared';
 import { Meta } from 'utils/meta';
 
@@ -30,7 +30,7 @@ type PrivateFields =
 export default class ProductsStore implements IProductsStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _products: CollectionModel<number, ProductModel> = getInitialCollectionModel();
+  private _products: CollectionModel<number, IProduct> = getInitialCollectionModel();
 
   private _productCount: number | null = null;
   private _productLimit: number = 9;
@@ -73,7 +73,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     });
   }
 
-  get products(): ProductModel[] {
+  get products(): IProduct[] {
     return linearizeCollection(this._products);
   }
 
@@ -126,7 +126,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     this._meta = Meta.loading;
 
     try {
-      const { data } = await this._api<ProductApi[]>({
+      const { data } = await this._api<ProductServer[]>({
         url: APIRoute.products,
         params: {
           offset: 0,
@@ -151,7 +151,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     this._meta = Meta.loading;
 
     try {
-      const { data } = await this._api<ProductApi[]>({
+      const { data } = await this._api<ProductServer[]>({
         url: APIRoute.products,
         params: {
           offset: Number(this._pageParam) * this._productLimit - this._productLimit,
@@ -166,7 +166,8 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
           this.getProductCount();
         }
 
-        this._products = normalizeCollection(data, (item) => item.id, normalizeProduct);
+        const items = data.map(ProductModel.fromJson);
+        this._products = normalizeCollection(items, (item) => item.id);
         this._meta = Meta.success;
       });
     } catch (error) {
