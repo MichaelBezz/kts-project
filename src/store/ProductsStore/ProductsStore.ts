@@ -161,11 +161,11 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
         }
       });
 
-      if (recalculateCount || this._productCount === null) {
-        this.getProductCount();
-      }
-
       runInAction(() => {
+        if (recalculateCount || this._productCount === null) {
+          this.getProductCount();
+        }
+
         this._products = normalizeCollection(data, (item) => item.id, normalizeProduct);
         this._meta = Meta.success;
       });
