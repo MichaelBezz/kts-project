@@ -1,4 +1,4 @@
-import { CategoryServer, ICategory, normalizeCategory } from 'entities/CategoryModel';
+import { CategoryId, CategoryServer, ICategory, normalizeCategory } from 'entities/CategoryModel';
 
 export default class CategoryModel implements ICategory {
   readonly id: number;
@@ -20,6 +20,20 @@ export default class CategoryModel implements ICategory {
       id: 0,
       name: '',
       image: '',
+    });
+  }
+
+  static normalizeCategoryList(categories: CategoryServer[]) {
+    return categories.reduce((acc, category) => ({
+      ...acc,
+      entities: {
+        ...acc.entities,
+        [category.id]: CategoryModel.fromJson(category),
+      },
+      keys: [...acc.keys, category.id],
+    }), {
+      entities: {} as Record<CategoryId, CategoryModel>,
+      keys: [] as CategoryId[],
     });
   }
 }

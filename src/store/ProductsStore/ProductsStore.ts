@@ -1,12 +1,12 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction, reaction, IReactionDisposer } from 'mobx';
 import { APIRoute } from 'config/api-route';
+import ListModel from 'entities/ListModel';
 import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
 import { api } from 'services/api';
 import rootStore from 'store/RootStore';
 import { QueryParam } from 'store/RootStore/QueryParamsStore';
 import { ILocalStore } from 'store/hooks/useLocalStore';
-import { CollectionModel, getInitialCollectionModel, normalizeCollection, linearizeCollection } from 'store/models/shared';
 import { Meta } from 'utils/meta';
 
 export interface IProductsStore {
@@ -19,7 +19,7 @@ export interface IProductsStore {
 };
 
 type PrivateFields =
-  | '_products'
+  | '_productList'
   | '_productCount'
   | '_productLimit'
   | '_pageParam'
@@ -30,7 +30,7 @@ type PrivateFields =
 export default class ProductsStore implements IProductsStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _products: CollectionModel<number, IProduct> = getInitialCollectionModel();
+  private _productList: ListModel<IProduct> = new ListModel();
 
   private _productCount: number | null = null;
   private _productLimit: number = 9;
@@ -42,24 +42,19 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
 
   constructor() {
     makeObservable<ProductsStore, PrivateFields>(this, {
-      _products: observable.ref,
-      products: computed,
-
+      _productList: observable.ref,
       _productCount: observable,
-      productCount:  computed,
-
       _productLimit: observable,
-      productLimit: computed,
-
       _pageParam: observable,
-      pageParam: computed,
-
       _searchParam: observable,
       _filterParam: observable,
-
       _meta: observable,
-      meta: computed,
 
+      products: computed,
+      productCount: computed,
+      productLimit: computed,
+      pageParam: computed,
+      meta: computed,
       isLoading: computed,
       isSuccess: computed,
       isError: computed,
@@ -74,7 +69,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   }
 
   get products(): IProduct[] {
-    return linearizeCollection(this._products);
+    return this._productList.items;
   }
 
   get productCount(): number | null {
@@ -147,7 +142,6 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   }
 
   async getProducts(recalculateCount = false): Promise<void> {
-    this._products = getInitialCollectionModel();
     this._meta = Meta.loading;
 
     try {
@@ -166,12 +160,10 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
           this.getProductCount();
         }
 
-        const items = data.map(ProductModel.fromJson);
-        this._products = normalizeCollection(items, (item) => item.id);
+        this._productList = new ListModel<IProduct>(ProductModel.normalizeProductList(data));
         this._meta = Meta.success;
       });
     } catch (error) {
-      this._products = getInitialCollectionModel();
       this._meta = Meta.error;
     }
   }

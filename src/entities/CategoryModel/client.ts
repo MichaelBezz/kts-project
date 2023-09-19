@@ -1,5 +1,7 @@
+export type CategoryId = number;
+
 export interface ICategory {
-  id: number;
+  id: CategoryId;
   name: string;
   image: string;
 };
