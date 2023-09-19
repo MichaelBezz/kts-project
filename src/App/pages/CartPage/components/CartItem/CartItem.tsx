@@ -1,10 +1,12 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { useNavigate, generatePath } from 'react-router-dom';
 import Text from 'components/Text';
 import DeleteIcon from 'components/icons/DeleteIcon';
 import MinusIcon from 'components/icons/MinusIcon';
 import PlusIcon from 'components/icons/PlusIcon';
+import { AppRoute } from 'config/app-route';
 import ProductStore from 'store/ProductStore';
 import rootStore from 'store/RootStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
@@ -16,15 +18,27 @@ export type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({ className, productId }) => {
+  const controlButtonsRef = React.useRef<HTMLDivElement | null>(null);
+
   const cartStore = rootStore.cart;
   const productStore = useLocalStore(() => new ProductStore());
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     productStore.getProduct(String(productId));
   }, [productId, productStore]);
 
+  const handelItemClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
+    const isControlButtons = controlButtonsRef.current?.contains(event.target as HTMLElement);
+
+    if (!isControlButtons) {
+      navigate(generatePath(AppRoute.product, {id: `${productId}`}));
+    }
+  }, [navigate, productId]);
+
   return (
-    <div className={cn(styles['cart-item'], className)}>
+    <div className={cn(styles['cart-item'], className)} onClick={handelItemClick}>
       <div className={styles['cart-item__card']}>
         <div className={styles['cart-item__image']}>
           <img src={productStore.product.images[0]} width='120' height='120' alt='Product main image' />
@@ -41,7 +55,7 @@ const CartItem: React.FC<CartItemProps> = ({ className, productId }) => {
         </div>
       </div>
 
-      <div className={styles['cart-item__controls']}>
+      <div className={styles['cart-item__controls']} ref={controlButtonsRef}>
         <div className={styles['cart-item__count']}>
           <button
             className={styles['cart-item__button']}
