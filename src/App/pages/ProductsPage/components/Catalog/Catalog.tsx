@@ -24,11 +24,8 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
   }, [productsStore]);
 
   const handelPaginationChange = React.useCallback((page: number) => {
-    if (page) {
-      setSearchParams({'page': `${page}`});
-    } else {
-      searchParams.delete('page');
-    }
+    searchParams.set('page', `${page}`);
+    setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
   return (

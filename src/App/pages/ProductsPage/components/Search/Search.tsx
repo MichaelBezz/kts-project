@@ -31,12 +31,13 @@ const Search: React.FC<SearchProps> = ({ className }) => {
     event.preventDefault();
 
     if (value) {
-      setSearchParams({'search': value});
+      searchParams.set('search', value);
     } else {
       searchParams.delete('search');
     }
 
     searchParams.delete('page');
+    setSearchParams(searchParams);
   }, [value, searchParams, setSearchParams]);
 
   return (
