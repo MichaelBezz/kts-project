@@ -2,8 +2,8 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Dropdown, { Option } from 'components/Dropdown';
+import { useProductsStore } from 'context/ProductsContext';
 import CategoriesStore from 'store/CategoriesStore';
-import ProductsStore from 'store/ProductsStore';
 import rootStore from 'store/RootStore';
 import { useLocalStore } from 'store/hooks/useLocalStore';
 
@@ -13,7 +13,7 @@ export type FilterProps = {
 
 const Filter: React.FC<FilterProps> = ({ className }) => {
   const categoryParam = rootStore.query.getParam('category');
-  const productsStore = useLocalStore(() => new ProductsStore());
+  const productsStore = useProductsStore();
   const categoriesStore = useLocalStore(() => new CategoriesStore());
 
   const [searchParams, setSearchParams] = useSearchParams();

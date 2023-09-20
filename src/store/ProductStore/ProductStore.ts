@@ -3,7 +3,7 @@ import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 import { APIRoute } from 'config/api-route';
 import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
 import { api } from 'services/api';
-import { ILocalStore } from 'store/hooks/useLocalStore';
+import { ILocalStore } from 'store/hooks';
 import { Meta } from 'utils/meta';
 
 export interface IProductStore {

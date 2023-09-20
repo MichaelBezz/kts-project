@@ -4,7 +4,7 @@ import { APIRoute } from 'config/api-route';
 import CategoryModel, { CategoryServer, ICategory } from 'entities/CategoryModel';
 import ListModel from 'entities/ListModel';
 import { api } from 'services/api';
-import { ILocalStore } from 'store/hooks/useLocalStore';
+import { ILocalStore } from 'store/hooks';
 import { Meta } from 'utils/meta';
 
 export interface ICategoriesStore {

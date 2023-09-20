@@ -19,6 +19,7 @@
     "paths": {
       "components": ["components/*"],
       "config": ["config/*"],
+      "context": ["context/*"],
       "entities": ["entities/*"],
       "services": ["services/*"],
       "store": ["store/*"],

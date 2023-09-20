@@ -6,7 +6,7 @@ import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
 import { api } from 'services/api';
 import rootStore from 'store/RootStore';
 import { QueryParam } from 'store/RootStore/QueryParamsStore';
-import { ILocalStore } from 'store/hooks/useLocalStore';
+import { ILocalStore } from 'store/hooks';
 import { Meta } from 'utils/meta';
 
 export interface IProductsStore {
@@ -117,10 +117,6 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   };
 
   async getProductCount(): Promise<void> {
-    if (this._meta === Meta.loading) {
-      return;
-    }
-
     this._meta = Meta.loading;
 
     const { data } = await this._api<ProductServer[]>({

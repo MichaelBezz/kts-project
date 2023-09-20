@@ -7,8 +7,7 @@ import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
-import ProductsStore from 'store/ProductsStore';
-import { useLocalStore } from 'store/hooks/useLocalStore';
+import { useProductsStore } from 'context/ProductsContext';
 import styles from './Catalog.module.scss';
 
 export type CatalogProps = {
@@ -16,7 +15,7 @@ export type CatalogProps = {
 };
 
 const Catalog: React.FC<CatalogProps> = ({ className }) => {
-  const productsStore = useLocalStore(() => new ProductsStore());
+  const productsStore = useProductsStore();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
