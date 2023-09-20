@@ -35,13 +35,12 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
 
   const handelDropdownChange = React.useCallback((option: Option | null) => {
     if (option) {
-      searchParams.set('category', option.key);
+      setSearchParams({'category': option.key});
     } else {
       searchParams.delete('category');
     }
 
     searchParams.delete('page');
-    setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
   return (
