@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Text from 'components/Text';
 import { ProductsContext } from 'context/ProductsContext';
@@ -36,4 +35,4 @@ const ProductsPage: React.FC = () => {
   );
 };
 
-export default observer(ProductsPage);
+export default ProductsPage;

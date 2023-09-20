@@ -34,9 +34,9 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
 
   private _productCount: number | null = null;
   private _productLimit: number = 9;
-  private _pageParam: QueryParam = rootStore.query.getParam('page') ?? '1';
-  private _searchParam: QueryParam = rootStore.query.getParam('search') ?? '';
-  private _filterParam: QueryParam = rootStore.query.getParam('category') ?? '';
+  private _pageParam: QueryParam = '1';
+  private _searchParam: QueryParam = '';
+  private _filterParam: QueryParam = '';
 
   private _meta: Meta = Meta.initial;
 
