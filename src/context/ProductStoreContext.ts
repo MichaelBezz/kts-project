@@ -1,10 +1,10 @@
 import * as React from 'react';
 import ProductStore from 'store/ProductStore';
 
-export const ProductContext = React.createContext<ProductStore | null>(null);
+export const ProductStoreContext = React.createContext<ProductStore | null>(null);
 
 export const useProductStore = (): ProductStore => {
-  const context = React.useContext(ProductContext);
+  const context = React.useContext(ProductStoreContext);
 
   if (context === null) {
     throw new Error('Check ProductStore');

@@ -4,8 +4,8 @@ import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { useProductsStore } from 'context/ProductsContext';
-import rootStore from 'store/RootStore';
+import { useProductsStore } from 'context/ProductsStoreContext';
+import { useQueryParamsStore } from 'store/RootStore/hooks';
 import styles from './Search.module.scss';
 
 export type SearchProps = {
@@ -13,11 +13,13 @@ export type SearchProps = {
 };
 
 const Search: React.FC<SearchProps> = ({ className }) => {
+  const queryParamsStore = useQueryParamsStore();
   const productsStore = useProductsStore();
-  const searchParam = rootStore.query.getParam('search');
 
   const [value, setValue] = React.useState<string>('');
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchParam = queryParamsStore.getParam('search');
 
   React.useEffect(() => {
     setValue(searchParam ? String(searchParam) : '');

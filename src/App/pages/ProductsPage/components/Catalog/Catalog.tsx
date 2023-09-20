@@ -7,7 +7,7 @@ import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
-import { useProductsStore } from 'context/ProductsContext';
+import { useProductsStore } from 'context/ProductsStoreContext';
 import styles from './Catalog.module.scss';
 
 export type CatalogProps = {

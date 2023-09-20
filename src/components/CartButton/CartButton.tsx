@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Text from 'components/Text';
 import CartIcon from 'components/icons/CartIcon';
 import { AppRoute } from 'config/app-route';
-import rootStore from 'store/RootStore';
+import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CartButton.module.scss';
 
 export type CartButtonProps = {
@@ -13,7 +13,7 @@ export type CartButtonProps = {
 };
 
 const CartButton: React.FC<CartButtonProps> = ({ className }) => {
-  const cartStore = rootStore.cart;
+  const cartStore = useCartStore();
 
   return (
     <Link

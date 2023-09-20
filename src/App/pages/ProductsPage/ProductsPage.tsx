@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Text from 'components/Text';
-import { ProductsContext } from 'context/ProductsContext';
+import { ProductsStoreContext } from 'context/ProductsStoreContext';
 import ProductsStore from 'store/ProductsStore';
 import { useLocalStore } from 'store/hooks';
 import Catalog from './components/Catalog';
@@ -12,7 +12,7 @@ const ProductsPage: React.FC = () => {
   const productsStore = useLocalStore(() => new ProductsStore());
 
   return(
-    <ProductsContext.Provider value={productsStore}>
+    <ProductsStoreContext.Provider value={productsStore}>
       <div className={styles['products-page']}>
         <div className="container">
           <div className={styles['products-page__header']}>
@@ -31,7 +31,7 @@ const ProductsPage: React.FC = () => {
           <Catalog className={styles['products-page__catalog']} />
         </div>
       </div>
-    </ProductsContext.Provider>
+    </ProductsStoreContext.Provider>
   );
 };
 

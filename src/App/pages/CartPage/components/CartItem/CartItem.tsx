@@ -8,7 +8,7 @@ import MinusIcon from 'components/icons/MinusIcon';
 import PlusIcon from 'components/icons/PlusIcon';
 import { AppRoute } from 'config/app-route';
 import ProductStore from 'store/ProductStore';
-import rootStore from 'store/RootStore';
+import { useCartStore } from 'store/RootStore/hooks';
 import { useLocalStore } from 'store/hooks/useLocalStore';
 import styles from './CartItem.module.scss';
 
@@ -20,7 +20,7 @@ export type CartItemProps = {
 const CartItem: React.FC<CartItemProps> = ({ className, productId }) => {
   const controlButtonsRef = React.useRef<HTMLDivElement | null>(null);
 
-  const cartStore = rootStore.cart;
+  const cartStore = useCartStore();
   const productStore = useLocalStore(() => new ProductStore());
 
   const navigate = useNavigate();

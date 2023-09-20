@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Message from 'components/Message';
-import rootStore from 'store/RootStore';
+import { useCartStore } from 'store/RootStore/hooks';
 import CartItem from '../CartItem';
 import styles from './CartTable.module.scss';
 
@@ -11,7 +11,7 @@ export type CartTableProps = {
 };
 
 const CartTable: React.FC<CartTableProps> = ({ className }) => {
-  const cartStore = rootStore.cart;
+  const cartStore = useCartStore();
 
   return (
     <div className={cn(styles['cart-table'], className)}>

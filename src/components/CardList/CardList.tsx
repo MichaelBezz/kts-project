@@ -6,7 +6,7 @@ import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import { AppRoute } from 'config/app-route';
 import { IProduct } from 'entities/ProductModel';
-import rootStore from 'store/RootStore';
+import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
@@ -17,7 +17,7 @@ export type CardListProps = {
 };
 
 const CardList: React.FC<CardListProps> = ({ className, products, productLimit, isLoading }) => {
-  const cartStore = rootStore.cart;
+  const cartStore = useCartStore();
 
   const navigate = useNavigate();
 

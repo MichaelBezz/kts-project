@@ -5,7 +5,7 @@ import Button from 'components/Button';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
 import { IProduct } from 'entities/ProductModel';
-import rootStore from 'store/RootStore';
+import { useCartStore } from 'store/RootStore/hooks';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
@@ -15,7 +15,7 @@ export type MainCardProps = {
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
-  const cartStore = rootStore.cart;
+  const cartStore = useCartStore();
 
   const navigate = useNavigate();
 

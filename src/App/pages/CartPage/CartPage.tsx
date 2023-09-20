@@ -3,12 +3,12 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import GoBackButton from 'components/GoBackButton';
 import Text from 'components/Text';
-import rootStore from 'store/RootStore';
+import { useCartStore } from 'store/RootStore/hooks';
 import CartTable from './components/CartTable';
 import styles from './CartPage.module.scss';
 
 const CartPage: React.FC = () => {
-  const cartStore = rootStore.cart;
+  const cartStore = useCartStore();
 
   return (
     <div className={styles['cart-page']}>
