@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
+import ProductModel, { ProductServer } from 'entities/ProductModel';
 import { api } from 'services/api';
 import { ILocalStore } from 'store/hooks';
 import { Meta } from 'utils/meta';
@@ -17,7 +17,7 @@ type PrivateFields =
 export default class ProductStore implements IProductStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _product: IProduct = new ProductModel();
+  private _product: ProductModel = new ProductModel();
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -35,7 +35,7 @@ export default class ProductStore implements IProductStore, ILocalStore {
     });
   }
 
-  get product(): IProduct {
+  get product(): ProductModel {
     return this._product;
   }
 

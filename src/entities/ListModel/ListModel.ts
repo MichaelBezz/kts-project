@@ -1,4 +1,4 @@
-import { makeObservable, observable, computed, action } from 'mobx';
+import { makeObservable, observable, computed, action, set, remove } from 'mobx';
 import { IList } from './types';
 
 type PrivateFields = '_keys' | '_entities';
@@ -24,6 +24,7 @@ export default class ListModel<T, K extends string | number = number> implements
 
       reset: action,
       addEntity: action,
+      deleteEntity: action,
     });
 
     this._keys = keys;
@@ -52,7 +53,7 @@ export default class ListModel<T, K extends string | number = number> implements
 
   getEntity = (keyParam: K): T => {
     return this._entities[keyParam];
-  }
+  };
 
   hasKey = (keyParam: K): boolean => {
     return this._keys.includes(keyParam);
@@ -66,12 +67,17 @@ export default class ListModel<T, K extends string | number = number> implements
   addEntity = (
     { entity, key, start = false }: { entity: T; key: K; start?: boolean }
   ): void => {
-    this._entities[key] = entity;
+    set(this._entities, {[key]: entity});
 
     if (start) {
       this._keys.unshift(key);
     } else {
       this._keys.push(key);
     }
+  };
+
+  deleteEntity = (keyParam: K): void => {
+    remove(this._entities, String(keyParam));
+    this._keys = this._keys.filter((key) => key !== keyParam);
   };
 }

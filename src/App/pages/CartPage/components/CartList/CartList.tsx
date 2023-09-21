@@ -19,8 +19,8 @@ const CartList: React.FC<CartListProps> = ({ className }) => {
         <Message>Your cart is empty.</Message>
       )}
 
-      {cartStore.items.map((id) => (
-        <CartItem key={id} productId={id} />
+      {cartStore.items.map((item) => (
+        <CartItem key={item.id} product={item} />
       ))}
     </div>
   );

@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction, reaction, IReactionDisposer } from 'mobx';
 import { APIRoute } from 'config/api-route';
 import ListModel from 'entities/ListModel';
-import ProductModel, { ProductServer, IProduct } from 'entities/ProductModel';
+import ProductModel, { ProductServer } from 'entities/ProductModel';
 import { api } from 'services/api';
 import rootStore from 'store/RootStore';
 import { QueryParam } from 'store/RootStore/QueryParamsStore';
@@ -30,7 +30,7 @@ type PrivateFields =
 export default class ProductsStore implements IProductsStore, ILocalStore {
   private readonly _api: AxiosInstance = api;
 
-  private _productList: ListModel<IProduct> = new ListModel();
+  private _productList: ListModel<ProductModel> = new ListModel();
 
   private _productCount: number | null = null;
   private _productLimit: number = 9;
@@ -68,7 +68,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
     });
   }
 
-  get products(): IProduct[] {
+  get products(): ProductModel[] {
     return this._productList.items;
   }
 
@@ -162,7 +162,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
           this.getProductCount();
         }
 
-        this._productList = new ListModel<IProduct>(ProductModel.normalizeProductList(data));
+        this._productList = new ListModel<ProductModel>(ProductModel.normalizeProductList(data));
         this._meta = Meta.success;
       });
     } else {

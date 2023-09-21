@@ -5,13 +5,13 @@ import Button from 'components/Button';
 import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import { AppRoute } from 'config/app-route';
-import { IProduct } from 'entities/ProductModel';
+import ProductModel from 'entities/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
   className?: string;
-  products: IProduct[];
+  products: ProductModel[];
   productLimit: number;
   isLoading: boolean;
 };
@@ -51,7 +51,7 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
                 actionSlot={(
                   <Button
                     buttonStyle="primary"
-                    onClick={() => cartStore.plusItem(product.id)}
+                    onClick={() => cartStore.plus(product)}
                   >
                     Add to Cart
                   </Button>

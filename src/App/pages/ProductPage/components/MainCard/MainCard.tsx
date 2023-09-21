@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
-import { IProduct } from 'entities/ProductModel';
+import ProductModel from 'entities/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
 export type MainCardProps = {
   className?: string;
-  product: IProduct;
+  product: ProductModel;
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
@@ -56,7 +56,7 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
               styles['main-card__button--add']
             )}
             buttonStyle="secondary"
-            onClick={() => cartStore.plusItem(product.id)}
+            onClick={() => cartStore.plus(product)}
           >
             Add to Cart
           </Button>
