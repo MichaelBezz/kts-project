@@ -4,7 +4,7 @@ import * as React from 'react';
 import GoBackButton from 'components/GoBackButton';
 import Text from 'components/Text';
 import { useCartStore } from 'store/RootStore/hooks';
-import CartTable from './components/CartTable';
+import CartList from './components/CartList';
 import styles from './CartPage.module.scss';
 
 const CartPage: React.FC = () => {
@@ -25,7 +25,7 @@ const CartPage: React.FC = () => {
           </Text>
         </div>
 
-        <CartTable className={styles['cart-page__table']} />
+        <CartList className={styles['cart-page__list']} />
       </div>
     </div>
   );

@@ -4,17 +4,17 @@ import * as React from 'react';
 import Message from 'components/Message';
 import { useCartStore } from 'store/RootStore/hooks';
 import CartItem from '../CartItem';
-import styles from './CartTable.module.scss';
+import styles from './CartList.module.scss';
 
-export type CartTableProps = {
+export type CartListProps = {
   className?: string;
 };
 
-const CartTable: React.FC<CartTableProps> = ({ className }) => {
+const CartList: React.FC<CartListProps> = ({ className }) => {
   const cartStore = useCartStore();
 
   return (
-    <div className={cn(styles['cart-table'], className)}>
+    <div className={cn(styles['cart-list'], className)}>
       {!cartStore.count && (
         <Message>Your cart is empty.</Message>
       )}
@@ -26,4 +26,4 @@ const CartTable: React.FC<CartTableProps> = ({ className }) => {
   );
 };
 
-export default observer(CartTable);
+export default observer(CartList);
