@@ -1,44 +1,62 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
-import MultiDropdown, { Option } from 'components/MultiDropdown';
-import { fetchCategories } from 'services/api';
+import { useSearchParams } from 'react-router-dom';
+import Dropdown, { Option } from 'components/Dropdown';
+import { useProductsStore } from 'context/ProductsStoreContext';
+import CategoriesStore from 'store/CategoriesStore';
+import { useQueryParamsStore } from 'store/RootStore/hooks';
+import { useLocalStore } from 'store/hooks/useLocalStore';
 
 export type FilterProps = {
   className?: string;
 };
 
 const Filter: React.FC<FilterProps> = ({ className }) => {
-  const [options, setOptions] = React.useState<Option[]>([]);
-  const [value, setValue] = React.useState<Option[]>([]);
+  const queryParamsStore = useQueryParamsStore();
+  const productsStore = useProductsStore();
+  const categoriesStore = useLocalStore(() => new CategoriesStore());
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const categoryParam = queryParamsStore.getParam('category');
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchCategories();
+    categoriesStore.getCategories();
+  }, [categoriesStore]);
 
-      const dropdownOptions = data.map(({id, name}) => {
-        return ({
-          key: `${id}`,
-          value: name
-        });
-      });
+  const options: Option[] = React.useMemo(() => {
+    return categoriesStore.categories.map(({id, name}) => ({
+      key: `${id}`,
+      value: name
+    }));
+  }, [categoriesStore.categories]);
 
-      setOptions(dropdownOptions);
-    };
-
-    fetchData();
+  const getTitle = React.useCallback((option: Option | null): string => {
+    return option === null ? 'Filter' : option.value;
   }, []);
+
+  const handelDropdownChange = React.useCallback((option: Option | null) => {
+    if (option) {
+      searchParams.set('category', option.key);
+    } else {
+      searchParams.delete('category');
+    }
+
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  }, [searchParams, setSearchParams]);
 
   return (
     <div className={className}>
-      <MultiDropdown
+      <Dropdown
         options={options}
-        value={value}
-        onChange={setValue}
-        getTitle={(values: Option[]) =>
-          values.length === 0 ? 'Filter': values.map(({ value }) => value).join(', ')
-        }
+        valueId={String(categoryParam) ?? null}
+        onChange={handelDropdownChange}
+        getTitle={getTitle}
+        disabled={productsStore.isLoading || categoriesStore.isLoading}
       />
     </div>
   );
 };
 
-export default Filter;
+export default observer(Filter);

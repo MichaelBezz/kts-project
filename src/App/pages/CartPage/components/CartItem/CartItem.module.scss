@@ -1,0 +1,130 @@
+@import 'styles/mixins';
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-xxxl;
+  height: 144px;
+  padding: $space-xs;
+  padding-right: $space-xxxl;
+  background-color: $color-card-bg;
+  transition: box-shadow $transition-default;
+
+  @include hover-focus {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  @include vp-767 {
+    flex-direction: column;
+    height: auto;
+    padding: $space-xs;
+  }
+
+  &__card {
+    display: flex;
+    gap: $space-xxl;
+
+    @include vp-424 {
+      flex-direction: column;
+    }
+  }
+
+  &__image {
+    position: relative;
+    min-width: 120px;
+    background-color: $color-card-image-bg;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      padding-bottom: calc(120 / 120 * 100%);
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: $space-xxl;
+
+    @include vp-767 {
+      justify-content: space-between;
+    }
+
+    @include vp-424 {
+      flex-direction: column;
+      gap: $space-xs;
+    }
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    min-width: 120px;
+
+    @include vp-424 {
+      width: 100%;
+    }
+  }
+
+  &__price {
+    min-width: 62px;
+
+    @include vp-424 {
+      order: -1;
+      align-self: flex-end;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: $color-cart-button-text;
+    background-color: $color-cart-button-bg;
+    border: $border-none;
+    border-radius: $border-radius-cycle;
+    transition: background-color $transition-default;
+    pointer-events: initial;
+    user-select: none;
+    cursor: pointer;
+
+    @include vp-424 {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    @include hover {
+      background-color: $color-cart-button-hover;
+    }
+
+    @include active {
+      background-color: $color-cart-button-active;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}

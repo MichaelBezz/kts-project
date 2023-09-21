@@ -1,0 +1,7 @@
+@import 'styles/mixins';
+
+.cart-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-m;
+}

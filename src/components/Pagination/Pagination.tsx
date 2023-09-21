@@ -2,7 +2,7 @@ import cn from 'classnames';
 import * as React from 'react';
 import Text from 'components/Text';
 import ArrowDefaultIcon from 'components/icons/ArrowDefaultIcon';
-import { usePagination, DOTS } from 'hooks/usePagination';
+import { usePagination, DOTS } from './hooks/usePagination';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
@@ -29,14 +29,6 @@ const Pagination: React.FC<PaginationProps> = ({
     pageSize
   }) ?? [];
 
-  const handelNextButtonClick = () => {
-    onPageChange(currentPage + 1);
-  };
-
-  const handelPrevButtonClick = () => {
-    onPageChange(currentPage - 1);
-  };
-
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
@@ -49,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className={styles['pagination__button']}
             type="button"
             disabled={currentPage === 1}
-            onClick={handelPrevButtonClick}
+            onClick={() => onPageChange(currentPage - 1)}
           >
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
               <ArrowDefaultIcon width={32} height={32} direction="left" />
@@ -92,8 +84,8 @@ const Pagination: React.FC<PaginationProps> = ({
           <button
             className={styles['pagination__button']}
             type="button"
-            disabled={currentPage === paginationRange.at(- 1)}
-            onClick={handelNextButtonClick}
+            disabled={currentPage === paginationRange.at(-1)}
+            onClick={() => onPageChange(currentPage + 1)}
           >
             <Text className={styles['pagination__button-text']} tag="span" view="p-18" weight="medium">
               <ArrowDefaultIcon width={32} height={32} direction="right" />
@@ -105,4 +97,4 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-export default Pagination;
+export default React.memo(Pagination);

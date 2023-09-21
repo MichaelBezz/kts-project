@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.multi-dropdown {
+.dropdown {
   position: relative;
 
   &__list {
@@ -9,10 +9,26 @@
     top: calc(100% + $space-xxs);
     right: 0;
     left: 0;
+    max-height: 25vh;
     margin: 0;
     padding: 0;
     list-style: none;
     background-color: $color-dropdown-bg;
+    overflow-y: scroll;
+
+    scrollbar-color: $color-dropdown-scroll $color-dropdown-scroll-bg;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $color-dropdown-scroll-bg;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dropdown-scroll;
+    }
   }
 
   &__item {
@@ -21,11 +37,11 @@
   }
 
   &__input {
-    &:checked + .multi-dropdown__label {
+    &:checked + .dropdown__label {
       color: $color-dropdown-text-active;
     }
 
-    &:focus-visible + .multi-dropdown__label {
+    &:focus-visible + .dropdown__label {
       outline: 1px solid $color-dropdown-text-focus;
     }
   }

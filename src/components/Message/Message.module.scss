@@ -1,0 +1,6 @@
+@import 'styles/mixins';
+
+.message {
+  display: flex;
+  padding: $space-xxl 0;
+}

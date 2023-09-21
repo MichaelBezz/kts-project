@@ -34,22 +34,22 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={cn(styles['card'], className)} onClick={onClick}>
       <div className={styles['card__image']}>
-        <img src={image} width='360' height='360' alt='Product main image' />
+        <img src={image} width="360" height="360" alt="Product main image" />
       </div>
 
       <div className={styles['card__content']}>
         <div className={styles['card__body']}>
           {captionSlot && (
-            <Text tag='p' view='p-14' weight='medium' color='secondary'>
+            <Text tag="p" view="p-14" weight="medium" color="secondary">
               {captionSlot}
             </Text>
           )}
 
-          <Text tag='p' view='p-20' weight='medium' maxLines={2}>
+          <Text tag="p" view="p-20" weight="medium" maxLines={2}>
             {title}
           </Text>
 
-          <Text tag='p' view='p-16' color='secondary' maxLines={3}>
+          <Text tag="p" view="p-16" color="secondary" maxLines={3}>
             {subtitle}
           </Text>
         </div>
@@ -59,7 +59,7 @@ const Card: React.FC<CardProps> = ({
           {[styles['card__footer--without-slot']]: !actionSlot}
         )}>
           {contentSlot && (
-            <Text className={styles['card__price']} tag='p' view='p-18' weight='bold'>
+            <Text className={styles['card__price']} tag="p" view="p-18" weight="bold">
               {contentSlot}
             </Text>
           )}
@@ -71,4 +71,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card;
+export default React.memo(Card);

@@ -15,7 +15,7 @@ const CardLoader: React.FC<CardLoaderProps> = ({ className, cards = 3, ...props 
         <ContentLoader
           key={item}
           speed={3.5}
-          viewBox="0 0 360 570"
+          viewBox="0 0 360 658"
           backgroundColor="#f3f3f3"
           foregroundColor="#86aaa7"
           {...props}

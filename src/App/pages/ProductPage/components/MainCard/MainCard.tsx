@@ -1,17 +1,24 @@
 import cn from 'classnames';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Text from 'components/Text';
-import { TProduct } from 'types/product';
+import { AppRoute } from 'config/app-route';
+import ProductModel from 'entities/ProductModel';
+import { useCartStore } from 'store/RootStore/hooks';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
 export type MainCardProps = {
   className?: string;
-  product: TProduct;
+  product: ProductModel;
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
+  const cartStore = useCartStore();
+
+  const navigate = useNavigate();
+
   return (
     <div className={cn(styles['main-card'], className)}>
       <div className={styles['main-card__slider']}>
@@ -38,6 +45,7 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
               styles['main-card__button--buy']
             )}
             buttonStyle="primary"
+            onClick={() => navigate(AppRoute.cart)}
           >
             Buy Now
           </Button>
@@ -48,6 +56,7 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
               styles['main-card__button--add']
             )}
             buttonStyle="secondary"
+            onClick={() => cartStore.plus(product)}
           >
             Add to Cart
           </Button>

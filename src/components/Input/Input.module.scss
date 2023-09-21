@@ -3,6 +3,11 @@
 .input {
   position: relative;
   background-color: $color-input-bg;
+  transition: box-shadow $transition-default;
+
+  @include hover-focus {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  }
 
   &__field {
     display: block;
