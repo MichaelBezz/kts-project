@@ -118,7 +118,7 @@ export default class CartStore implements ICartStore {
 
     if (data) {
       runInAction(() => {
-        const localData = JSON.parse(localStorage.getItem(CART_STORE_TOKEN) ?? '');
+        const localData = JSON.parse(localStorage.getItem(CART_STORE_TOKEN) ?? ' ');
         this._productList = new ListModel<ProductModel>(ProductModel.normalizeProductList(data));
 
         this._productList.keys.forEach((key) => {
