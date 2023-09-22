@@ -1,0 +1,11 @@
+.login-page {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    width: clamp(280px, 326px, 100%);
+    margin-top: 10%;
+  }
+}
