@@ -2,12 +2,9 @@
 
 .input {
   position: relative;
-  background-color: $color-input-bg;
-  transition: box-shadow $transition-default;
-
-  @include hover-focus {
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
 
   &__field {
     display: block;
@@ -20,18 +17,20 @@
     line-height: 1.25;
     font-weight: 400;
     color: $color-input-text;
+    background-color: $color-input-bg;
     border: 1px solid $color-input-border;
     transition:
       color $transition-default,
       background-color $transition-default,
-      border-color $transition-default;
-
-    &--with-slot {
-      padding-right: 44px;
-    }
+      border-color $transition-default,
+      box-shadow $transition-default;
 
     &::placeholder {
       color: $color-input-placeholder;
+    }
+
+    @include hover-focus {
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
     }
 
     &:focus-visible {
@@ -43,6 +42,10 @@
       color: $color-input-text-disabled;
       background-color: $color-input-bg;
       border-color: $color-input-border;
+    }
+
+    &--with-slot {
+      padding-right: 44px;
     }
   }
 
