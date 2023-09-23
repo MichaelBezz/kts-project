@@ -1,4 +1,4 @@
-import { CategoryId, CategoryServer, ICategory, normalizeCategory } from 'entities/CategoryModel';
+import { CategoryId, CategoryServer, ICategory, normalizeCategory } from 'models/CategoryModel';
 
 export default class CategoryModel implements ICategory {
   readonly id: number;

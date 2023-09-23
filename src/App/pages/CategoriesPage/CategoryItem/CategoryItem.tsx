@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
-import { ICategory } from 'entities/CategoryModel';
+import { ICategory } from 'models/CategoryModel';
 import styles from './CategoryItem.module.scss';
 
 export type CategoryItemProps = {

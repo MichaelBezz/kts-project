@@ -19,8 +19,7 @@
     "paths": {
       "components": ["components/*"],
       "config": ["config/*"],
-      "context": ["context/*"],
-      "entities": ["entities/*"],
+      "models": ["models/*"],
       "services": ["services/*"],
       "store": ["store/*"],
       "styles": ["styles/*"],

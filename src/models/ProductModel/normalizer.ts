@@ -1,5 +1,5 @@
-import { normalizeCategory } from 'entities/CategoryModel';
-import { ProductServer, IProduct } from 'entities/ProductModel';
+import { normalizeCategory } from 'models/CategoryModel';
+import { ProductServer, IProduct } from 'models/ProductModel';
 
 export const normalizeProduct = (from: ProductServer): IProduct => ({
   id: from.id,

@@ -2,10 +2,9 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Dropdown, { Option } from 'components/Dropdown';
-import { useProductsStore } from 'context/ProductsStoreContext';
 import CategoriesStore from 'store/CategoriesStore';
 import { useQueryParamsStore } from 'store/RootStore/hooks';
-import { useLocalStore } from 'store/hooks/useLocalStore';
+import { useLocalStore, useProductsStore } from 'store/hooks';
 
 export type FilterProps = {
   className?: string;

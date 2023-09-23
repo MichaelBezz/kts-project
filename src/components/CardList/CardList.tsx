@@ -5,7 +5,7 @@ import Button from 'components/Button';
 import Card from 'components/Card';
 import CardLoader from 'components/CardLoader';
 import { AppRoute } from 'config/app-route';
-import ProductModel from 'entities/ProductModel';
+import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CardList.module.scss';
 

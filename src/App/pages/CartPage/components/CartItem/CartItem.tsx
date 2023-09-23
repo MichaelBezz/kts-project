@@ -7,7 +7,7 @@ import DeleteIcon from 'components/icons/DeleteIcon';
 import MinusIcon from 'components/icons/MinusIcon';
 import PlusIcon from 'components/icons/PlusIcon';
 import { AppRoute } from 'config/app-route';
-import ProductModel from 'entities/ProductModel';
+import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CartItem.module.scss';
 

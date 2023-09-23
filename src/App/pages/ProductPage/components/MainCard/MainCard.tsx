@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Text from 'components/Text';
 import { AppRoute } from 'config/app-route';
-import ProductModel from 'entities/ProductModel';
+import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';

@@ -1,6 +1,6 @@
 import { makeObservable, observable, computed, action } from 'mobx';
-import { ICategory } from 'entities/CategoryModel';
-import { ProductServer, ProductId, IProduct, normalizeProduct } from 'entities/ProductModel';
+import { ICategory } from 'models/CategoryModel';
+import { ProductServer, ProductId, IProduct, normalizeProduct } from 'models/ProductModel';
 
 type PrivateFields = '_cart';
 

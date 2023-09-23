@@ -1,4 +1,4 @@
-import { ICategory } from 'entities/CategoryModel';
+import { ICategory } from 'models/CategoryModel';
 
 export type ProductId = number;
 

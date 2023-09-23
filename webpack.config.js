@@ -94,8 +94,7 @@ module.exports = {
     alias: {
       components: path.join(srcPath, 'components'),
       config: path.join(srcPath, 'config'),
-      context: path.join(srcPath, 'context'),
-      entities: path.join(srcPath, 'entities'),
+      models: path.join(srcPath, 'models'),
       services: path.join(srcPath, 'services'),
       store: path.join(srcPath, 'store'),
       styles: path.join(srcPath, 'styles'),

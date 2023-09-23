@@ -5,7 +5,7 @@ import GoBackButton from 'components/GoBackButton';
 import MainCardLoader from 'components/MainCardLoader';
 import Message from 'components/Message';
 import ProductStore from 'store/ProductStore';
-import { useLocalStore } from 'store/hooks/useLocalStore';
+import { useLocalStore } from 'store/hooks';
 import MainCard from './components/MainCard';
 import RelatedCards from './components/RelatedCards';
 import styles from './ProductPage.module.scss';

@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import ListModel from 'entities/ListModel';
-import ProductModel, { ProductServer } from 'entities/ProductModel';
+import ListModel from 'models/ListModel';
+import ProductModel, { ProductServer } from 'models/ProductModel';
 import { api } from 'services/api';
 import { Meta } from 'utils/meta';
 

@@ -5,7 +5,7 @@ import CardList from 'components/CardList';
 import Message from 'components/Message';
 import Text from 'components/Text';
 import ProductsStore from 'store/ProductsStore';
-import { useLocalStore } from 'store/hooks/useLocalStore';
+import { useLocalStore } from 'store/hooks';
 import styles from './RelatedCards.module.scss';
 
 export type RelatedCardsProps = {

@@ -4,8 +4,8 @@ import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { useProductsStore } from 'context/ProductsStoreContext';
 import { useQueryParamsStore } from 'store/RootStore/hooks';
+import { useProductsStore } from 'store/hooks';
 import styles from './Search.module.scss';
 
 export type SearchProps = {
