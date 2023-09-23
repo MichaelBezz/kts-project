@@ -172,48 +172,31 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
 
   destroy(): void {
     this._queryParamsReaction();
-    this._queryPageReaction();
-    this._querySearchReaction();
-    this._queryCategoryReaction();
   }
 
   private readonly _queryParamsReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParams(),
-    (params) => {
-      const isEmpty = params && !Object.keys(params).length;
+    () => ({
+      pageParam: rootStore.query.pageParam,
+      searchParam: rootStore.query.searchParam,
+      filterParam: rootStore.query.filterParam
+    }),
+    (params: Record<string, QueryParam>) => {
+      this.setPageParam(params.pageParam || '1');
+      this.setSearchParam(params.searchParam || '');
+      this.setFilterParam(params.filterParam || '');
 
-      if (isEmpty) {
-        this.setPageParam('1');
-        this.setSearchParam('');
-        this.setFilterParam('');
+      const isParamExist = Object.values(params).every((param) => param !== undefined);
+
+      if (!isParamExist) {
         this.getProducts(true);
+        return;
       }
-    }
-  );
 
-  private readonly _queryPageReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam('page'),
-    (param) => {
-      this.setPageParam(param || '1');
-      this.getProducts();
-    }
-  );
-
-  private readonly _querySearchReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam('search'),
-    (param) => {
-      this.setSearchParam(param || '');
-      this.setPageParam('1');
-      this.getProducts(true);
-    }
-  );
-
-  private readonly _queryCategoryReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam('category'),
-    (param) => {
-      this.setFilterParam(param || '');
-      this.setPageParam('1');
-      this.getProducts(true);
+      if (params.searchParam || params.filterParam) {
+        this.getProducts(true);
+      } else {
+        this.getProducts();
+      }
     }
   );
 }
