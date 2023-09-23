@@ -23,7 +23,7 @@ const getSettingsForStyles = (withModules = false) => {
         options: {
           modules: {
             localIdentName: !isProd
-              ? '[path][name]__[local]'
+              ? '[local]_[[hash:base64]]'
               : '[hash:base64]',
           }
         }
