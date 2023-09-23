@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { AppRoute } from 'config/app-route';
 import rootStore from 'store/RootStore';
-import { useCartStore, useQueryParamsStoreInit } from 'store/RootStore/hooks';
+import { useCartStore, useQueryParamsStore } from 'store/RootStore/hooks';
 import { RootStoreContext } from 'store/hooks';
 import CartPage from './pages/CartPage';
 import CategoriesPage from './pages/CategoriesPage';
@@ -13,9 +13,14 @@ import ProductPage from './pages/ProductPage';
 import ProductsPage from './pages/ProductsPage';
 
 const App: React.FC = () => {
+  const { search } = useLocation();
+
+  const queryParamsStore = useQueryParamsStore();
   const cartStore = useCartStore();
 
-  useQueryParamsStoreInit();
+  React.useLayoutEffect(() => {
+    queryParamsStore.setSearch(search);
+  });
 
   React.useEffect(() => {
     cartStore.loadData();

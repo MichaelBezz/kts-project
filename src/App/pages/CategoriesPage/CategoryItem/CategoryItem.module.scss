@@ -2,6 +2,7 @@
 
 .category-item {
   position: relative;
+  display: block;
   background-color: $color-card-bg;
   transition: box-shadow $transition-default;
   cursor: pointer;

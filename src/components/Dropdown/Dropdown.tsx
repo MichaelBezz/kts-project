@@ -48,7 +48,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   [options, filter]);
 
   const optionParam = React.useMemo(() => {
-    return options.find(({ key }) => key === valueId) ?? null;
+    return options.find(({ key }) => key === valueId) || null;
   }, [options, valueId]);
 
   React.useEffect(() => {
