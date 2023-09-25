@@ -3,6 +3,7 @@ import * as React from 'react';
 import Input from 'components/Input';
 import Button from 'components/buttons/Button';
 import { IAuthRequest } from 'models/AuthMode';
+import { useAuthStore } from 'store/RootStore/hooks';
 import { validate } from 'utils/validate';
 import styles from './LoginPage.module.scss';
 
@@ -12,6 +13,8 @@ export type LoginFormError = {
 };
 
 const LoginPage: React.FC = () => {
+  const authStore = useAuthStore();
+
   const [formData, setFormData] = React.useState<IAuthRequest>({email: '', password: ''});
   const [errorData, setErrorData] = React.useState<LoginFormError>({email: '', password: ''});
 
@@ -19,6 +22,7 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
 
     if (validate(formData, setErrorData)) {
+      authStore.login(formData);
       setFormData({email: '', password: ''});
     }
   };
