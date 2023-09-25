@@ -6,6 +6,7 @@ import rootStore from 'store/RootStore';
 import { useCartStore, useQueryParamsStore } from 'store/RootStore/hooks';
 import { RootStoreContext } from 'store/hooks';
 import CartPage from './pages/CartPage';
+import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductPage from './pages/ProductPage';
 import ProductsPage from './pages/ProductsPage';
@@ -31,6 +32,7 @@ const App: React.FC = () => {
           <Route index element={<ProductsPage />} />
           <Route path={AppRoute.product} element={<ProductPage />} />
           <Route path={AppRoute.cart} element={<CartPage />} />
+          <Route path={AppRoute.login} element={<LoginPage />} />
           <Route path={AppRoute.notFound} element={<NotFoundPage />} />
         </Route>
       </Routes>

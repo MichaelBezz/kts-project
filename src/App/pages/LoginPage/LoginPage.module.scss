@@ -1,0 +1,23 @@
+@import 'styles/mixins';
+
+.login-page {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-l;
+    width: clamp(280px, 326px, 100%);
+    margin-top: 10%;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+    margin-top: $space-l;
+  }
+}

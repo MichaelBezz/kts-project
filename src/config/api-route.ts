@@ -1,5 +1,6 @@
 export enum APIRoute {
   products = '/products',
   categories = '/categories',
-  users = '/users'
+  users = '/users',
+  login = '/auth/login'
 }
