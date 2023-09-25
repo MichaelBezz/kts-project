@@ -2,11 +2,10 @@ import cn from 'classnames';
 import * as React from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import Card from 'components/Card';
-import Button from 'components/buttons/Button';
+import AddToCartButton from 'components/buttons/AddToCartButton';
 import CardLoader from 'components/loaders/CardLoader';
 import { AppRoute } from 'config/app-route';
 import ProductModel from 'models/ProductModel';
-import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
@@ -17,8 +16,6 @@ export type CardListProps = {
 };
 
 const CardList: React.FC<CardListProps> = ({ className, products, productLimit, isLoading }) => {
-  const cartStore = useCartStore();
-
   const navigate = useNavigate();
 
   const handelCardClick = (
@@ -48,14 +45,7 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
                 onClick={(event) => handelCardClick(event, String(product.id))}
-                actionSlot={(
-                  <Button
-                    buttonStyle="primary"
-                    onClick={() => cartStore.plus(product)}
-                  >
-                    Add to Cart
-                  </Button>
-                )}
+                actionSlot={(<AddToCartButton product={product} />)}
               />
             </li>
           ))}

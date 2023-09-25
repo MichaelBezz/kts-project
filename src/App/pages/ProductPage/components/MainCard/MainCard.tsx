@@ -1,11 +1,9 @@
 import cn from 'classnames';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Text from 'components/Text';
-import Button from 'components/buttons/Button';
-import { AppRoute } from 'config/app-route';
+import AddToCartButton from 'components/buttons/AddToCartButton';
+import BuyNowButton from 'components/buttons/BuyNowButton';
 import ProductModel from 'models/ProductModel';
-import { useCartStore } from 'store/RootStore/hooks';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
@@ -15,10 +13,6 @@ export type MainCardProps = {
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
-  const cartStore = useCartStore();
-
-  const navigate = useNavigate();
-
   return (
     <div className={cn(styles['main-card'], className)}>
       <div className={styles['main-card__slider']}>
@@ -39,27 +33,22 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
         </Text>
 
         <div className={styles['main-card__controls']}>
-          <Button
+          <BuyNowButton
             className={cn(
               styles['main-card__button'],
               styles['main-card__button--buy']
             )}
-            buttonStyle="primary"
-            onClick={() => navigate(AppRoute.cart)}
-          >
-            Buy Now
-          </Button>
+            product={product}
+          />
 
-          <Button
+          <AddToCartButton
             className={cn(
               styles['main-card__button'],
               styles['main-card__button--add']
             )}
-            buttonStyle="secondary"
-            onClick={() => cartStore.plus(product)}
-          >
-            Add to Cart
-          </Button>
+            product={product}
+            singleStyle={true}
+          />
         </div>
       </div>
     </div>

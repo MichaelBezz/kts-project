@@ -61,6 +61,10 @@ export default class CartStore implements ICartStore {
     return this._meta === Meta.loading;
   }
 
+  hasItem(key: number): boolean {
+    return this._cartList.hasKey(key);
+  }
+
   getItemCount(key: number): number {
     return this._cartList.getEntity(key).cart;
   }
