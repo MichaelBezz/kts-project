@@ -17,10 +17,6 @@
     }
   }
 
-  &__go-back {
-    justify-self: start;
-  }
-
   &__header {
     display: flex;
     justify-content: space-between;
@@ -30,5 +26,9 @@
     @include vp-767 {
       flex-direction: column;
     }
+  }
+
+  &__total {
+    justify-self: end;
   }
 }

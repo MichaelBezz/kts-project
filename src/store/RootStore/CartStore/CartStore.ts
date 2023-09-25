@@ -9,6 +9,7 @@ import { Meta } from 'utils/meta';
 export const CART_STORE_TOKEN = 'cart-store-token';
 
 export interface ICartStore {
+  hasItem: (key: number) => boolean;
   getItemCount: (keyParam: number) => number;
   plus: (item: ProductModel) => void;
   minus: (item: ProductModel) => void;
@@ -51,6 +52,12 @@ export default class CartStore implements ICartStore {
 
   get count(): number {
     return this._cartList.length;
+  }
+
+  get totalPrice(): number {
+    return this._cartList.items.reduce((acc, item) => {
+      return acc + (item.price * item.cart);
+    }, 0);
   }
 
   get meta(): Meta {
