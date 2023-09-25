@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'components/Button';
+import Button from 'components/buttons/Button';
 import ArrowDefaultIcon from 'components/icons/ArrowDefaultIcon';
 
 export type GoBackButtonProps = {

@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import * as React from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
-import Button from 'components/Button';
 import Card from 'components/Card';
-import CardLoader from 'components/CardLoader';
+import Button from 'components/buttons/Button';
+import CardLoader from 'components/loaders/CardLoader';
 import { AppRoute } from 'config/app-route';
 import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';

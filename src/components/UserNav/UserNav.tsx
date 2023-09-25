@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import CartButton from 'components/CartButton';
+import CartButton from 'components/buttons/CartButton';
 import MenuIcon from 'components/icons/MenuIcon';
 import UserIcon from 'components/icons/UserIcon';
 import { AppRoute } from 'config/app-route';

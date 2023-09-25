@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'components/Button';
 import Text from 'components/Text';
+import Button from 'components/buttons/Button';
 import { AppRoute } from 'config/app-route';
 import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';

@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
-import GoBackButton from 'components/GoBackButton';
 import Text from 'components/Text';
+import GoBackButton from 'components/buttons/GoBackButton';
 import { useCartStore } from 'store/RootStore/hooks';
 import CartList from './components/CartList';
 import styles from './CartPage.module.scss';

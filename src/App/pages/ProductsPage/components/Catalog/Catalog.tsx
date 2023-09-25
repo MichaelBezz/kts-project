@@ -3,10 +3,10 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CardList from 'components/CardList';
-import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
+import Loader from 'components/loaders/Loader';
 import { useProductsStore } from 'store/hooks';
 import styles from './Catalog.module.scss';
 
