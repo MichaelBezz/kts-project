@@ -125,17 +125,24 @@ export default class CartStore implements ICartStore {
 
     this._meta = Meta.loading;
 
+    const localData = localStorage.getItem(CART_STORE_TOKEN);
+
+    if (!localData) {
+      this._meta = Meta.initial;
+      return;
+    }
+
     const { data } = await this._api<ProductServer[]>(APIRoute.products);
 
     if (data) {
       runInAction(() => {
-        const localData = JSON.parse(localStorage.getItem(CART_STORE_TOKEN) ?? ' ');
+        const parsedLocalData = JSON.parse(localData);
         this._productList = new ListModel<ProductModel>(ProductModel.normalizeProductList(data));
 
         this._productList.keys.forEach((key) => {
-          if (key in localData) {
+          if (key in parsedLocalData) {
             const entity = this._productList.getEntity(key);
-            entity.setCart(localData[key]);
+            entity.setCart(parsedLocalData[key]);
 
             this._cartList.addEntity({entity, key});
           }
