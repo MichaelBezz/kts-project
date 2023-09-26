@@ -3,9 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "license": "MIT",
+  "homepage": "https://michaelbezz.github.io/kts-project",
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx webpack serve --mode=development",
     "build": "cross-env NODE_ENV=production npx webpack --mode=production",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist",
     "ts-check": "tsc --skipLibCheck --noEmit --project tsconfig.json",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
@@ -52,6 +55,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "gh-pages": "^6.0.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.3",
