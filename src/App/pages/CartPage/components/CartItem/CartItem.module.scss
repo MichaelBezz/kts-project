@@ -9,6 +9,7 @@
   padding-right: $space-xxxl;
   background-color: $color-card-bg;
   transition: box-shadow $transition-default;
+  cursor: pointer;
 
   @include hover-focus {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);

@@ -24,6 +24,8 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
   }, [productsStore]);
 
   const handlePaginationChange = React.useCallback((page: number) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     searchParams.set('page', `${page}`);
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);

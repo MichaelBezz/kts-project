@@ -172,6 +172,9 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
 
   destroy(): void {
     this._queryParamsReaction();
+    this._queryPageReaction();
+    this._querySearchReaction();
+    this._queryFilterReaction();
   }
 
   private readonly _queryParamsReaction: IReactionDisposer = reaction(
@@ -184,19 +187,21 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
       this.setPageParam(params.pageParam || '1');
       this.setSearchParam(params.searchParam || '');
       this.setFilterParam(params.filterParam || '');
-
-      const isParamExist = Object.values(params).every((param) => param !== undefined);
-
-      if (!isParamExist) {
-        this.getProducts(true);
-        return;
-      }
-
-      if (params.searchParam || params.filterParam) {
-        this.getProducts(true);
-      } else {
-        this.getProducts();
-      }
     }
+  );
+
+  private readonly _queryPageReaction: IReactionDisposer = reaction(
+    () => rootStore.query.pageParam,
+    (param) => {param && this.getProducts()}
+  );
+
+  private readonly _querySearchReaction: IReactionDisposer = reaction(
+    () => rootStore.query.searchParam,
+    () => {this.getProducts(true)}
+  );
+
+  private readonly _queryFilterReaction: IReactionDisposer = reaction(
+    () => rootStore.query.filterParam,
+    () => {this.getProducts(true)}
   );
 }
