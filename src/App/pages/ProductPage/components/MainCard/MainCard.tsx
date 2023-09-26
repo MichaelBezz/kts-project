@@ -29,7 +29,7 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
         </Text>
 
         <Text className={styles['main-card__price']} tag="p" view="title">
-          {`$${product.price}`}
+          ${product.price}
         </Text>
 
         <div className={styles['main-card__controls']}>

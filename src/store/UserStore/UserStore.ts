@@ -47,7 +47,7 @@ export default class UserStore implements IUserStore, ILocalStore {
   }
 
   async getUsers(): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 

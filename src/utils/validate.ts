@@ -11,7 +11,7 @@ export const validate = (
   if (!isEmailCorrect || !isPasswordCorrect) {
     setError({
       email: isEmailCorrect ? '' : 'Enter the correct email, for example: john@mail.com',
-      password: isPasswordCorrect ? '' : 'The password must contain more than three characters, for example: changeme'
+      password: isPasswordCorrect ? '' : 'The password must contain more than three symbols, for example: changeme'
     });
     return false;
   } else {

@@ -25,7 +25,7 @@ const CartPage: React.FC = () => {
         <CartList className={styles['cart-page__list']} />
 
         <Text className={styles['cart-page__total']} tag="p" view="p-32" weight="bold">
-          {`Total: $${cartStore.totalPrice}`}
+          Total: ${cartStore.totalPrice}
         </Text>
       </div>
     </div>

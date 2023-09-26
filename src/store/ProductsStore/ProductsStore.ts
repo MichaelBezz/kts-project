@@ -140,7 +140,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   }
 
   async getProducts(recalculateCount = false): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 

@@ -23,7 +23,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
     productsStore.getProducts();
   }, [productsStore]);
 
-  const handelPaginationChange = React.useCallback((page: number) => {
+  const handlePaginationChange = React.useCallback((page: number) => {
     searchParams.set('page', `${page}`);
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
@@ -62,7 +62,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
         currentPage={Number(productsStore.pageParam)}
         totalCount={Number(productsStore.productCount)}
         pageSize={productsStore.productLimit}
-        onPageChange={handelPaginationChange}
+        onPageChange={handlePaginationChange}
       />
     </div>
   );

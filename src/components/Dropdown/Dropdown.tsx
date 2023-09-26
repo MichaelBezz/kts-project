@@ -73,7 +73,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       }
     };
 
-    const handelDocumentKeydown = (event: KeyboardEvent) => {
+    const handleDocumentKeydown = (event: KeyboardEvent) => {
       if (event.key === ('Escape' || 'Esc')) {
         setIsOpened(false);
         setIsTyping(false);
@@ -82,20 +82,20 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handelDocumentKeydown);
+    document.addEventListener('keydown', handleDocumentKeydown);
 
     return () => {
       document.removeEventListener('click', handleDocumentClick);
-      document.removeEventListener('keydown', handelDocumentKeydown);
+      document.removeEventListener('keydown', handleDocumentKeydown);
     };
   }, []);
 
-  const handelDropdownClick = () => {
+  const handleDropdownClick = React.useCallback(() => {
     setIsOpened(true);
     setIsTyping(true);
-  };
+  }, []);
 
-  const handleOptionChange = (option: Option) => {
+  const handleOptionChange = React.useCallback((option: Option) => {
     setIsTyping(false);
 
     if (selectedOption?.key === option.key) {
@@ -106,7 +106,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     setSelectedOption(option);
     onChange(option);
-  };
+  }, [onChange, selectedOption?.key]);
 
   const title = React.useMemo(() => getTitle(selectedOption), [getTitle, selectedOption]);
 
@@ -133,7 +133,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         placeholder={title}
         afterSlot={<ArrowDownIcon color="secondary" />}
         disabled={disabled}
-        onClick={handelDropdownClick}
+        onClick={handleDropdownClick}
         onChange={setFilter}
       />
 

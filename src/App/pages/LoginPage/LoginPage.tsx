@@ -1,10 +1,10 @@
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Input from 'components/Input';
 import Button from 'components/buttons/Button';
 import { IAuthRequest } from 'models/AuthMode';
 import { useAuthStore } from 'store/RootStore/hooks';
-import { validate } from 'utils/validate';
 import styles from './LoginPage.module.scss';
 
 export type LoginFormError = {
@@ -15,17 +15,15 @@ export type LoginFormError = {
 const LoginPage: React.FC = () => {
   const authStore = useAuthStore();
 
-  const [formData, setFormData] = React.useState<IAuthRequest>({email: '', password: ''});
-  const [errorData, setErrorData] = React.useState<LoginFormError>({email: '', password: ''});
-
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (validate(formData, setErrorData)) {
-      authStore.login(formData);
-      setFormData({email: '', password: ''});
-    }
-  };
+    authStore.login();
+  }, [authStore]);
+
+  const handleFieldChange = React.useCallback((value: Partial<IAuthRequest>) => {
+    authStore.setAuthRequest(value);
+  }, [authStore]);
 
   return (
     <div className={styles['login-page']}>
@@ -33,20 +31,17 @@ const LoginPage: React.FC = () => {
         <form className={styles['login-page__form']} action="#" method="post" onSubmit={handleFormSubmit}>
           <Input
             label={'Email'}
-            value={formData.email}
-            message={errorData.email}
-            onChange={(value) =>
-              setFormData((prevState) => ({...prevState, email: value}))
-            }
+            value={authStore.authRequest.email}
+            message={authStore.authRequestErrors.email}
+            onChange={(value) => handleFieldChange({ email: value })}
           />
 
           <Input
             label={'Password'}
             type="password"
-            value={formData.password}
-            message={errorData.password}
-            onChange={(value) =>
-              setFormData((prevState) => ({...prevState, password: value}))}
+            value={authStore.authRequest.password}
+            message={authStore.authRequestErrors.password}
+            onChange={(value) => handleFieldChange({ password: value })}
             autoComplete="off"
           />
 
@@ -61,4 +56,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default observer(LoginPage);

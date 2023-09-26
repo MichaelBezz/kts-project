@@ -17,19 +17,19 @@ const BuyNowButton: React.FC<BuyNowButtonProps> = ({ className, product }) => {
   const cartStore = useCartStore();
   const hasCart = cartStore.hasItem(product.id);
 
-  const handelButtonClick = (product: ProductModel) => {
+  const handleButtonClick = React.useCallback((product: ProductModel) => {
     if (!hasCart) {
       cartStore.plus(product);
     }
 
     navigate(AppRoute.cart);
-  };
+  }, [cartStore, hasCart, navigate]);
 
   return (
     <Button
       className={className}
       buttonStyle="primary"
-      onClick={() => handelButtonClick(product)}
+      onClick={() => handleButtonClick(product)}
     >
       Buy Now
     </Button>

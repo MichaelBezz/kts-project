@@ -47,7 +47,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
   }
 
   async getCategories(): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 

@@ -34,7 +34,7 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
     return option === null ? 'Filter' : option.value;
   }, []);
 
-  const handelDropdownChange = React.useCallback((option: Option | null) => {
+  const handleDropdownChange = React.useCallback((option: Option | null) => {
     if (option) {
       searchParams.set('category', option.key);
       searchParams.set('page', '1');
@@ -50,7 +50,7 @@ const Filter: React.FC<FilterProps> = ({ className }) => {
       <Dropdown
         options={options}
         valueId={String(categoryParam) ?? null}
-        onChange={handelDropdownChange}
+        onChange={handleDropdownChange}
         getTitle={getTitle}
         disabled={productsStore.isLoading || categoriesStore.isLoading}
       />

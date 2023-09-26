@@ -18,7 +18,7 @@ export type CardListProps = {
 const CardList: React.FC<CardListProps> = ({ className, products, productLimit, isLoading }) => {
   const navigate = useNavigate();
 
-  const handelCardClick = (
+  const handleCardClick = React.useCallback((
     event: React.MouseEvent<Element>,
     id: string
   ) => {
@@ -28,7 +28,7 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
     if (!target.closest('button')) {
       navigate(generatePath(AppRoute.product, {id}));
     }
-  };
+  }, [navigate]);
 
   return (
     <div className={cn(styles['card-list'], className)}>
@@ -44,7 +44,7 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
                 title={product.title}
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
-                onClick={(event) => handelCardClick(event, String(product.id))}
+                onClick={(event) => handleCardClick(event, String(product.id))}
                 actionSlot={(<AddToCartButton product={product} />)}
               />
             </li>

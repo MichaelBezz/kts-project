@@ -14,15 +14,15 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ className, product, s
   const cartStore = useCartStore();
   const hasCart = cartStore.hasItem(product.id);
 
-  const handelButtonClick = (product: ProductModel) => {
+  const handleButtonClick = React.useCallback((product: ProductModel) => {
     cartStore[hasCart ? 'delete' : 'plus'](product);
-  };
+  }, [cartStore, hasCart]);
 
   return (
     <Button
       className={className}
       buttonStyle={hasCart || singleStyle ? 'secondary' : 'primary'}
-      onClick={() => handelButtonClick(product)}
+      onClick={() => handleButtonClick(product)}
     >
       {hasCart
         ? `Remove (${cartStore.getItemCount(product.id)})`

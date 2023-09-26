@@ -25,11 +25,11 @@ const Search: React.FC<SearchProps> = ({ className }) => {
     setValue(searchParam ? String(searchParam) : '');
   }, [searchParam]);
 
-  const handelInputChange = React.useCallback((value: string) => {
+  const handleInputChange = React.useCallback((value: string) => {
     setValue(value);
   }, []);
 
-  const handelFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (value) {
@@ -47,12 +47,12 @@ const Search: React.FC<SearchProps> = ({ className }) => {
       className={cn(styles['search'], className)}
       action="#"
       method="post"
-      onSubmit={handelFormSubmit}
+      onSubmit={handleFormSubmit}
     >
       <Input
         className={styles['search__input']}
         value={value}
-        onChange={handelInputChange}
+        onChange={handleInputChange}
         placeholder="Search product"
         disabled={productsStore.isLoading}
       />

@@ -119,7 +119,7 @@ export default class CartStore implements ICartStore {
   }
 
   async loadData(): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 
