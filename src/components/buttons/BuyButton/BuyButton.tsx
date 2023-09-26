@@ -1,35 +1,39 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'components/buttons/Button';
+import { AppRoute } from 'config/app-route';
 import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 
-export type AddToCartButtonProps = {
+export type BuyButtonProps = {
   className?: string;
   product: ProductModel;
-  singleStyle?: boolean;
 };
 
-const AddToCartButton: React.FC<AddToCartButtonProps> = ({ className, product, singleStyle = false }) => {
+const BuyButton: React.FC<BuyButtonProps> = ({ className, product }) => {
+  const navigate = useNavigate();
+
   const cartStore = useCartStore();
   const hasCart = cartStore.hasItem(product.id);
 
   const handleButtonClick = React.useCallback((product: ProductModel) => {
-    cartStore[hasCart ? 'delete' : 'plus'](product);
-  }, [cartStore, hasCart]);
+    if (!hasCart) {
+      cartStore.plus(product);
+    }
+
+    navigate(AppRoute.cart);
+  }, [cartStore, hasCart, navigate]);
 
   return (
     <Button
       className={className}
-      buttonStyle={hasCart || singleStyle ? 'secondary' : 'primary'}
+      buttonStyle="primary"
       onClick={() => handleButtonClick(product)}
     >
-      {hasCart
-        ? `Remove (${cartStore.getItemCount(product.id)})`
-        : 'Add to Cart'
-      }
+      Buy Now
     </Button>
   );
 };
 
-export default observer(AddToCartButton);
+export default observer(BuyButton);

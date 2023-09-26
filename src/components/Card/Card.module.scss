@@ -63,13 +63,12 @@
     margin-top: auto;
 
     @include vp-1279 {
-      grid-template-columns: 1fr auto;
-      column-gap: $space-s;
+      grid-template-columns: 1fr minmax(100px, 1fr);
+      gap: $space-s;
     }
 
     @include vp-767 {
       grid-template-columns: 1fr;
-      gap: $space-s;
     }
 
     &--without-slot {

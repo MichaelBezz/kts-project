@@ -2,7 +2,7 @@ import cn from 'classnames';
 import * as React from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import Card from 'components/Card';
-import AddToCartButton from 'components/buttons/AddToCartButton';
+import AddButton from 'components/buttons/AddButton';
 import CardLoader from 'components/loaders/CardLoader';
 import { AppRoute } from 'config/app-route';
 import ProductModel from 'models/ProductModel';
@@ -45,7 +45,7 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
                 onClick={(event) => handleCardClick(event, String(product.id))}
-                actionSlot={(<AddToCartButton product={product} />)}
+                actionSlot={(<AddButton product={product} />)}
               />
             </li>
           ))}

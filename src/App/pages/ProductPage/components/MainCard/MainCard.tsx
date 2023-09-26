@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import * as React from 'react';
 import Text from 'components/Text';
-import AddToCartButton from 'components/buttons/AddToCartButton';
-import BuyNowButton from 'components/buttons/BuyNowButton';
+import AddButton from 'components/buttons/AddButton';
+import BuyButton from 'components/buttons/BuyButton';
 import ProductModel from 'models/ProductModel';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
@@ -33,7 +33,7 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
         </Text>
 
         <div className={styles['main-card__controls']}>
-          <BuyNowButton
+          <BuyButton
             className={cn(
               styles['main-card__button'],
               styles['main-card__button--buy']
@@ -41,13 +41,13 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
             product={product}
           />
 
-          <AddToCartButton
+          <AddButton
             className={cn(
               styles['main-card__button'],
               styles['main-card__button--add']
             )}
             product={product}
-            singleStyle={true}
+            style="secondary"
           />
         </div>
       </div>
