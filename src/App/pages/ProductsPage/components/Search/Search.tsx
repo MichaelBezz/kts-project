@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Input from 'components/Input';
 import Button from 'components/buttons/Button';
+import CrossButton from 'components/buttons/CrossButton';
 import { useQueryParamsStore } from 'store/RootStore/hooks';
 import { useProductsStore } from 'store/hooks';
 import styles from './Search.module.scss';
@@ -42,6 +43,27 @@ const Search: React.FC<SearchProps> = ({ className }) => {
     setSearchParams(searchParams);
   }, [value, searchParams, setSearchParams]);
 
+  const handleCrossButtonClick = React.useCallback(() => {
+    const param = searchParams.get('search');
+    setValue('');
+
+    if (param !== null) {
+      searchParams.delete('search');
+      setSearchParams(searchParams);
+    }
+  }, [searchParams, setSearchParams]);
+
+  const slot = React.useMemo(() => {
+    if (value) {
+      return (
+        <CrossButton
+          onClick={handleCrossButtonClick}
+          disabled={productsStore.isLoading}
+        />
+      );
+    }
+  }, [value, handleCrossButtonClick, productsStore.isLoading]);
+
   return (
     <form
       className={cn(styles['search'], className)}
@@ -54,6 +76,7 @@ const Search: React.FC<SearchProps> = ({ className }) => {
         value={value}
         onChange={handleInputChange}
         placeholder="Search product"
+        afterSlot={slot}
         disabled={productsStore.isLoading}
       />
 
