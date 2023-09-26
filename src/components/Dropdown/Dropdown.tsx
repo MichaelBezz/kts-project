@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import * as React from 'react';
 import Input from 'components/Input';
+import CrossButton from 'components/buttons/CrossButton';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import styles from './Dropdown.module.scss';
 
@@ -108,6 +109,11 @@ const Dropdown: React.FC<DropdownProps> = ({
     onChange(option);
   }, [onChange, selectedOption?.key]);
 
+  const handleCrossButtonClick = React.useCallback(() => {
+    setSelectedOption(null);
+    onChange(null);
+  }, [onChange]);
+
   const title = React.useMemo(() => getTitle(selectedOption), [getTitle, selectedOption]);
 
   const inputValue = React.useMemo(() => {
@@ -126,12 +132,33 @@ const Dropdown: React.FC<DropdownProps> = ({
     return '';
   }, [isOpened, isTyping, selectedOption, title, filter]);
 
+  const slot = React.useMemo(() => {
+    if (selectedOption) {
+      return (
+        <CrossButton
+          onClick={handleCrossButtonClick}
+          disabled={disabled}
+        />
+      );
+    }
+
+    return (
+      <ArrowDownIcon
+        className={cn(
+          styles['dropdown__icon'],
+          {[styles['dropdown__icon--active']]: isOpened}
+        )}
+        color="secondary"
+      />
+    );
+  }, [selectedOption, isOpened, handleCrossButtonClick, disabled]);
+
   return (
     <div className={cn(styles['dropdown'], className)} ref={dropdownRef}>
       <Input
         value={inputValue}
         placeholder={title}
-        afterSlot={<ArrowDownIcon color="secondary" />}
+        afterSlot={slot}
         disabled={disabled}
         onClick={handleDropdownClick}
         onChange={setFilter}
