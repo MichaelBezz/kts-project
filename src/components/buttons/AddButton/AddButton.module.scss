@@ -8,9 +8,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: $space-m
+  }
+
+  &__count {
+    flex: 1 0 auto;
+    text-align: center;
   }
 
   &__button {
+    flex: 1 1 auto;
     display: inline-flex;
     justify-content: center;
     align-items: center;

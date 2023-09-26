@@ -39,7 +39,7 @@ const AddButton: React.FC<AddButtonProps> = ({ className, product, style = 'prim
             <MinusIcon width={20} height={20} />
           </button>
 
-          <Text tag="p" view="p-18" weight="bold">
+          <Text className={styles['add-button__count']} tag="p" view="p-18" weight="bold">
             {cartStore.getItemCount(product.id)}
           </Text>
 
