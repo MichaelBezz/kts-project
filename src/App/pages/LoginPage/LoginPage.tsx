@@ -1,17 +1,21 @@
 import cn from 'classnames';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as React from 'react';
+import * as Yup from 'yup';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
 import { IAuthRequest } from 'models/AuthMode';
 import { useAuthStore } from 'store/RootStore/hooks';
-import { validate } from 'utils/validate';
 import styles from './LoginPage.module.scss';
 
-export type LoginFormError = {
-  email: string;
-  password: string;
-};
+const SignupSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Enter the correct email, for example: john@mail.com')
+    .required('Required'),
+  password: Yup.string()
+    .min(3, 'The password must contain more than three symbols, for example: changeme')
+    .required('Required'),
+});
 
 const LoginPage: React.FC = () => {
   const authStore = useAuthStore();
@@ -26,7 +30,7 @@ const LoginPage: React.FC = () => {
       <div className={cn(styles['login-page__wrapper'], 'container')}>
         <Formik
           initialValues={{ email: '', password: '' }}
-          validate={validate}
+          validationSchema={SignupSchema}
           onSubmit={(values) => {
             handleFormSubmit(values);
           }}
