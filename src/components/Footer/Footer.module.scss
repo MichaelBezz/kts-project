@@ -1,0 +1,22 @@
+@import 'styles/mixins';
+
+.footer {
+  position: relative;
+  padding: $space-xl 0;
+  background-color: $color-footer-bg;
+  border-top: 2px solid $color-footer-border;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    flex: 0 0 132px;
+
+    @include vp-767 {
+      flex-basis: 96px;
+    }
+  }
+}

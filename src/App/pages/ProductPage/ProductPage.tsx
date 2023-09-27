@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import GoBackButton from 'components/GoBackButton';
-import MainCardLoader from 'components/MainCardLoader';
 import Message from 'components/Message';
+import GoBackButton from 'components/buttons/GoBackButton';
+import MainCardLoader from 'components/loaders/MainCardLoader';
 import ProductStore from 'store/ProductStore';
-import { useLocalStore } from 'store/hooks/useLocalStore';
+import { useLocalStore } from 'store/hooks';
 import MainCard from './components/MainCard';
 import RelatedCards from './components/RelatedCards';
 import styles from './ProductPage.module.scss';

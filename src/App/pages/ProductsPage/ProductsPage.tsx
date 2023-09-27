@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Text from 'components/Text';
-import { ProductsStoreContext } from 'context/ProductsStoreContext';
 import ProductsStore from 'store/ProductsStore';
-import { useLocalStore } from 'store/hooks';
+import { ProductsStoreContext, useLocalStore } from 'store/hooks';
 import Catalog from './components/Catalog';
 import Filter from './components/Filter';
 import Search from './components/Search';

@@ -1,12 +1,11 @@
 import cn from 'classnames';
 import * as React from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
-import Button from 'components/Button';
 import Card from 'components/Card';
-import CardLoader from 'components/CardLoader';
+import AddButton from 'components/buttons/AddButton';
+import CardLoader from 'components/loaders/CardLoader';
 import { AppRoute } from 'config/app-route';
-import ProductModel from 'entities/ProductModel';
-import { useCartStore } from 'store/RootStore/hooks';
+import ProductModel from 'models/ProductModel';
 import styles from './CardList.module.scss';
 
 export type CardListProps = {
@@ -17,11 +16,9 @@ export type CardListProps = {
 };
 
 const CardList: React.FC<CardListProps> = ({ className, products, productLimit, isLoading }) => {
-  const cartStore = useCartStore();
-
   const navigate = useNavigate();
 
-  const handelCardClick = (
+  const handleCardClick = React.useCallback((
     event: React.MouseEvent<Element>,
     id: string
   ) => {
@@ -31,7 +28,7 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
     if (!target.closest('button')) {
       navigate(generatePath(AppRoute.product, {id}));
     }
-  };
+  }, [navigate]);
 
   return (
     <div className={cn(styles['card-list'], className)}>
@@ -47,15 +44,8 @@ const CardList: React.FC<CardListProps> = ({ className, products, productLimit, 
                 title={product.title}
                 subtitle={product.description}
                 contentSlot={`$${product.price}`}
-                onClick={(event) => handelCardClick(event, String(product.id))}
-                actionSlot={(
-                  <Button
-                    buttonStyle="primary"
-                    onClick={() => cartStore.plus(product)}
-                  >
-                    Add to Cart
-                  </Button>
-                )}
+                onClick={(event) => handleCardClick(event, String(product.id))}
+                actionSlot={(<AddButton product={product} />)}
               />
             </li>
           ))}

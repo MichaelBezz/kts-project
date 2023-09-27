@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import CategoryModel, { CategoryServer, ICategory } from 'entities/CategoryModel';
-import ListModel from 'entities/ListModel';
+import CategoryModel, { CategoryServer, ICategory } from 'models/CategoryModel';
+import ListModel from 'models/ListModel';
 import { api } from 'services/api';
 import { ILocalStore } from 'store/hooks';
 import { Meta } from 'utils/meta';
@@ -47,7 +47,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
   }
 
   async getCategories(): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 

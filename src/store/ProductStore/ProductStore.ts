@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import ProductModel, { ProductServer } from 'entities/ProductModel';
+import ProductModel, { ProductServer } from 'models/ProductModel';
 import { api } from 'services/api';
 import { ILocalStore } from 'store/hooks';
 import { Meta } from 'utils/meta';
@@ -56,7 +56,7 @@ export default class ProductStore implements IProductStore, ILocalStore {
   }
 
   async getProduct(id: string): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 

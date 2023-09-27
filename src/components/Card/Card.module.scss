@@ -5,11 +5,14 @@
   flex-direction: column;
   height: 100%;
   background-color: $color-card-bg;
-  transition: box-shadow $transition-default;
+  transition:
+    box-shadow $transition-default,
+    transform $transition-default;
   cursor: pointer;
 
   @include hover-focus {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    transform: scale(1.02);
   }
 
   &__image {
@@ -60,13 +63,12 @@
     margin-top: auto;
 
     @include vp-1279 {
-      grid-template-columns: 1fr auto;
-      column-gap: $space-s;
+      grid-template-columns: 1fr minmax(100px, 1fr);
+      gap: $space-s;
     }
 
     @include vp-767 {
       grid-template-columns: 1fr;
-      gap: $space-s;
     }
 
     &--without-slot {

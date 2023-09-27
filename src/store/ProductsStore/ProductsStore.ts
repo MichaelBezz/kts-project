@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction, reaction, IReactionDisposer } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import ListModel from 'entities/ListModel';
-import ProductModel, { ProductServer } from 'entities/ProductModel';
+import ListModel from 'models/ListModel';
+import ProductModel, { ProductServer } from 'models/ProductModel';
 import { api } from 'services/api';
 import rootStore from 'store/RootStore';
 import { QueryParam } from 'store/RootStore/QueryParamsStore';
@@ -140,7 +140,7 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   }
 
   async getProducts(recalculateCount = false): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 
@@ -171,39 +171,45 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
   }
 
   destroy(): void {
+    this._queryParamsReaction();
     this._queryPageReaction();
     this._querySearchReaction();
-    this._queryCategoryReaction();
+    this._queryFilterReaction();
   }
 
-  private readonly _queryPageReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam('page'),
-    (page) => {
-      if (page) {
-        this.setPageParam(page);
-        this.getProducts();
-      } else {
-        this.setPageParam('1');
-        this.getProducts();
+  private readonly _queryParamsReaction: IReactionDisposer = reaction(
+    () => ({
+      pageParam: rootStore.query.pageParam,
+      searchParam: rootStore.query.searchParam,
+      filterParam: rootStore.query.filterParam
+    }),
+    (params: Record<string, QueryParam>) => {
+      this.setPageParam(params.pageParam || '1');
+      this.setSearchParam(params.searchParam || '');
+      this.setFilterParam(params.filterParam || '');
+
+      const isParamsEmpty = Object.values(params)
+        .every((param) => param === undefined);
+
+      if (isParamsEmpty) {
+        this.getProducts(true)
       }
+
     }
+  );
+
+  private readonly _queryPageReaction: IReactionDisposer = reaction(
+    () => rootStore.query.pageParam,
+    (param) => {param && this.getProducts()}
   );
 
   private readonly _querySearchReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam('search'),
-    (search) => {
-      this.setSearchParam(search);
-      this.setPageParam('1');
-      this.getProducts(true);
-    }
+    () => rootStore.query.searchParam,
+    () => {this.getProducts(true)}
   );
 
-  private readonly _queryCategoryReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParam('category'),
-    (category) => {
-      this.setFilterParam(category);
-      this.setPageParam('1');
-      this.getProducts(true);
-    }
+  private readonly _queryFilterReaction: IReactionDisposer = reaction(
+    () => rootStore.query.filterParam,
+    () => {this.getProducts(true)}
   );
 }

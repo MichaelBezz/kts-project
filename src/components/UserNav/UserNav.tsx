@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import CartButton from 'components/CartButton';
+import CartButton from 'components/buttons/CartButton';
 import MenuIcon from 'components/icons/MenuIcon';
 import UserIcon from 'components/icons/UserIcon';
+import { AppRoute } from 'config/app-route';
 import styles from './UserNav.module.scss';
 
 export type UserNavProps = {
@@ -19,7 +20,7 @@ const UserNav: React.FC<UserNavProps> = ({ className, onClick }) => {
           <CartButton />
         </li>
         <li className={styles['user-nav__item']}>
-          <Link className={styles['user-nav__link']} to="#account" aria-label="Account">
+          <Link className={styles['user-nav__link']} to={AppRoute.login} aria-label="Account">
             <UserIcon className={styles['user-nav__icon']} width={30} height={30} />
           </Link>
         </li>

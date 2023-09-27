@@ -1,0 +1,48 @@
+@import 'styles/mixins';
+
+.add-button {
+  display: inline-flex;
+  flex-direction: column;
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $space-m
+  }
+
+  &__count {
+    flex: 1 0 auto;
+    text-align: center;
+  }
+
+  &__button {
+    flex: 1 1 auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 52px;
+    padding: 0;
+    color: $color-cart-button-text;
+    background-color: $color-cart-button-bg;
+    border: $border-none;
+    transition: background-color $transition-default;
+    user-select: none;
+    cursor: pointer;
+
+    @include hover {
+      background-color: $color-cart-button-hover;
+    }
+
+    @include active {
+      background-color: $color-cart-button-active;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}

@@ -7,7 +7,7 @@ import DeleteIcon from 'components/icons/DeleteIcon';
 import MinusIcon from 'components/icons/MinusIcon';
 import PlusIcon from 'components/icons/PlusIcon';
 import { AppRoute } from 'config/app-route';
-import ProductModel from 'entities/ProductModel';
+import ProductModel from 'models/ProductModel';
 import { useCartStore } from 'store/RootStore/hooks';
 import styles from './CartItem.module.scss';
 
@@ -23,7 +23,7 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
 
   const navigate = useNavigate();
 
-  const handelItemClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
+  const handleItemClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
     const isControlButtons = controlButtonsRef.current?.contains(event.target as HTMLElement);
 
     if (!isControlButtons) {
@@ -32,7 +32,7 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
   }, [navigate, product.id]);
 
   return (
-    <div className={cn(styles['cart-item'], className)} onClick={handelItemClick}>
+    <div className={cn(styles['cart-item'], className)} onClick={handleItemClick}>
       <div className={styles['cart-item__card']}>
         <div className={styles['cart-item__image']}>
           <img src={product.images[0]} width='120' height='120' alt='Product main image' />
@@ -73,7 +73,7 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
         </div>
 
         <Text className={styles['cart-item__price']} tag="p" view="p-20" weight="bold">
-          {`$${product.price * cartStore.getItemCount(product.id)}`}
+          ${product.price * cartStore.getItemCount(product.id)}
         </Text>
 
         <button

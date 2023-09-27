@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import * as React from 'react';
 import Input from 'components/Input';
+import CrossButton from 'components/buttons/CrossButton';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import styles from './Dropdown.module.scss';
 
@@ -48,7 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   [options, filter]);
 
   const optionParam = React.useMemo(() => {
-    return options.find(({ key }) => key === valueId) ?? null;
+    return options.find(({ key }) => key === valueId) || null;
   }, [options, valueId]);
 
   React.useEffect(() => {
@@ -73,7 +74,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       }
     };
 
-    const handelDocumentKeydown = (event: KeyboardEvent) => {
+    const handleDocumentKeydown = (event: KeyboardEvent) => {
       if (event.key === ('Escape' || 'Esc')) {
         setIsOpened(false);
         setIsTyping(false);
@@ -82,20 +83,20 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handelDocumentKeydown);
+    document.addEventListener('keydown', handleDocumentKeydown);
 
     return () => {
       document.removeEventListener('click', handleDocumentClick);
-      document.removeEventListener('keydown', handelDocumentKeydown);
+      document.removeEventListener('keydown', handleDocumentKeydown);
     };
   }, []);
 
-  const handelDropdownClick = () => {
+  const handleDropdownClick = React.useCallback(() => {
     setIsOpened(true);
     setIsTyping(true);
-  };
+  }, []);
 
-  const handleOptionChange = (option: Option) => {
+  const handleOptionChange = React.useCallback((option: Option) => {
     setIsTyping(false);
 
     if (selectedOption?.key === option.key) {
@@ -106,7 +107,12 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     setSelectedOption(option);
     onChange(option);
-  };
+  }, [onChange, selectedOption?.key]);
+
+  const handleCrossButtonClick = React.useCallback(() => {
+    setSelectedOption(null);
+    onChange(null);
+  }, [onChange]);
 
   const title = React.useMemo(() => getTitle(selectedOption), [getTitle, selectedOption]);
 
@@ -126,14 +132,35 @@ const Dropdown: React.FC<DropdownProps> = ({
     return '';
   }, [isOpened, isTyping, selectedOption, title, filter]);
 
+  const slot = React.useMemo(() => {
+    if (selectedOption) {
+      return (
+        <CrossButton
+          onClick={handleCrossButtonClick}
+          disabled={disabled}
+        />
+      );
+    }
+
+    return (
+      <ArrowDownIcon
+        className={cn(
+          styles['dropdown__icon'],
+          {[styles['dropdown__icon--active']]: isOpened}
+        )}
+        color="secondary"
+      />
+    );
+  }, [selectedOption, isOpened, handleCrossButtonClick, disabled]);
+
   return (
     <div className={cn(styles['dropdown'], className)} ref={dropdownRef}>
       <Input
         value={inputValue}
         placeholder={title}
-        afterSlot={<ArrowDownIcon color="secondary" />}
+        afterSlot={slot}
         disabled={disabled}
-        onClick={handelDropdownClick}
+        onClick={handleDropdownClick}
         onChange={setFilter}
       />
 

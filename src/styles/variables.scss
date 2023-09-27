@@ -15,6 +15,7 @@ $color-spun-pearl:                     #afadb5;
 $color-ziggurat:                       #86aaa7;
 $color-breaker-bay:                    #518581;
 $color-dark-green-copper:              #487773;
+$color-cinnabar:                       #db3b3b;
 
 // Project palette
 
@@ -23,9 +24,13 @@ $color-header-border:                  $color-white-smoke;
 
 $color-page-bg:                        $color-snow;
 
+$color-footer-bg:                      $color-white;
+$color-footer-border:                  $color-white-smoke;
+
 $color-text-primary:                   $color-black;
 $color-text-secondary:                 $color-spun-pearl;
 $color-text-accent:                    $color-breaker-bay;
+$color-text-error:                     $color-cinnabar;
 
 $color-icon-default:                   $color-maire;
 $color-icon-primary:                   $color-black;

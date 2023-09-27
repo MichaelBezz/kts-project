@@ -3,11 +3,11 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import CardList from 'components/CardList';
-import Loader from 'components/Loader';
 import Message from 'components/Message';
 import Pagination from 'components/Pagination';
 import Text from 'components/Text';
-import { useProductsStore } from 'context/ProductsStoreContext';
+import Loader from 'components/loaders/Loader';
+import { useProductsStore } from 'store/hooks';
 import styles from './Catalog.module.scss';
 
 export type CatalogProps = {
@@ -23,7 +23,9 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
     productsStore.getProducts();
   }, [productsStore]);
 
-  const handelPaginationChange = React.useCallback((page: number) => {
+  const handlePaginationChange = React.useCallback((page: number) => {
+    window.scrollTo(0, 0);
+
     searchParams.set('page', `${page}`);
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
@@ -37,7 +39,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
           <Loader size="s" />
         ) : (
           <Text tag="p" view="p-20" weight="bold" color="accent">
-            {productsStore.productCount}
+            {productsStore.productCount && productsStore.productCount}
           </Text>
         )}
       </div>
@@ -62,7 +64,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
         currentPage={Number(productsStore.pageParam)}
         totalCount={Number(productsStore.productCount)}
         pageSize={productsStore.productLimit}
-        onPageChange={handelPaginationChange}
+        onPageChange={handlePaginationChange}
       />
     </div>
   );

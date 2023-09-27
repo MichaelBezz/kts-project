@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     setIsOpen(false);
   }, [location]);
 
-  const handelBurgerClick = React.useCallback(() => {
+  const handleBurgerClick = React.useCallback(() => {
     setIsOpen((prevState) => !prevState);
   }, []);
 
@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
         <UserNav
           className={styles['header__user-nav']}
-          onClick={handelBurgerClick}
+          onClick={handleBurgerClick}
         />
       </div>
     </header>

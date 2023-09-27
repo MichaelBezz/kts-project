@@ -1,11 +1,9 @@
 import cn from 'classnames';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from 'components/Button';
 import Text from 'components/Text';
-import { AppRoute } from 'config/app-route';
-import ProductModel from 'entities/ProductModel';
-import { useCartStore } from 'store/RootStore/hooks';
+import AddButton from 'components/buttons/AddButton';
+import BuyButton from 'components/buttons/BuyButton';
+import ProductModel from 'models/ProductModel';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
@@ -15,10 +13,6 @@ export type MainCardProps = {
 };
 
 const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
-  const cartStore = useCartStore();
-
-  const navigate = useNavigate();
-
   return (
     <div className={cn(styles['main-card'], className)}>
       <div className={styles['main-card__slider']}>
@@ -35,31 +29,26 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
         </Text>
 
         <Text className={styles['main-card__price']} tag="p" view="title">
-          {`$${product.price}`}
+          ${product.price}
         </Text>
 
         <div className={styles['main-card__controls']}>
-          <Button
+          <BuyButton
             className={cn(
               styles['main-card__button'],
               styles['main-card__button--buy']
             )}
-            buttonStyle="primary"
-            onClick={() => navigate(AppRoute.cart)}
-          >
-            Buy Now
-          </Button>
+            product={product}
+          />
 
-          <Button
+          <AddButton
             className={cn(
               styles['main-card__button'],
               styles['main-card__button--add']
             )}
-            buttonStyle="secondary"
-            onClick={() => cartStore.plus(product)}
-          >
-            Add to Cart
-          </Button>
+            product={product}
+            style="secondary"
+          />
         </div>
       </div>
     </div>

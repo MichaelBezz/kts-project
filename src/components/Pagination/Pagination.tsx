@@ -2,7 +2,7 @@ import cn from 'classnames';
 import * as React from 'react';
 import Text from 'components/Text';
 import ArrowDefaultIcon from 'components/icons/ArrowDefaultIcon';
-import { usePagination, DOTS } from './hooks/usePagination';
+import { usePagination, DOTS } from './usePagination';
 import styles from './Pagination.module.scss';
 
 export type PaginationProps = {
@@ -19,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalCount,
   pageSize,
-  siblingCount = 0,
+  siblingCount = 1,
   onPageChange
 }) => {
   const paginationRange = usePagination({

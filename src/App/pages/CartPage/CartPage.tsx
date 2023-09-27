@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
-import GoBackButton from 'components/GoBackButton';
 import Text from 'components/Text';
 import { useCartStore } from 'store/RootStore/hooks';
 import CartList from './components/CartList';
@@ -13,19 +12,21 @@ const CartPage: React.FC = () => {
   return (
     <div className={styles['cart-page']}>
       <div className={cn(styles['cart-page__wrapper'], 'container')}>
-        <GoBackButton className={styles['cart-page__go-back']} />
-
         <div className={styles['cart-page__header']}>
           <Text tag="h1" view="title" color="primary">
             Cart
           </Text>
 
           <Text tag="p" view="p-20" weight="bold">
-            {`Your bag contains ${cartStore.count} ${cartStore.count > 1 ? 'products' : 'product'}`}
+            {`Your cart contains ${cartStore.count} ${cartStore.count > 1 ? 'products' : 'product'}:`}
           </Text>
         </div>
 
         <CartList className={styles['cart-page__list']} />
+
+        <Text className={styles['cart-page__total']} tag="p" view="p-32" weight="bold">
+          Total: ${cartStore.totalPrice}
+        </Text>
       </div>
     </div>
   );

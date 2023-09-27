@@ -1,14 +1,15 @@
 import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import ListModel from 'entities/ListModel';
-import ProductModel, { ProductServer } from 'entities/ProductModel';
+import ListModel from 'models/ListModel';
+import ProductModel, { ProductServer } from 'models/ProductModel';
 import { api } from 'services/api';
 import { Meta } from 'utils/meta';
 
 export const CART_STORE_TOKEN = 'cart-store-token';
 
 export interface ICartStore {
+  hasItem: (key: number) => boolean;
   getItemCount: (keyParam: number) => number;
   plus: (item: ProductModel) => void;
   minus: (item: ProductModel) => void;
@@ -53,12 +54,22 @@ export default class CartStore implements ICartStore {
     return this._cartList.length;
   }
 
+  get totalPrice(): number {
+    return this._cartList.items.reduce((acc, item) => {
+      return acc + (item.price * item.cart);
+    }, 0);
+  }
+
   get meta(): Meta {
     return this._meta;
   }
 
   get isLoading(): boolean {
     return this._meta === Meta.loading;
+  }
+
+  hasItem(key: number): boolean {
+    return this._cartList.hasKey(key);
   }
 
   getItemCount(key: number): number {
@@ -108,23 +119,30 @@ export default class CartStore implements ICartStore {
   }
 
   async loadData(): Promise<void> {
-    if (this._meta === Meta.loading) {
+    if (this.isLoading) {
       return;
     }
 
     this._meta = Meta.loading;
 
+    const localData = localStorage.getItem(CART_STORE_TOKEN);
+
+    if (!localData) {
+      this._meta = Meta.initial;
+      return;
+    }
+
     const { data } = await this._api<ProductServer[]>(APIRoute.products);
 
     if (data) {
       runInAction(() => {
-        const localData = JSON.parse(localStorage.getItem(CART_STORE_TOKEN) ?? '');
+        const parsedLocalData = JSON.parse(localData);
         this._productList = new ListModel<ProductModel>(ProductModel.normalizeProductList(data));
 
         this._productList.keys.forEach((key) => {
-          if (key in localData) {
+          if (key in parsedLocalData) {
             const entity = this._productList.getEntity(key);
-            entity.setCart(localData[key]);
+            entity.setCart(parsedLocalData[key]);
 
             this._cartList.addEntity({entity, key});
           }

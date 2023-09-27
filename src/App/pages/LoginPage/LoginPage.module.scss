@@ -1,0 +1,66 @@
+@import 'styles/mixins';
+
+.login-page {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-l;
+    width: clamp(280px, 326px, 100%);
+    margin-top: 10%;
+  }
+
+  &__field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xxs;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 52px;
+    padding: $space-s $space-xs;
+    font-family: $ff-roboto;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: $color-input-text;
+    background-color: $color-input-bg;
+    border: 1px solid $color-input-border;
+    transition:
+      color $transition-default,
+      background-color $transition-default,
+      border-color $transition-default,
+      box-shadow $transition-default;
+
+    &::placeholder {
+      color: $color-input-placeholder;
+    }
+
+    @include hover-focus {
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    &:focus-visible {
+      border-color: $color-input-border-focus;
+      outline: none;
+    }
+
+    &:disabled {
+      color: $color-input-text-disabled;
+      background-color: $color-input-bg;
+      border-color: $color-input-border;
+    }
+  }
+
+  &__in-button {
+    margin-top: $space-l;
+  }
+}
