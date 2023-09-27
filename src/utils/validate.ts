@@ -1,21 +1,26 @@
-import { LoginFormError } from 'App/pages/LoginPage/LoginPage';
 import { IAuthRequest } from 'models/AuthMode';
 
-export const validate = (
-  formField: IAuthRequest,
-  setError: (messages: LoginFormError) => void
-): boolean => {
-  const isEmailCorrect: boolean = (/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/).test(formField.email);
-  const isPasswordCorrect: boolean = (/[a-z0-9]{3,}/).test(formField.password);
+export const validate = (authRequest: IAuthRequest): IAuthRequest => {
+  const errors: IAuthRequest = {} as IAuthRequest;
 
-  if (!isEmailCorrect || !isPasswordCorrect) {
-    setError({
-      email: isEmailCorrect ? '' : 'Enter the correct email, for example: john@mail.com',
-      password: isPasswordCorrect ? '' : 'The password must contain more than three symbols, for example: changeme'
-    });
-    return false;
-  } else {
-    setError({email: '', password: ''});
-    return true;
+  const isEmailCorrect: boolean = (/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/).test(authRequest.email);
+  const isPasswordCorrect: boolean = (/[a-z0-9]{3,}/).test(authRequest.password);
+
+  if (!authRequest.email) {
+    errors.email = 'Email required';
   }
+
+  if (!isEmailCorrect) {
+    errors.email = 'Enter the correct email, for example: john@mail.com';
+  }
+
+  if (!authRequest.password) {
+    errors.password = 'Password required';
+  }
+
+  if (!isPasswordCorrect) {
+    errors.password = 'The password must contain more than three symbols, for example: changeme';
+  }
+
+  return errors;
 };

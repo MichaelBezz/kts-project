@@ -1,10 +1,11 @@
 import cn from 'classnames';
-import { observer } from 'mobx-react-lite';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as React from 'react';
-import Input from 'components/Input';
+import Text from 'components/Text';
 import Button from 'components/buttons/Button';
 import { IAuthRequest } from 'models/AuthMode';
 import { useAuthStore } from 'store/RootStore/hooks';
+import { validate } from 'utils/validate';
 import styles from './LoginPage.module.scss';
 
 export type LoginFormError = {
@@ -15,45 +16,75 @@ export type LoginFormError = {
 const LoginPage: React.FC = () => {
   const authStore = useAuthStore();
 
-  const handleFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    authStore.login();
-  }, [authStore]);
-
-  const handleFieldChange = React.useCallback((value: Partial<IAuthRequest>) => {
+  const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
     authStore.setAuthRequest(value);
   }, [authStore]);
 
   return (
     <div className={styles['login-page']}>
       <div className={cn(styles['login-page__wrapper'], 'container')}>
-        <form className={styles['login-page__form']} action="#" method="post" onSubmit={handleFormSubmit}>
-          <Input
-            label={'Email'}
-            value={authStore.authRequest.email}
-            message={authStore.authRequestErrors.email}
-            onChange={(value) => handleFieldChange({ email: value })}
-          />
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validate={validate}
+          onSubmit={(values) => {
+            handleFormSubmit(values);
+          }}
+        >
+          {({ isValid }) => (
+            <Form className={styles['login-page__form']} noValidate>
+              <div className={styles['login-page__field']}>
+                <label htmlFor="l-email">
+                  <Text tag="p" view="p-20">Email</Text>
+                </label>
 
-          <Input
-            label={'Password'}
-            type="password"
-            value={authStore.authRequest.password}
-            message={authStore.authRequestErrors.password}
-            onChange={(value) => handleFieldChange({ password: value })}
-            autoComplete="off"
-          />
+                <Field
+                  className={styles['login-page__input']}
+                  id="l-email"
+                  type="email"
+                  name="email"
+                />
 
-          <div className={styles['login-page__controls']}>
-            <Button buttonStyle="primary" type="submit">
-              Sing in
-            </Button>
-          </div>
-        </form>
+                <ErrorMessage name="email">
+                  {(msg) => (
+                    <Text tag="p" view="p-14" color="error">{msg}</Text>
+                  )}
+                </ErrorMessage>
+              </div>
+
+              <div className={styles['login-page__field']}>
+                <label htmlFor="l-password">
+                  <Text tag="p" view="p-20">Password</Text>
+                </label>
+
+                <Field
+                  className={styles['login-page__input']}
+                  id="l-password"
+                  type="password"
+                  name="password"
+                  autoComplete="off"
+                />
+
+                <ErrorMessage name="password">
+                  {(msg) => (
+                      <Text tag="p" view="p-14" color="error">{msg}</Text>
+                    )}
+                </ErrorMessage>
+              </div>
+
+              <Button
+                className={styles['login-page__in-button']}
+                buttonStyle="primary"
+                type="submit"
+                disabled={!isValid}
+              >
+                Sing in
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
 };
 
-export default observer(LoginPage);
+export default React.memo(LoginPage);
