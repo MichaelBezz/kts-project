@@ -11,6 +11,7 @@ export const CART_STORE_TOKEN = 'cart-store-token';
 export interface ICartStore {
   hasItem: (key: number) => boolean;
   getItemCount: (keyParam: number) => number;
+  setDiscount: (discount: number) => void;
   plus: (item: ProductModel) => void;
   minus: (item: ProductModel) => void;
   delete: (item: ProductModel) => void;
@@ -18,26 +19,34 @@ export interface ICartStore {
   loadData: () => Promise<void>;
 };
 
-type PrivateFields = '_cartList' | '_productList' | '_meta';
+type PrivateFields =
+  | '_cartList'
+  | '_productList'
+  | '_discount'
+  | '_meta';
 
 export default class CartStore implements ICartStore {
   private readonly _api: AxiosInstance = api;
 
   private _cartList: ListModel<ProductModel> = new ListModel();
   private _productList: ListModel<ProductModel> = new ListModel();
+  private _discount: number = 0;
   private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<CartStore, PrivateFields>(this, {
       _cartList: observable,
       _productList: observable,
+      _discount: observable,
       _meta: observable,
 
       items: computed,
       count: computed,
+      discount: computed,
       meta: computed,
       isLoading: computed,
 
+      setDiscount: action.bound,
       plus: action.bound,
       minus: action.bound,
       delete: action.bound,
@@ -55,9 +64,13 @@ export default class CartStore implements ICartStore {
   }
 
   get totalPrice(): number {
-    return this._cartList.items.reduce((acc, item) => {
-      return acc + (item.price * item.cart);
-    }, 0);
+    return this._cartList.items.reduce(
+      (acc, item) => acc + (item.price * item.cart), 0
+    );
+  }
+
+  get discount(): number {
+    return this._discount;
   }
 
   get meta(): Meta {
@@ -74,6 +87,10 @@ export default class CartStore implements ICartStore {
 
   getItemCount(key: number): number {
     return this._cartList.getEntity(key).cart;
+  }
+
+  setDiscount(discount: number): void {
+    this._discount = discount;
   }
 
   plus(item: ProductModel): void {

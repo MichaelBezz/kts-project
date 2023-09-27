@@ -4,6 +4,7 @@ import * as React from 'react';
 import Text from 'components/Text';
 import { useCartStore } from 'store/RootStore/hooks';
 import CartList from './components/CartList';
+import CartOrder from './components/CartOrder';
 import styles from './CartPage.module.scss';
 
 const CartPage: React.FC = () => {
@@ -22,11 +23,10 @@ const CartPage: React.FC = () => {
           </Text>
         </div>
 
-        <CartList className={styles['cart-page__list']} />
-
-        <Text className={styles['cart-page__total']} tag="p" view="p-32" weight="bold">
-          Total: ${cartStore.totalPrice}
-        </Text>
+        <div className={styles['cart-page__body']}>
+          <CartList className={styles['cart-page__list']} />
+          <CartOrder className={styles['cart-page__order']} />
+        </div>
       </div>
     </div>
   );

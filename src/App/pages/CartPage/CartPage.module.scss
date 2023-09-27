@@ -28,7 +28,17 @@
     }
   }
 
-  &__total {
-    justify-self: end;
+  &__body {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr minmax(200px, 260px);
+    align-items: start;
+    gap: $space-m;
+  }
+
+  &__order {
+    position: sticky;
+    top: $space-l;
+    right: 0;
   }
 }
