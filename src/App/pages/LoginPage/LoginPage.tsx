@@ -18,6 +18,7 @@ const LoginPage: React.FC = () => {
 
   const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
     authStore.setAuthRequest(value);
+    authStore.login();
   }, [authStore]);
 
   return (
