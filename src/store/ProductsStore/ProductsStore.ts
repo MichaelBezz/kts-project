@@ -187,6 +187,14 @@ export default class ProductsStore implements IProductsStore, ILocalStore {
       this.setPageParam(params.pageParam || '1');
       this.setSearchParam(params.searchParam || '');
       this.setFilterParam(params.filterParam || '');
+
+      const isParamsEmpty = Object.values(params)
+        .every((param) => param === undefined);
+
+      if (isParamsEmpty) {
+        this.getProducts(true)
+      }
+
     }
   );
 
