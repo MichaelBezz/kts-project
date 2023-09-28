@@ -25,7 +25,9 @@ const CartPage: React.FC = () => {
 
         <div className={styles['cart-page__body']}>
           <CartList className={styles['cart-page__list']} />
-          <CartOrder className={styles['cart-page__order']} />
+          {!!cartStore.count && (
+            <CartOrder className={styles['cart-page__order']} />
+          )}
         </div>
       </div>
     </div>

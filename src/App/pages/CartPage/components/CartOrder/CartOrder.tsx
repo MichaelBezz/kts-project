@@ -15,32 +15,30 @@ export type CartOrderProps = {
 const SignupSchema = Yup.object().shape({
   discount: Yup.string()
     .lowercase()
-    .matches(/^[1-9][0-9]-lalasia/, 'Enter symbols, for example: 20-lalasia')
+    .matches(/^[1-9][0-9]-lalasia/, 'Promo code not found')
 });
 
 const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
   const cartStore = useCartStore();
 
-  const handleFormSubmit = React.useCallback((value: string) => {
-    const discount = parseInt(value, 10);
-
-    if (!Number.isNaN(discount)) {
-      cartStore.setDiscount(discount);
-    } else {
-      cartStore.setDiscount(0);
-    }
+  const handleFormSubmit = React.useCallback((discount: string) => {
+    cartStore.setDiscount(discount);
   }, [cartStore]);
 
   return (
     <div className={cn(styles['cart-order'], className)}>
       <div className={styles['cart-order__block']}>
-        <div className={styles['cart-order__row']}>
+        <div className={styles['cart-order__title']}>
           <Text tag="h2" view="p-24" weight="bold">Order</Text>
         </div>
 
         <div className={styles['cart-order__row']}>
-          <Text tag="p" view="p-18" color="secondary">{`${cartStore.count > 1 ? 'Products' : 'Product'}:`}</Text>
-          <Text tag="p" view="p-18" color="secondary">{cartStore.count} items</Text>
+          <Text tag="p" view="p-18" color="secondary">
+            {`${cartStore.count > 1 ? 'Products' : 'Product'}:`}
+          </Text>
+          <Text tag="p" view="p-18" color="secondary">
+            {cartStore.count} {`${cartStore.count > 1 ? 'items' : 'item'}`}
+          </Text>
         </div>
 
         <div className={styles['cart-order__row']}>
@@ -52,12 +50,38 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
 
         <div className={styles['cart-order__row']}>
           <Text tag="p" view="p-18" color="secondary">Delivery:</Text>
-          <Text tag="p" view="p-18" color="accent">free</Text>
+          <Text tag="p" view="p-18" color={cartStore.delivery > 0 ? 'secondary' : 'accent'}>
+            {cartStore.delivery > 0 ? `$${cartStore.delivery}` : 'free'}
+          </Text>
         </div>
 
-        <div className={styles['cart-order__row']}>
-          <Text tag="p" view="p-20" weight="bold">Total:</Text>
-          <Text tag="p" view="p-20" weight="bold">${cartStore.totalPrice}</Text>
+        <div className={styles['cart-order__total']}>
+          <div className={styles['cart-order__row']}>
+            <Text tag="p" view="p-14">Subtotal:</Text>
+            <Text tag="p" view="p-14">${cartStore.totalPrice + cartStore.delivery}</Text>
+          </div>
+
+          <div className={styles['cart-order__row']}>
+            <Text tag="p" view="p-14" color={cartStore.discount > 0 ? 'error' : 'secondary'}>
+              Discount:
+            </Text>
+            <Text tag="p" view="p-14" color={cartStore.discount > 0 ? 'error' : 'secondary'}>
+              {cartStore.totalDiscountPrice === 0
+                ? `$${cartStore.totalDiscountPrice}`
+                : `$${cartStore.totalPrice - cartStore.totalDiscountPrice}`
+              }
+            </Text>
+          </div>
+
+          <div className={styles['cart-order__row']}>
+            <Text tag="p" view="p-20" weight="bold">Total:</Text>
+            <Text tag="p" view="p-20" weight="bold">
+              {cartStore.totalDiscountPrice === 0
+                ? `$${cartStore.totalPrice + cartStore.delivery}`
+                : `$${cartStore.totalDiscountPrice + cartStore.delivery}`
+              }
+            </Text>
+          </div>
         </div>
       </div>
 
@@ -68,8 +92,7 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
           initialValues={{ discount: '' }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
-            const { discount } = values;
-            handleFormSubmit(discount);
+            handleFormSubmit(values.discount);
           }}
         >
           {({ isValid }) => (
@@ -84,7 +107,7 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
                   id="c-discount"
                   type="text"
                   name="discount"
-                  placeholder="20-lalasia"
+                  placeholder="promo-code"
                 />
 
                 <ErrorMessage name="discount">

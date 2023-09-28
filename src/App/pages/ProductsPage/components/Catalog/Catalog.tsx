@@ -39,7 +39,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
           <Loader size="s" />
         ) : (
           <Text tag="p" view="p-20" weight="bold" color="accent">
-            {productsStore.productCount && productsStore.productCount}
+            {!!productsStore.productCount && productsStore.productCount}
           </Text>
         )}
       </div>

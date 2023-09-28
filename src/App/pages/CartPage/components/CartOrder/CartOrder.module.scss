@@ -1,9 +1,17 @@
 @import 'styles/mixins';
 
 .cart-order {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: $space-m;
+
+  @include vp-1279 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include vp-767 {
+    grid-template-columns: 1fr;
+  }
 
   &__block {
     display: grid;
@@ -15,14 +23,17 @@
   &__row {
     display: flex;
     justify-content: space-between;
+  }
 
-    &:first-child {
-      margin-bottom: $space-s;
-    }
+  &__title {
+    margin-bottom: $space-s;
+  }
 
-    &:last-child {
-      margin-top: $space-s;
-    }
+  &__total {
+    display: flex;
+    flex-direction: column;
+    margin-top: $space-s;
+    border-top: 1px solid $color-card-border;
   }
 
   &__form {
