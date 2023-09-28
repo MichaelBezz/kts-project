@@ -1,9 +1,9 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
-import { AuthDataServer, IAuthRequest, normalizeAuthData } from 'models/AuthMode';
+import { AuthResponseServer, IAuthRequest, normalizeAuthResponse } from 'models/AuthMode';
 import UserModel, { UserServer } from 'models/UserModel';
-import { AUTH_TOKEN, api } from 'services/api';
+import { ACCESS_TOKEN, api } from 'services/api';
 import { AuthorizationStatus } from 'utils/auth';
 import { Meta } from 'utils/meta';
 
@@ -41,10 +41,13 @@ export default class AuthStore implements IAuthStore {
       profile: computed,
       meta: computed,
       isLoading: computed,
+      isSuccess: computed,
+      isError: computed,
 
       setAuthRequest: action.bound,
       check: action.bound,
       login: action.bound,
+      logout: action.bound,
     });
   }
 
@@ -72,6 +75,18 @@ export default class AuthStore implements IAuthStore {
     return this._meta === Meta.loading;
   }
 
+  get isSuccess(): boolean {
+    return this._meta === Meta.success;
+  }
+
+  get isError(): boolean {
+    return this._meta === Meta.error;
+  }
+
+  setProfile(profile: UserModel): void {
+    this._profile = profile;
+  }
+
   setAuthRequest(request: IAuthRequest | Partial<IAuthRequest>): void {
     this._authRequest = {
       ...this._authRequest,
@@ -87,11 +102,11 @@ export default class AuthStore implements IAuthStore {
     this._authStatus = AuthorizationStatus.unknown;
     this._meta = Meta.loading;
 
-    const { data } = await this._api.get<UserServer>(APIRoute.profile);
+    const response = await this._api.get<UserServer>(APIRoute.profile);
 
     runInAction(() => {
-      if (data) {
-        this._profile = UserModel.fromJson(data);
+      if (response?.data) {
+        this._profile = UserModel.fromJson(response.data);
         this._authStatus = AuthorizationStatus.authorized;
         this._meta = Meta.success;
       } else {
@@ -106,26 +121,24 @@ export default class AuthStore implements IAuthStore {
       return;
     }
 
-    this._authStatus = AuthorizationStatus.unknown;
     this._meta = Meta.loading;
 
-    const { data } = await this._api.post<IAuthRequest, AxiosResponse<AuthDataServer>>(APIRoute.login, this._authRequest);
+    const response = await this._api.post<IAuthRequest, AxiosResponse<AuthResponseServer>>(APIRoute.login, this._authRequest);
 
     runInAction(() => {
-      if (data) {
-        const token = normalizeAuthData(data);
-        localStorage.setItem(AUTH_TOKEN, token.accessToken);
-
-        this._authStatus = AuthorizationStatus.authorized;
+      if (response?.data) {
+        const token = normalizeAuthResponse(response.data);
+        localStorage.setItem(ACCESS_TOKEN, token.accessToken);
         this._meta = Meta.success;
+        this.check();
       } else {
-        this._authStatus = AuthorizationStatus.noAuthorized;
         this._meta = Meta.error;
       }
     });
   }
 
   logout(): void {
-    localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(ACCESS_TOKEN);
+    this._authStatus = AuthorizationStatus.noAuthorized;
   }
 }

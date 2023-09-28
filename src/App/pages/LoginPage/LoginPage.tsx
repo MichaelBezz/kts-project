@@ -1,6 +1,8 @@
 import cn from 'classnames';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
@@ -10,24 +12,41 @@ import styles from './LoginPage.module.scss';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
+    .trim()
     .email('Enter the correct email, for example: john@mail.com')
     .required('Required'),
   password: Yup.string()
+    .trim()
     .min(3, 'The password must contain more than three symbols, for example: changeme')
     .required('Required'),
 });
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const authStore = useAuthStore();
+  const isAuth = authStore.isAuth;
+
+  React.useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [isAuth, navigate]);
 
   const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
     authStore.setAuthRequest(value);
     authStore.login();
+    authStore.setAuthRequest({ email: '', password: '' });
   }, [authStore]);
 
   return (
     <div className={styles['login-page']}>
       <div className={cn(styles['login-page__wrapper'], 'container')}>
+        {authStore.isError && (
+          <Text className={styles['login-page__message']} tag="p" view="p-24" color="error">
+            Email or password entered incorrectly, try again
+          </Text>
+        )}
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={SignupSchema}
@@ -92,4 +111,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default React.memo(LoginPage);
+export default observer(LoginPage);

@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { AppRoute } from 'config/app-route';
+import { ACCESS_TOKEN } from 'services/api';
 import rootStore from 'store/RootStore';
-import { useCartStore, useQueryParamsStore } from 'store/RootStore/hooks';
+import { useAuthStore, useCartStore, useQueryParamsStore } from 'store/RootStore/hooks';
 import { RootStoreContext } from 'store/hooks';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
@@ -14,16 +15,23 @@ import ProductsPage from './pages/ProductsPage';
 const App: React.FC = () => {
   const { search } = useLocation();
 
-  const queryParamsStore = useQueryParamsStore();
+  const authStore = useAuthStore();
   const cartStore = useCartStore();
+  const queryParamsStore = useQueryParamsStore();
 
-  React.useLayoutEffect(() => {
-    queryParamsStore.setSearch(search);
-  });
+  React.useEffect(() => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      authStore.check();
+    }
+  }, [authStore]);
 
   React.useEffect(() => {
     cartStore.loadData();
   }, [cartStore]);
+
+  React.useLayoutEffect(() => {
+    queryParamsStore.setSearch(search);
+  });
 
   return (
     <RootStoreContext.Provider value={rootStore}>

@@ -3,7 +3,8 @@
 .login-page {
   &__wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   &__form {
@@ -62,5 +63,9 @@
 
   &__in-button {
     margin-top: $space-l;
+  }
+
+  &__message {
+    margin-top: $space-xl;
   }
 }
