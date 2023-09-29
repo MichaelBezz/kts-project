@@ -3,69 +3,50 @@
 .login-page {
   &__wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
   }
 
   &__form {
-    display: flex;
-    flex-direction: column;
-    gap: $space-l;
-    width: clamp(280px, 326px, 100%);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-xxl;
+    width: clamp(280px, 360px, 360px);
     margin-top: 10%;
+    padding: $space-m;
+    background-color: $color-login-form-bg;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
   }
 
-  &__field {
-    position: relative;
+  &__header {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    padding-bottom: $space-xxs;
+    list-style: none;
+    border-bottom: 1px solid $color-login-form-border;
+  }
+
+  &__item {
     display: flex;
     flex-direction: column;
-    gap: $space-xxs;
   }
 
-  &__input {
-    display: block;
-    width: 100%;
-    height: 52px;
-    padding: $space-s $space-xs;
-    font-family: $ff-roboto;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 1.25;
-    font-weight: 400;
-    color: $color-input-text;
-    background-color: $color-input-bg;
-    border: 1px solid $color-input-border;
-    transition:
-      color $transition-default,
-      background-color $transition-default,
-      border-color $transition-default,
-      box-shadow $transition-default;
+  &__link {
+    padding: $space-xxxs $space-xs;
+    transition: color $transition-default;
+    cursor: pointer;
 
-    &::placeholder {
-      color: $color-input-placeholder;
+    @include hover {
+      color: $color-text-accent;
     }
 
-    @include hover-focus {
-      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    @include active {
+      color: $color-text-secondary;
     }
 
-    &:focus-visible {
-      border-color: $color-input-border-focus;
-      outline: none;
+    &--active {
+      color: $color-text-accent;
     }
-
-    &:disabled {
-      color: $color-input-text-disabled;
-      background-color: $color-input-bg;
-      border-color: $color-input-border;
-    }
-  }
-
-  &__in-button {
-    margin-top: $space-l;
-  }
-
-  &__message {
-    margin-top: $space-xl;
   }
 }
