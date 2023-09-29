@@ -90,5 +90,13 @@
 
   &__button {
     align-self: center;
+
+    @include hover {
+      color: $color-button-sec-text-hover;
+    }
+
+    @include active {
+      color: $color-button-sec-text-active;
+    }
   }
 }

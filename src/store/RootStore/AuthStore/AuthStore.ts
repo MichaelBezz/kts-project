@@ -38,6 +38,7 @@ export default class AuthStore implements IAuthStore {
       authRequest: computed,
       authStatus: computed,
       isAuth: computed,
+      isAuthUnknown: computed,
       profile: computed,
       meta: computed,
       isLoading: computed,
@@ -61,6 +62,10 @@ export default class AuthStore implements IAuthStore {
 
   get isAuth(): boolean {
     return this._authStatus === AuthorizationStatus.authorized;
+  }
+
+  get isAuthUnknown(): boolean {
+    return this._authStatus === AuthorizationStatus.unknown;
   }
 
   get profile(): UserModel {
@@ -95,12 +100,7 @@ export default class AuthStore implements IAuthStore {
   }
 
   async check(): Promise<void> {
-    if (this.isLoading) {
-      return;
-    }
-
     this._authStatus = AuthorizationStatus.unknown;
-    this._meta = Meta.loading;
 
     const response = await this._api.get<UserServer>(APIRoute.profile);
 
@@ -108,10 +108,8 @@ export default class AuthStore implements IAuthStore {
       if (response?.data) {
         this._profile = UserModel.fromJson(response.data);
         this._authStatus = AuthorizationStatus.authorized;
-        this._meta = Meta.success;
       } else {
         this._authStatus = AuthorizationStatus.noAuthorized;
-        this._meta = Meta.error;
       }
     });
   }

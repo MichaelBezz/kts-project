@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { AppRoute } from 'config/app-route';
-import { ACCESS_TOKEN } from 'services/api';
 import rootStore from 'store/RootStore';
 import { useAuthStore, useCartStore, useQueryParamsStore } from 'store/RootStore/hooks';
 import { RootStoreContext } from 'store/hooks';
@@ -11,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductPage from './pages/ProductPage';
 import ProductsPage from './pages/ProductsPage';
+import UserPage from './pages/UserPage';
 
 const App: React.FC = () => {
   const { search } = useLocation();
@@ -20,9 +20,7 @@ const App: React.FC = () => {
   const queryParamsStore = useQueryParamsStore();
 
   React.useEffect(() => {
-    if (localStorage.getItem(ACCESS_TOKEN)) {
-      authStore.check();
-    }
+    authStore.check();
   }, [authStore]);
 
   React.useEffect(() => {
@@ -41,6 +39,7 @@ const App: React.FC = () => {
           <Route path={AppRoute.product} element={<ProductPage />} />
           <Route path={AppRoute.cart} element={<CartPage />} />
           <Route path={AppRoute.login} element={<LoginPage />} />
+          <Route path={AppRoute.user} element={<UserPage />} />
           <Route path={AppRoute.notFound} element={<NotFoundPage />} />
         </Route>
       </Routes>
