@@ -47,7 +47,7 @@ const Slider: React.FC<SliderProps> = ({ className, imageSrc }) => {
         {imageSrc.map((src) => (
           <swiper-slide key={src}>
             <div className={styles['slider__slide']}>
-              <img src={src} width={600} height={600} alt="Product image slide" />
+              <img src={src} width="600" height="600" alt="Product image slide" />
             </div>
           </swiper-slide>
         ))}

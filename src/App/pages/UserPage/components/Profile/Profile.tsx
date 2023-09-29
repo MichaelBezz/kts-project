@@ -20,7 +20,7 @@ const Profile: React.FC<ProfileProps> = ({ className }) => {
   return (
     <div className={cn(styles['profile'], className)}>
       <div className={styles['profile__image']}>
-        <img src={authStore.profile.avatar} alt="User avatar" />
+        <img src={authStore.profile.avatar} width="160" height="160" alt="User avatar" />
       </div>
 
       <div className={styles['profile__content']}>

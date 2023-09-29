@@ -38,6 +38,10 @@ const CartAside: React.FC<CartOrderProps> = ({ className }) => {
     }
   }, [cartStore, isAuth, navigate]);
 
+  const handleClearButtonClick = React.useCallback(() => {
+    cartStore.clearData();
+  }, [cartStore]);
+
   const handleFormSubmit = React.useCallback((discount: string) => {
     cartStore.setDiscount(discount);
   }, [cartStore]);
@@ -148,6 +152,10 @@ const CartAside: React.FC<CartOrderProps> = ({ className }) => {
 
       <Button buttonStyle="primary" onClick={handleOrderButtonClick}>
         Get order
+      </Button>
+
+      <Button buttonStyle="secondary" onClick={handleClearButtonClick}>
+        Clear cart
       </Button>
     </div>
   );

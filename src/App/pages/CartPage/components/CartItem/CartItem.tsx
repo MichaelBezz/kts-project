@@ -35,7 +35,7 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
     <div className={cn(styles['cart-item'], className)} onClick={handleItemClick}>
       <div className={styles['cart-item__card']}>
         <div className={styles['cart-item__image']}>
-          <img src={product.images[0]} width='120' height='120' alt='Product main image' />
+          <img src={product.images[0]} width="120" height="120" alt="Product main image" />
         </div>
 
         <div className={styles['cart-item__description']}>
@@ -55,6 +55,7 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
             className={styles['cart-item__button']}
             type="button"
             onClick={() => cartStore.minus(product)}
+            disabled={cartStore.getItemCount(product.id) <= 1}
           >
             <MinusIcon width={20} height={20} />
           </button>
