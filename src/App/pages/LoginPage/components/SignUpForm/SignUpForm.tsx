@@ -4,6 +4,10 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
+import { UserProfile } from 'models/UserModel';
+import { useAuthStore } from 'store/RootStore/hooks';
+import UserStore from 'store/UserStore';
+import { useLocalStore } from 'store/hooks';
 import styles from './SignUpForm.module.scss';
 
 export type SignUpFormProps = {
@@ -13,7 +17,7 @@ export type SignUpFormProps = {
 const SignupSchema = Yup.object().shape({
   avatar: Yup.string()
     .trim()
-    .url('Enter correct url, for example: https://api.lorem.space/image/face?w=150&h=150'),
+    .url('Enter correct url, for example: https://loremflickr.com/300/300/man'),
   name: Yup.string()
     .trim()
     .required('Required'),
@@ -28,9 +32,16 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
-  const handleFormSubmit = React.useCallback(() => {
+  const authStore = useAuthStore();
+  const userStore = useLocalStore(() => new UserStore());
 
-  }, []);
+  const handleFormSubmit = React.useCallback(
+    async (user: UserProfile) => {
+      await userStore.createUser(user);
+      authStore.setAuthRequest({ email: user.email, password: user.password });
+      await authStore.login();
+    },
+  [authStore, userStore]);
 
   return (
     <div className={cn(styles['sign-up-form'], className)}>
@@ -38,8 +49,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
         initialValues={{ avatar: '', name: '', email: '', password: '' }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
-          console.log(values)
-          handleFormSubmit();
+          handleFormSubmit(values);
         }}
       >
         {({ isValid }) => (
