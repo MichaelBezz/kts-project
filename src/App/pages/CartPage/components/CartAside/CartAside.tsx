@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
 import { useCartStore } from 'store/RootStore/hooks';
-import styles from './CartOrder.module.scss';
+import styles from './CartAside.module.scss';
 
 export type CartOrderProps = {
   className?: string;
@@ -18,7 +18,7 @@ const SignupSchema = Yup.object().shape({
     .matches(/^[1-9][0-9]-lalasia/, 'Promo code not found')
 });
 
-const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
+const CartAside: React.FC<CartOrderProps> = ({ className }) => {
   const cartStore = useCartStore();
 
   const handleFormSubmit = React.useCallback((discount: string) => {
@@ -26,13 +26,13 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
   }, [cartStore]);
 
   return (
-    <div className={cn(styles['cart-order'], className)}>
-      <div className={styles['cart-order__block']}>
-        <div className={styles['cart-order__title']}>
+    <div className={cn(styles['cart-aside'], className)}>
+      <div className={styles['cart-aside__block']}>
+        <div className={styles['cart-aside__title']}>
           <Text tag="h2" view="p-24" weight="bold">Order</Text>
         </div>
 
-        <div className={styles['cart-order__row']}>
+        <div className={styles['cart-aside__row']}>
           <Text tag="p" view="p-18" color="secondary">
             {`${cartStore.count > 1 ? 'Products' : 'Product'}:`}
           </Text>
@@ -41,27 +41,27 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
           </Text>
         </div>
 
-        <div className={styles['cart-order__row']}>
+        <div className={styles['cart-aside__row']}>
           <Text tag="p" view="p-18" color="secondary">Discount:</Text>
           <Text tag="p" view="p-18" color={cartStore.discount < 1 ? 'secondary' : 'accent'}>
             {cartStore.discount}%
           </Text>
         </div>
 
-        <div className={styles['cart-order__row']}>
+        <div className={styles['cart-aside__row']}>
           <Text tag="p" view="p-18" color="secondary">Delivery:</Text>
           <Text tag="p" view="p-18" color={cartStore.delivery > 0 ? 'secondary' : 'accent'}>
             {cartStore.delivery > 0 ? `$${cartStore.delivery}` : 'free'}
           </Text>
         </div>
 
-        <div className={styles['cart-order__total']}>
-          <div className={styles['cart-order__row']}>
+        <div className={styles['cart-aside__total']}>
+          <div className={styles['cart-aside__row']}>
             <Text tag="p" view="p-14">Subtotal:</Text>
             <Text tag="p" view="p-14">${cartStore.totalPrice + cartStore.delivery}</Text>
           </div>
 
-          <div className={styles['cart-order__row']}>
+          <div className={styles['cart-aside__row']}>
             <Text tag="p" view="p-14" color={cartStore.discount > 0 ? 'error' : 'secondary'}>
               Discount:
             </Text>
@@ -73,7 +73,7 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
             </Text>
           </div>
 
-          <div className={styles['cart-order__row']}>
+          <div className={styles['cart-aside__row']}>
             <Text tag="p" view="p-20" weight="bold">Total:</Text>
             <Text tag="p" view="p-20" weight="bold">
               {cartStore.totalDiscountPrice === 0
@@ -85,7 +85,7 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
         </div>
       </div>
 
-      <div className={styles['cart-order__block']}>
+      <div className={styles['cart-aside__block']}>
         <Text tag="h2" view="p-24" weight="bold">Do you have a lucky set of symbols?</Text>
 
         <Formik
@@ -96,14 +96,14 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
           }}
         >
           {({ isValid }) => (
-            <Form className={styles['cart-order__form']} noValidate>
-              <div className={styles['cart-order__field']}>
+            <Form className={styles['cart-aside__form']} noValidate>
+              <div className={styles['cart-aside__field']}>
                 <label className="visually-hidden" htmlFor="c-discount">
                   <Text tag="p" view="p-20">Discount</Text>
                 </label>
 
                 <Field
-                  className={styles['cart-order__input']}
+                  className={styles['cart-aside__input']}
                   id="c-discount"
                   type="text"
                   name="discount"
@@ -118,7 +118,7 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
               </div>
 
               <Button
-                className={styles['cart-order__button']}
+                className={styles['cart-aside__button']}
                 type="submit"
                 disabled={!isValid}
               >
@@ -132,4 +132,4 @@ const CartOrder: React.FC<CartOrderProps> = ({ className }) => {
   );
 };
 
-export default observer(CartOrder);
+export default observer(CartAside);

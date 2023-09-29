@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Text from 'components/Text';
 import { useCartStore } from 'store/RootStore/hooks';
+import CartAside from './components/CartAside';
 import CartList from './components/CartList';
-import CartOrder from './components/CartOrder';
 import styles from './CartPage.module.scss';
 
 const CartPage: React.FC = () => {
@@ -26,7 +26,7 @@ const CartPage: React.FC = () => {
         <div className={styles['cart-page__body']}>
           <CartList className={styles['cart-page__list']} />
           {!!cartStore.count && (
-            <CartOrder className={styles['cart-page__order']} />
+            <CartAside className={styles['cart-page__order']} />
           )}
         </div>
       </div>
