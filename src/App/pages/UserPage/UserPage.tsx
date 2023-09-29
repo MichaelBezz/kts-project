@@ -29,7 +29,9 @@ const UserPage: React.FC = () => {
         </Text>
 
         <div className={styles['user-page__body']}>
-          <Profile />
+          <div className={styles['user-page__profile']}>
+            <Profile />
+          </div>
           <Orders />
         </div>
       </div>

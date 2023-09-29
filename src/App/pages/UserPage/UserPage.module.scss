@@ -19,7 +19,11 @@
 
   &__body {
     display: grid;
-    grid-template-columns: 248px 1fr;
+    grid-template-columns: 300px 1fr;
     gap: $space-xxl;
+
+    @include vp-767 {
+      grid-template-columns: 1fr;
+    }
   }
 }

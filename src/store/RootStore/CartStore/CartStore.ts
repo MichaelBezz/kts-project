@@ -7,17 +7,21 @@ import { api } from 'services/api';
 import { Meta } from 'utils/meta';
 
 export const CART_STORE_TOKEN = 'cart-store-token';
+export const CART_ORDERS_TOKEN = 'cart-orders-token';
 
 export interface ICartStore {
   hasItem: (key: number) => boolean;
   getItemCount: (keyParam: number) => number;
   setDiscount: (discount: string) => void;
   setDelivery: (discount: number) => void;
+  setOrders: () => void;
+  loadOrders: () => void;
   plus: (item: ProductModel) => void;
   minus: (item: ProductModel) => void;
   delete: (item: ProductModel) => void;
   saveData: () => void;
   loadData: () => Promise<void>;
+  clearData: () => void;
 };
 
 type PrivateFields =
@@ -25,6 +29,7 @@ type PrivateFields =
   | '_productList'
   | '_discount'
   | '_delivery'
+  | '_orders'
   | '_meta';
 
 export default class CartStore implements ICartStore {
@@ -34,6 +39,7 @@ export default class CartStore implements ICartStore {
   private _productList: ListModel<ProductModel> = new ListModel();
   private _discount: number = 0;
   private _delivery: number = 3;
+  private _orders: Record<string, string>[] = [];
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -42,6 +48,7 @@ export default class CartStore implements ICartStore {
       _productList: observable,
       _discount: observable,
       _delivery: observable,
+      _orders: observable,
       _meta: observable,
 
       items: computed,
@@ -50,16 +57,20 @@ export default class CartStore implements ICartStore {
       totalDiscountPrice: computed,
       discount: computed,
       delivery: computed,
+      orders: computed,
       meta: computed,
       isLoading: computed,
 
       setDiscount: action.bound,
       setDelivery: action.bound,
+      setOrders: action.bound,
+      loadOrders: action.bound,
       plus: action.bound,
       minus: action.bound,
       delete: action.bound,
       saveData: action.bound,
       loadData: action.bound,
+      clearData: action.bound,
     });
   }
 
@@ -89,6 +100,10 @@ export default class CartStore implements ICartStore {
 
   get delivery(): number {
     return this._delivery;
+  }
+
+  get orders(): Record<string, string>[] {
+    return this._orders;
   }
 
   get meta(): Meta {
@@ -128,12 +143,32 @@ export default class CartStore implements ICartStore {
     this._delivery = delivery;
   }
 
+  setOrders(): void {
+    this._orders.push({
+      id: String(Date.now()).slice(-5),
+      total: String(this.totalDiscountPrice + this.delivery)
+    });
+
+    localStorage.setItem(CART_ORDERS_TOKEN, JSON.stringify(this._orders));
+  }
+
+  loadOrders(): void {
+    const localData = localStorage.getItem(CART_ORDERS_TOKEN);
+
+    if (!localData) {
+      return;
+    }
+
+    this._orders = JSON.parse(localData);
+  }
+
   plus(item: ProductModel): void {
     if (this.hasItem(item.id)) {
       const entity = this._cartList.getEntity(item.id);
       entity.setCartCount(entity.cartCount + 1);
     } else {
       item.setCartCount(1);
+      item.setDiscountPrice(this._discount);
       this._cartList.addEntity({entity: item, key: item.id});
     }
 
@@ -202,6 +237,7 @@ export default class CartStore implements ICartStore {
           if (key in parsedLocalData) {
             const entity = this._productList.getEntity(key);
             entity.setCartCount(parsedLocalData[key]);
+            entity.setDiscountPrice(this._discount);
 
             this._cartList.addEntity({entity, key});
           }
@@ -213,5 +249,10 @@ export default class CartStore implements ICartStore {
     } else {
       this._meta = Meta.error;
     }
+  }
+
+  clearData(): void {
+    this._cartList.reset();
+    localStorage.removeItem(CART_STORE_TOKEN);
   }
 }

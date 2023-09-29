@@ -2,10 +2,12 @@ import cn from 'classnames';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
-import { useCartStore } from 'store/RootStore/hooks';
+import { AppRoute } from 'config/app-route';
+import { useAuthStore, useCartStore } from 'store/RootStore/hooks';
 import styles from './CartAside.module.scss';
 
 export type CartOrderProps = {
@@ -19,7 +21,22 @@ const SignupSchema = Yup.object().shape({
 });
 
 const CartAside: React.FC<CartOrderProps> = ({ className }) => {
+  const authStore = useAuthStore();
   const cartStore = useCartStore();
+
+  const navigate = useNavigate();
+  const isAuth = authStore.isAuth;
+
+  const handleOrderButtonClick = React.useCallback(() => {
+    if (isAuth) {
+      cartStore.setOrders();
+      cartStore.clearData();
+
+      navigate(AppRoute.user);
+    } else {
+      navigate(AppRoute.login);
+    }
+  }, [cartStore, isAuth, navigate]);
 
   const handleFormSubmit = React.useCallback((discount: string) => {
     cartStore.setDiscount(discount);
@@ -128,6 +145,10 @@ const CartAside: React.FC<CartOrderProps> = ({ className }) => {
           )}
         </Formik>
       </div>
+
+      <Button buttonStyle="primary" onClick={handleOrderButtonClick}>
+        Get order
+      </Button>
     </div>
   );
 };

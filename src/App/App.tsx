@@ -25,6 +25,7 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     cartStore.loadData();
+    cartStore.loadOrders();
   }, [cartStore]);
 
   React.useLayoutEffect(() => {

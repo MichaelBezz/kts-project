@@ -7,4 +7,33 @@
   padding: $space-xl;
   background-color: $color-card-bg;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+
+  @include vp-767 {
+    gap: $space-l;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-xxs;
+    border-bottom: 1px solid $color-card-border;
+
+    &:first-child {
+      padding-bottom: $space-xl;
+    }
+
+    &--empty {
+      justify-content: center;
+      border: $border-none;
+    }
+  }
 }
