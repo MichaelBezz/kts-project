@@ -53,23 +53,25 @@ const Slider: React.FC<SliderProps> = ({ className, imageSrc }) => {
         ))}
       </swiper-container>
 
-      <div className={styles['slider__controls']}>
-        <button
-          className={styles['slider__button']}
-          ref={prevButtonRef}
-          type="button"
-        >
-          <ArrowDefaultIcon width={30} height={30} direction="left" />
-        </button>
+      {imageSrc.length > 1 && (
+        <div className={styles['slider__controls']}>
+          <button
+            className={styles['slider__button']}
+            ref={prevButtonRef}
+            type="button"
+          >
+            <ArrowDefaultIcon width={30} height={30} direction="left" />
+          </button>
 
-        <button
-          className={styles['slider__button']}
-          ref={nextButtonRef}
-          type="button"
-        >
-          <ArrowDefaultIcon width={30} height={30} direction="right" />
-        </button>
-      </div>
+          <button
+            className={styles['slider__button']}
+            ref={nextButtonRef}
+            type="button"
+          >
+            <ArrowDefaultIcon width={30} height={30} direction="right" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -13,6 +13,7 @@ const CrossButton: React.FC<CrossButtonProps> = ({ className, onClick, disabled 
   return (
     <button
       className={cn(styles['cross-button'], className)}
+      type="button"
       onClick={onClick}
       disabled={disabled}
     >
