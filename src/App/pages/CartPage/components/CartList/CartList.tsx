@@ -15,7 +15,7 @@ const CartList: React.FC<CartListProps> = ({ className }) => {
   const cartStore = useCartStore();
 
   if (cartStore.isLoading) {
-    return (<CartLoader className={styles['cart-list']} />);
+    return (<CartLoader className={styles['cart-list']} cards={6} />);
   }
 
   return (
