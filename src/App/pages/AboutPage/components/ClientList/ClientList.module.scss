@@ -1,0 +1,21 @@
+@import 'styles/mixins';
+
+.client-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+
+  @include vp-767 {
+    gap: $space-m;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(auto, 190px));
+    gap: $space-l;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
