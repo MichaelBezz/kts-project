@@ -38,8 +38,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
   const handleFormSubmit = React.useCallback(
     async (user: UserProfile) => {
       await userStore.createUser(user);
-      authStore.setAuthRequest({ email: user.email, password: user.password });
-      await authStore.login();
+      await authStore.login({ email: user.email, password: user.password });
     },
   [authStore, userStore]);
 
@@ -150,4 +149,4 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
   );
 };
 
-export default SignUpForm;
+export default React.memo(SignUpForm);

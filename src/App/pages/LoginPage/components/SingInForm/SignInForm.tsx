@@ -28,9 +28,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
   const authStore = useAuthStore();
 
   const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
-    authStore.setAuthRequest(value);
-    authStore.login();
-    authStore.setAuthRequest({ email: '', password: '' });
+    authStore.login(value);
   }, [authStore]);
 
   return (

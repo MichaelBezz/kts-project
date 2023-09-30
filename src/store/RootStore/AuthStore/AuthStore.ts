@@ -8,14 +8,12 @@ import { AuthorizationStatus } from 'utils/auth';
 import { Meta } from 'utils/meta';
 
 export interface IAuthStore {
-  setAuthRequest: (request: IAuthRequest | Partial<IAuthRequest>) => void;
   check: () => Promise<void>;
-  login: () => Promise<void>;
+  login: (authRequest: IAuthRequest) => Promise<void>;
   logout: () => void;
 };
 
 type PrivateFields =
-  | '_authRequest'
   | '_authStatus'
   | '_profile'
   | '_meta';
@@ -23,19 +21,16 @@ type PrivateFields =
 export default class AuthStore implements IAuthStore {
   private readonly _api: AxiosInstance = api;
 
-  private _authRequest: IAuthRequest = { email: '', password: '' };
   private _authStatus: AuthorizationStatus = AuthorizationStatus.unknown;
   private _profile: UserModel = new UserModel();
   private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<AuthStore, PrivateFields>(this, {
-      _authRequest: observable,
       _authStatus: observable,
       _profile: observable,
       _meta: observable,
 
-      authRequest: computed,
       authStatus: computed,
       isAuth: computed,
       isAuthUnknown: computed,
@@ -45,15 +40,10 @@ export default class AuthStore implements IAuthStore {
       isSuccess: computed,
       isError: computed,
 
-      setAuthRequest: action.bound,
       check: action.bound,
       login: action.bound,
       logout: action.bound,
     });
-  }
-
-  get authRequest(): IAuthRequest {
-    return this._authRequest;
   }
 
   get authStatus(): AuthorizationStatus {
@@ -92,13 +82,6 @@ export default class AuthStore implements IAuthStore {
     this._profile = profile;
   }
 
-  setAuthRequest(request: IAuthRequest | Partial<IAuthRequest>): void {
-    this._authRequest = {
-      ...this._authRequest,
-      ...request
-    };
-  }
-
   async check(): Promise<void> {
     this._authStatus = AuthorizationStatus.unknown;
 
@@ -114,14 +97,14 @@ export default class AuthStore implements IAuthStore {
     });
   }
 
-  async login(): Promise<void> {
+  async login(authRequest: IAuthRequest): Promise<void> {
     if (this.isLoading) {
       return;
     }
 
     this._meta = Meta.loading;
 
-    const response = await this._api.post<IAuthRequest, AxiosResponse<AuthResponseServer>>(APIRoute.login, this._authRequest);
+    const response = await this._api.post<IAuthRequest, AxiosResponse<AuthResponseServer>>(APIRoute.login, authRequest);
 
     runInAction(() => {
       if (response?.data) {
