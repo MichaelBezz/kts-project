@@ -5,6 +5,7 @@ import { AppRoute } from 'config/app-route';
 import rootStore from 'store/RootStore';
 import { useAuthStore, useCartStore, useQueryParamsStore } from 'store/RootStore/hooks';
 import { RootStoreContext } from 'store/hooks';
+import AboutPage from './pages/AboutPage';
 import CartPage from './pages/CartPage';
 import CategoriesPage from './pages/CategoriesPage';
 import LoginPage from './pages/LoginPage';
@@ -40,6 +41,7 @@ const App: React.FC = () => {
           <Route index element={<ProductsPage />} />
           <Route path={AppRoute.product} element={<ProductPage />} />
           <Route path={AppRoute.categories} element={<CategoriesPage />} />
+          <Route path={AppRoute.about} element={<AboutPage />} />
           <Route path={AppRoute.cart} element={<CartPage />} />
           <Route path={AppRoute.login} element={<LoginPage />} />
           <Route path={AppRoute.user} element={<UserPage />} />

@@ -1,0 +1,40 @@
+@import 'styles/mixins';
+
+.about-page {
+  padding: 98px 0;
+
+  @include vp-767 {
+    padding: 30px 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-xl;
+    max-width: 54%;
+    margin: 0 auto;
+
+    @include vp-1279 {
+      max-width: 80%;
+    }
+
+    @include vp-767 {
+      gap: $space-m;
+      max-width: initial;
+    }
+  }
+
+  &__title,
+  &__description {
+    text-align: center;
+  }
+
+  &__body {
+    margin-top: 56px;
+
+    @include vp-767 {
+      margin-top: $space-xxl;
+    }
+  }
+}
