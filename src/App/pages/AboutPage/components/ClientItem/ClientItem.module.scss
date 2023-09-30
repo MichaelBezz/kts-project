@@ -1,0 +1,42 @@
+@import 'styles/mixins';
+
+.client-item {
+  position: relative;
+
+  &__image {
+    position: relative;
+    background-color: $color-card-image-bg;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      content: "";
+      padding-bottom: calc(120 / 120 * 100%);
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: $space-xxxs;
+  }
+
+  &__title{
+    text-shadow: 2px 1px 3px rgba($color-white-smoke, 0.8);
+  }
+}
