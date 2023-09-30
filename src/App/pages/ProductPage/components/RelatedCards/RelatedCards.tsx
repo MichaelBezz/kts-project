@@ -4,43 +4,33 @@ import * as React from 'react';
 import CardList from 'components/CardList';
 import Message from 'components/Message';
 import Text from 'components/Text';
-import ProductsStore from 'store/ProductsStore';
-import { useLocalStore } from 'store/hooks';
+import { useProductStore } from 'store/hooks';
 import styles from './RelatedCards.module.scss';
 
 export type RelatedCardsProps = {
   className?: string;
-  categoryId: number;
 };
 
-const PRODUCT_LIMIT = 3;
-
-const RelatedCards: React.FC<RelatedCardsProps> = ({ className, categoryId }) => {
-  const productsStore = useLocalStore(() => new ProductsStore());
-
-  React.useEffect(() => {
-    productsStore.setProductLimit(PRODUCT_LIMIT);
-    productsStore.setFilterParam(String(categoryId));
-    productsStore.getProducts();
-  }, [productsStore, categoryId]);
+const RelatedCards: React.FC<RelatedCardsProps> = ({ className }) => {
+  const { relatedProducts, isLoading, isSuccess, isError } = useProductStore();
 
   return (
     <div className={cn(styles['related-cards'], className)}>
       <Text tag="h2" view="p-32">Related Items</Text>
 
-      {productsStore.isError && (
+      {isError && (
         <Message>Error. Try again.</Message>
       )}
 
-      {(productsStore.isSuccess && !productsStore.products.length) && (
+      {(isSuccess && !relatedProducts.length) && (
         <Message>There aren`t related items.</Message>
       )}
 
       <CardList
         className={styles['related-cards__list']}
-        products={productsStore.products}
-        productLimit={productsStore.productLimit}
-        isLoading={productsStore.isLoading}
+        products={relatedProducts}
+        productLimit={3}
+        isLoading={isLoading}
       />
     </div>
   );
