@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import Text from 'components/Text';
+import Loader from 'components/loaders/Loader';
 import { AppRoute } from 'config/app-route';
 import { useAuthStore } from 'store/RootStore/hooks';
 import SignUpForm from './components/SignUpForm';
@@ -32,6 +33,10 @@ const LoginPage: React.FC = () => {
       setActiveTab(Tab.signIn);
     }
   }, [searchTab]);
+
+  if (authStore.isLoading || authStore.isAuthUnknown) {
+    return (<Loader size="general" />);
+  }
 
   if (authStore.isAuth) {
     return (<Navigate to={AppRoute.user} />);
