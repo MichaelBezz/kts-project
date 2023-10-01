@@ -22,7 +22,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ className, category }) => {
       </div>
 
       <div className={styles['category-item__content']}>
-        <Text className={styles['category-item__title']} tag="p" view="p-32" color="accent">
+        <Text className={styles['category-item__title']} tag="p" view="p-24" weight="bold" color="accent">
           {category.name}
         </Text>
       </div>
