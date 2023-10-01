@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { motion } from 'framer-motion';
 import * as React from 'react';
 import * as Yup from 'yup';
 import Text from 'components/Text';
@@ -43,7 +44,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
   [authStore, userStore]);
 
   return (
-    <div className={cn(styles['sign-up-form'], className)}>
+    <motion.div
+      className={cn(styles['sign-up-form'], className)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <Formik
         initialValues={{ avatar: '', name: '', email: '', password: '' }}
         validationSchema={SignupSchema}
@@ -145,7 +151,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { motion } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import * as Yup from 'yup';
@@ -32,7 +33,12 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
   }, [authStore]);
 
   return (
-    <div className={cn(styles['sign-in-form'], className)}>
+    <motion.div
+      className={cn(styles['sign-in-form'], className)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       {authStore.isError && (
         <Text className={styles['sign-in-form__message']} tag="p" view="p-18" color="error">
           Email or password entered incorrectly
@@ -100,7 +106,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </motion.div>
   );
 };
 
