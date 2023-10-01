@@ -1,7 +1,8 @@
 import cn from 'classnames';
+import { motion, Variants } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import Text from 'components/Text';
 import DeleteIcon from 'components/icons/DeleteIcon';
 import MinusIcon from 'components/icons/MinusIcon';
@@ -16,24 +17,17 @@ export type CartItemProps = {
   product: ProductModel;
 };
 
-const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
-  const controlButtonsRef = React.useRef<HTMLDivElement | null>(null);
+const buttonVariants: Variants = {
+  hover: { scale: 1.1 },
+  tap: { scale: 0.9 },
+};
 
+const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
   const cartStore = useCartStore();
 
-  const navigate = useNavigate();
-
-  const handleItemClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
-    const isControlButtons = controlButtonsRef.current?.contains(event.target as HTMLElement);
-
-    if (!isControlButtons) {
-      navigate(generatePath(AppRoute.product, {id: `${product.id}`}));
-    }
-  }, [navigate, product.id]);
-
   return (
-    <div className={cn(styles['cart-item'], className)} onClick={handleItemClick}>
-      <div className={styles['cart-item__card']}>
+    <div className={cn(styles['cart-item'], className)}>
+      <Link className={styles['cart-item__card']} to={generatePath(AppRoute.product, {id: `${product.id}`})}>
         <div className={styles['cart-item__image']}>
           <img src={product.images[0]} width="120" height="120" alt="Product main image" />
         </div>
@@ -47,43 +41,52 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
             {product.description}
           </Text>
         </div>
-      </div>
+      </Link>
 
-      <div className={styles['cart-item__controls']} ref={controlButtonsRef}>
+      <div className={styles['cart-item__controls']}>
         <div className={styles['cart-item__count']}>
-          <button
+          <motion.button
             className={styles['cart-item__button']}
             type="button"
-            onClick={() => cartStore.minus(product)}
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
             disabled={cartStore.getItemCount(product.id) <= 1}
+            onClick={() => cartStore.minus(product)}
           >
             <MinusIcon width={20} height={20} />
-          </button>
+          </motion.button>
 
           <Text tag="p" view="p-18" weight="bold">
             {cartStore.getItemCount(product.id)}
           </Text>
 
-          <button
+          <motion.button
             className={styles['cart-item__button']}
             type="button"
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
             onClick={() => cartStore.plus(product)}
           >
             <PlusIcon width={20} height={20} />
-          </button>
+          </motion.button>
         </div>
 
         <Text className={styles['cart-item__price']} tag="p" view="p-20" weight="bold">
           ${product.price * cartStore.getItemCount(product.id)}
         </Text>
 
-        <button
+        <motion.button
           className={cn(styles['cart-item__button'], styles['cart-item__button--delete'])}
           type="button"
+          variants={buttonVariants}
+          whileHover="hover"
+          whileTap="tap"
           onClick={() => cartStore.delete(product)}
         >
           <DeleteIcon width={20} height={20} />
-        </button>
+        </motion.button>
       </div>
     </div>
   );
