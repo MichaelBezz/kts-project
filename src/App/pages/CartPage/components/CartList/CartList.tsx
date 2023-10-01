@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { motion, Variants } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Message from 'components/Message';
@@ -9,6 +10,21 @@ import styles from './CartList.module.scss';
 
 export type CartListProps = {
   className?: string;
+};
+
+const cartItemVariants: Variants = {
+  hidden: {
+    y: '110%',
+    opacity: 0
+  },
+  visible: (custom: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: custom * 0.1,
+      duration: 0.4
+    }
+  }),
 };
 
 const CartList: React.FC<CartListProps> = ({ className }) => {
@@ -24,8 +40,16 @@ const CartList: React.FC<CartListProps> = ({ className }) => {
         <Message>Your cart is empty.</Message>
       )}
 
-      {cartStore.items.map((item) => (
-        <CartItem key={item.id} product={item} />
+      {cartStore.items.map((item, index) => (
+        <motion.div
+          key={item.id}
+          custom={index}
+          variants={cartItemVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <CartItem product={item} />
+        </motion.div>
       ))}
     </div>
   );
