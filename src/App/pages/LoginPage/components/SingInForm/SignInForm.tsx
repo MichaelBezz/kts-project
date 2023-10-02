@@ -8,6 +8,7 @@ import Text from 'components/Text';
 import Button from 'components/buttons/Button';
 import { IAuthRequest } from 'models/AuthMode';
 import { useAuthStore } from 'store/RootStore/hooks';
+import { Meta } from 'utils/meta';
 import styles from './SignInForm.module.scss';
 
 export type SignInFormProps = {
@@ -27,6 +28,22 @@ const SignupSchema = Yup.object().shape({
 
 const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
   const authStore = useAuthStore();
+  const isError = authStore.isError;
+
+  React.useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+
+    if (isError) {
+      timer = setTimeout(() => {
+        authStore.setMeta(Meta.initial);
+      }, 2000);
+    }
+
+    return () => {
+      timer && clearTimeout(timer);
+      timer = null;
+    };
+  }, [authStore, isError]);
 
   const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
     authStore.login(value);

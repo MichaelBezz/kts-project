@@ -8,6 +8,8 @@ import { AuthorizationStatus } from 'utils/auth';
 import { Meta } from 'utils/meta';
 
 export interface IAuthStore {
+  setProfile: (profile: UserModel) => void;
+  setMeta: (meta: Meta) => void;
   check: () => Promise<void>;
   login: (authRequest: IAuthRequest) => Promise<void>;
   logout: () => void;
@@ -40,6 +42,8 @@ export default class AuthStore implements IAuthStore {
       isSuccess: computed,
       isError: computed,
 
+      setProfile: action.bound,
+      setMeta: action.bound,
       check: action.bound,
       login: action.bound,
       logout: action.bound,
@@ -80,6 +84,10 @@ export default class AuthStore implements IAuthStore {
 
   setProfile(profile: UserModel): void {
     this._profile = profile;
+  }
+
+  setMeta(meta: Meta): void {
+    this._meta = meta;
   }
 
   async check(): Promise<void> {
