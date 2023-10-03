@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { motion } from 'framer-motion';
 import * as React from 'react';
 import * as Yup from 'yup';
+import CheckBox from 'components/CheckBox';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
 import { UserProfile } from 'models/UserModel';
@@ -18,7 +19,8 @@ export type SignUpFormProps = {
 const SignupSchema = Yup.object().shape({
   avatar: Yup.string()
     .trim()
-    .url('Enter correct url, for example: https://loremflickr.com/300/300/man'),
+    .url('Enter correct url, for example: https://loremflickr.com/300/300/man')
+    .required('Required'),
   name: Yup.string()
     .trim()
     .required('Required'),
@@ -28,13 +30,19 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   password: Yup.string()
     .trim()
-    .min(3, 'The password must contain more than three symbols, for example: changeme')
+    .min(4, 'The password must contain more than four symbols, for example: changeme')
     .required('Required'),
 });
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
   const authStore = useAuthStore();
   const userStore = useLocalStore(() => new UserStore());
+
+  const [checked, setChecked] = React.useState<boolean>(false);
+
+  const handleCheckBoxChange = React.useCallback((status: boolean) => {
+    setChecked(status);
+  }, []);
 
   const handleFormSubmit = React.useCallback(
     async (user: UserProfile) => {
@@ -60,8 +68,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
         {({ isValid }) => (
           <Form className={styles['sign-up-form__form']} noValidate>
             <div className={styles['sign-up-form__field']}>
-              <label htmlFor="su-avatar">
+              <label className={styles['sign-up-form__label']} htmlFor="su-avatar">
                 <Text tag="p" view="p-20">Avatar:</Text>
+                <Text tag="p" view="p-20" color="error"><sup>*</sup></Text>
               </label>
 
               <Field
@@ -80,8 +89,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
             </div>
 
             <div className={styles['sign-up-form__field']}>
-              <label htmlFor="su-name">
+              <label className={styles['sign-up-form__label']} htmlFor="su-name">
                 <Text tag="p" view="p-20">Name:</Text>
+                <Text tag="p" view="p-20" color="error"><sup>*</sup></Text>
               </label>
 
               <Field
@@ -100,8 +110,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
             </div>
 
             <div className={styles['sign-up-form__field']}>
-              <label htmlFor="su-email">
+              <label className={styles['sign-up-form__label']} htmlFor="su-email">
                 <Text tag="p" view="p-20">Email:</Text>
+                <Text tag="p" view="p-20" color="error"><sup>*</sup></Text>
               </label>
 
               <Field
@@ -120,14 +131,15 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
             </div>
 
             <div className={styles['sign-up-form__field']}>
-              <label htmlFor="su-password">
+              <label className={styles['sign-up-form__label']} htmlFor="su-password">
                 <Text tag="p" view="p-20">Password:</Text>
+                <Text tag="p" view="p-20" color="error"><sup>*</sup></Text>
               </label>
 
               <Field
                 className={styles['sign-up-form__input']}
                 id="su-password"
-                type="password"
+                type={checked ? 'text' : 'password'}
                 name="password"
                 placeholder="changeme"
                 autoComplete="off"
@@ -138,6 +150,13 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ className }) => {
                     <Text tag="p" view="p-14" color="error">{msg}</Text>
                   )}
               </ErrorMessage>
+
+              <CheckBox label={'Show password'} checked={checked} onChange={handleCheckBoxChange} />
+            </div>
+
+            <div className={styles['sign-up-form__required']}>
+              <Text tag="p" view="p-20" color="error">*</Text>
+              <Text tag="p" view="p-20"><sub>required fields</sub></Text>
             </div>
 
             <Button

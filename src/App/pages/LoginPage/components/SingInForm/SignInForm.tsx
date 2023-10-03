@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import * as Yup from 'yup';
+import CheckBox from 'components/CheckBox';
 import Text from 'components/Text';
 import Button from 'components/buttons/Button';
 import { IAuthRequest } from 'models/AuthMode';
@@ -30,6 +31,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
   const authStore = useAuthStore();
   const isError = authStore.isError;
 
+  const [checked, setChecked] = React.useState<boolean>(false);
+
   React.useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
 
@@ -44,6 +47,10 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
       timer = null;
     };
   }, [authStore, isError]);
+
+  const handleCheckBoxChange = React.useCallback((status: boolean) => {
+    setChecked(status);
+  }, []);
 
   const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
     authStore.login(value);
@@ -72,8 +79,9 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
         {({ isValid }) => (
           <Form className={styles['sign-in-form__form']} noValidate>
             <div className={styles['sign-in-form__field']}>
-              <label htmlFor="si-email">
+              <label className={styles['sign-in-form__label']} htmlFor="si-email">
                 <Text tag="p" view="p-20">Email:</Text>
+                <Text tag="p" view="p-20" color="error"><sup>*</sup></Text>
               </label>
 
               <Field
@@ -92,14 +100,15 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
             </div>
 
             <div className={styles['sign-in-form__field']}>
-              <label htmlFor="si-password">
+              <label className={styles['sign-in-form__label']} htmlFor="si-password">
                 <Text tag="p" view="p-20">Password:</Text>
+                <Text tag="p" view="p-20" color="error"><sup>*</sup></Text>
               </label>
 
               <Field
                 className={styles['sign-in-form__input']}
                 id="si-password"
-                type="password"
+                type={checked ? 'text' : 'password'}
                 name="password"
                 placeholder="changeme"
                 autoComplete="off"
@@ -110,6 +119,13 @@ const SignInForm: React.FC<SignInFormProps> = ({ className }) => {
                     <Text tag="p" view="p-14" color="error">{msg}</Text>
                   )}
               </ErrorMessage>
+
+              <CheckBox label={'Show password'} checked={checked} onChange={handleCheckBoxChange} />
+            </div>
+
+            <div className={styles['sign-in-form__required']}>
+              <Text tag="p" view="p-20" color="error">*</Text>
+              <Text tag="p" view="p-20"><sub>required fields</sub></Text>
             </div>
 
             <Button

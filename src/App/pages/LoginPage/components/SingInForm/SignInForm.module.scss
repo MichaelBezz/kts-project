@@ -12,6 +12,10 @@
     gap: $space-l;
   }
 
+  &__label {
+    display: flex;
+  }
+
   &__field {
     position: relative;
     display: flex;
@@ -56,6 +60,10 @@
       background-color: $color-input-bg;
       border-color: $color-input-border;
     }
+  }
+
+  &__required {
+    display: flex;
   }
 
   &__button {
