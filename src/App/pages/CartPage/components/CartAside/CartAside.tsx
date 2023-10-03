@@ -29,7 +29,7 @@ const CartAside: React.FC<CartOrderProps> = ({ className }) => {
 
   const handleOrderButtonClick = React.useCallback(() => {
     if (isAuth) {
-      cartStore.setOrders();
+      cartStore.saveOrder();
       cartStore.clearData();
 
       navigate(AppRoute.user);

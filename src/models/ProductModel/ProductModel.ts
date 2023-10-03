@@ -46,7 +46,7 @@ export default class ProductModel implements IProduct {
   }
 
   get discountPrice(): number {
-    return this._discountPrice;
+    return +this._discountPrice.toFixed(0);
   }
 
   setCartCount(count: number): void {

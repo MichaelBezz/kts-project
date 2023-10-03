@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
 import ListModel from 'models/ListModel';
-import ProductModel, { ProductServer } from 'models/ProductModel';
+import ProductModel, { ProductOrder, ProductServer } from 'models/ProductModel';
 import { api } from 'services/api';
 import { Meta } from 'utils/meta';
 
@@ -14,7 +14,7 @@ export interface ICartStore {
   getItemCount: (keyParam: number) => number;
   setDiscount: (discount: string) => void;
   setDelivery: (discount: number) => void;
-  setOrders: () => void;
+  saveOrder: () => void;
   loadOrders: () => void;
   plus: (item: ProductModel) => void;
   minus: (item: ProductModel) => void;
@@ -39,7 +39,7 @@ export default class CartStore implements ICartStore {
   private _productList: ListModel<ProductModel> = new ListModel();
   private _discount: number = 0;
   private _delivery: number = 3;
-  private _orders: Record<string, string>[] = [];
+  private _orders: ProductOrder[] = [];
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -63,7 +63,7 @@ export default class CartStore implements ICartStore {
 
       setDiscount: action.bound,
       setDelivery: action.bound,
-      setOrders: action.bound,
+      saveOrder: action.bound,
       loadOrders: action.bound,
       plus: action.bound,
       minus: action.bound,
@@ -102,7 +102,7 @@ export default class CartStore implements ICartStore {
     return this._delivery;
   }
 
-  get orders(): Record<string, string>[] {
+  get orders(): ProductOrder[] {
     return this._orders;
   }
 
@@ -143,10 +143,18 @@ export default class CartStore implements ICartStore {
     this._delivery = delivery;
   }
 
-  setOrders(): void {
+  saveOrder(): void {
+    const date = new Date().toLocaleString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
     this._orders.push({
-      id: String(Date.now()).slice(-5),
-      total: String(this.totalDiscountPrice + this.delivery)
+      id: String(Date.now()).slice(-3),
+      date: date,
+      discount: this.discount,
+      total: this.totalDiscountPrice + this.delivery,
     });
 
     localStorage.setItem(CART_ORDERS_TOKEN, JSON.stringify(this._orders));

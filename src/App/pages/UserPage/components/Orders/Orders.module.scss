@@ -3,37 +3,34 @@
 .orders {
   display: flex;
   flex-direction: column;
-  gap: $space-xxl;
   padding: $space-xl;
   background-color: $color-card-bg;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 
-  @include vp-767 {
-    gap: $space-l;
+  &__table {
+    text-align: left;
+    border-collapse: collapse;
   }
 
-  &__list {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  &__caption {
+    text-align: left;
   }
 
-  &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $space-xxs;
-    border-bottom: 1px solid $color-card-border;
+  &__head {
+    border-bottom: 2px solid $color-card-border;
+  }
 
-    &:first-child {
-      padding-bottom: $space-xl;
+  &__data {
+    padding: $space-xxs 0;
+
+    &--discount {
+      @include vp-767 {
+        display: none;
+      }
     }
 
     &--empty {
-      justify-content: center;
-      border: $border-none;
+      text-align: center;
     }
   }
 }

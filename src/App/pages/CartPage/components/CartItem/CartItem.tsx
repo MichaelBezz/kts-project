@@ -80,12 +80,12 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
                 ${product.price * cartStore.getItemCount(product.id)}
               </Text>
               <Text tag="p" view="p-20" weight="bold">
-                ${product.discountPrice * cartStore.getItemCount(product.id)}
+                ${(product.discountPrice * cartStore.getItemCount(product.id)).toFixed(0)}
               </Text>
             </>
           ) : (
             <Text tag="p" view="p-20" weight="bold">
-              ${product.price * cartStore.getItemCount(product.id)}
+              ${(product.price * cartStore.getItemCount(product.id)).toFixed(0)}
             </Text>
           )}
         </div>

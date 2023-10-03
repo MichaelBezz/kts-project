@@ -14,29 +14,55 @@ const Orders: React.FC<OrdersProps> = ({ className }) => {
 
   return (
     <div className={cn(styles['orders'], className)}>
-      <Text tag="h2" view="p-32">
-        Orders
-      </Text>
+      <table className={styles['orders__table']}>
+        <caption className={styles['orders__caption']}>
+          <Text tag="h2" view="p-32">Orders</Text>
+        </caption>
 
-      <ul className={styles['orders__list']}>
-        <li className={styles['orders__item']}>
-          <Text tag="p" view="p-24" weight="bold">Order#</Text>
-          <Text tag="p" view="p-24" weight="bold">Cost</Text>
-        </li>
+        <thead className={styles['orders__head']}>
+          <tr className={styles['orders__row']}>
+            <th className={styles['orders__data']}>
+              <Text tag="p" view="p-20" weight="bold">Order</Text>
+            </th>
+            <th className={styles['orders__data']}>
+              <Text tag="p" view="p-20" weight="bold">Date</Text>
+            </th>
+            <th className={cn(styles['orders__data'], styles['orders__data--discount'])}>
+              <Text tag="p" view="p-20" weight="bold">Discount</Text>
+            </th>
+            <th className={styles['orders__data']}>
+              <Text tag="p" view="p-20" weight="bold">Total</Text>
+            </th>
+          </tr>
+        </thead>
 
-        {cartStore.orders.length ? (
-          cartStore.orders.map((order) => (
-            <li key={order.id} className={styles['orders__item']}>
-              <Text tag="p" view="p-20">{order.id}</Text>
-              <Text tag="p" view="p-20">${order.total}</Text>
-            </li>
-          ))
-        ) : (
-          <li className={cn(styles['orders__item'], styles['orders__item--empty'])}>
-            <Text tag="p" view="p-32">Not yet orders</Text>
-          </li>
-        )}
-      </ul>
+        <tbody className={styles['orders__body']}>
+          {cartStore.orders.length ? (
+            cartStore.orders.map((order) => (
+              <tr key={order.id} className={styles['orders__row']}>
+                <td className={styles['orders__data']}>
+                  <Text tag="p" view="p-16">#{order.id}</Text>
+                </td>
+                <td className={styles['orders__data']}>
+                  <Text tag="p" view="p-16">{order.date}</Text>
+                </td>
+                <td className={cn(styles['orders__data'], styles['orders__data--discount'])}>
+                  <Text tag="p" view="p-16">${order.discount}</Text>
+                </td>
+                <td className={styles['orders__data']}>
+                  <Text tag="p" view="p-16">${order.total}</Text>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr className={styles['orders__row']}>
+              <td className={cn(styles['orders__data'], styles['orders__data--empty'])} colSpan={4}>
+                <Text tag="p" view="p-32">Not yet orders</Text>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
