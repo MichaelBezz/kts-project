@@ -73,9 +73,22 @@ const CartItem: React.FC<CartItemProps> = ({ className, product }) => {
           </motion.button>
         </div>
 
-        <Text className={styles['cart-item__price']} tag="p" view="p-20" weight="bold">
-          ${product.price * cartStore.getItemCount(product.id)}
-        </Text>
+        <div className={styles['cart-item__price']}>
+          {cartStore.discount > 0 ? (
+            <>
+              <Text className={styles['cart-item__full-price']} tag="p" view="p-14" color="secondary">
+                ${product.price * cartStore.getItemCount(product.id)}
+              </Text>
+              <Text tag="p" view="p-20" weight="bold">
+                ${product.discountPrice * cartStore.getItemCount(product.id)}
+              </Text>
+            </>
+          ) : (
+            <Text tag="p" view="p-20" weight="bold">
+              ${product.price * cartStore.getItemCount(product.id)}
+            </Text>
+          )}
+        </div>
 
         <motion.button
           className={cn(styles['cart-item__button'], styles['cart-item__button--delete'])}

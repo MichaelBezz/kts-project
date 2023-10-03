@@ -110,7 +110,7 @@ const CartAside: React.FC<CartOrderProps> = ({ className }) => {
         <Text tag="h2" view="p-24" weight="bold">Do you have a lucky set of symbols?</Text>
 
         <Formik
-          initialValues={{ discount: '' }}
+          initialValues={{ discount: cartStore.discount ? `${cartStore.discount}-lalasia` : '' }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
             handleFormSubmit(values.discount);

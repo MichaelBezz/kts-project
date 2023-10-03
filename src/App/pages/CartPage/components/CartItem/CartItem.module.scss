@@ -76,7 +76,7 @@
     display: flex;
     align-items: center;
     gap: $space-xs;
-    min-width: 120px;
+    min-width: 98px;
 
     @include vp-424 {
       width: 100%;
@@ -84,12 +84,20 @@
   }
 
   &__price {
-    min-width: 62px;
+    display: flex;
+    flex-direction: column;
+    min-width: 70px;
 
     @include vp-424 {
       order: -1;
       align-self: flex-end;
     }
+  }
+
+  &__full-price {
+    align-self: flex-end;
+    margin-top: -20px;
+    text-decoration: line-through;
   }
 
   &__button {
