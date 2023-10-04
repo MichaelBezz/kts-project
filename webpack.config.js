@@ -1,11 +1,13 @@
 const path = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const distPath = path.resolve(__dirname, 'dist');
+const publicPath = path.resolve(__dirname, 'public');
 const srcPath = path.resolve(__dirname, 'src');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -61,6 +63,27 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: 'public' }],
     }),
+    new FaviconsWebpackPlugin({
+      logo: path.join(publicPath, '/favicons/favicon.svg'),
+      prefix: '/favicons/',
+      outputPath: path.resolve(distPath, 'favicons'),
+      mode: 'webapp',
+      inject: (htmlPlugin) =>
+        path.basename(htmlPlugin.options.filename) === 'index.html',
+      favicons: {
+        icons: {
+          favicons: true,
+          appleIcon: false,
+          appleStartup: false,
+          android: false,
+          coast: false,
+          firefox: false,
+          windows: false,
+          yandex: false
+        }
+      },
+      cache: false
+    }),
     !isProd && new ReactRefreshWebpackPlugin()
   ].filter(Boolean),
   module: {
@@ -106,6 +129,8 @@ module.exports = {
     port: 3000,
     hot: true,
     historyApiFallback: true,
-    static: [{ directory: path.resolve(__dirname, 'favicon') }]
+    static: [{
+      directory: path.join(distPath, 'favicons')
+    }]
   }
 }
