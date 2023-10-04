@@ -44,12 +44,16 @@
     bottom: 0;
     left: 0;
     display: flex;
-    justify-content: flex-end;
     align-items: flex-end;
-    padding: $space-m;
   }
 
   &__title{
-    text-shadow: 2px 1px 3px rgba($color-white-smoke, 0.8);
+    display: block;
+    width: 100%;
+    max-height: 40%;
+    padding: $space-xxxs;
+    text-align: center;
+    color: $color-card-text;
+    background-color: $color-card-bg-text;
   }
 }

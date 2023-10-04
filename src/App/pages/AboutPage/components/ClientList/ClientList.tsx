@@ -26,7 +26,7 @@ const ClientList: React.FC<ClientListProps> = ({ className }) => {
     register();
 
     const params: SwiperOptions = {
-      speed: 1000,
+      speed: 1500,
       autoHeight: true,
       loop: true,
       autoplay: {

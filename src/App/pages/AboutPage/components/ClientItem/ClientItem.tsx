@@ -25,13 +25,7 @@ const ClientItem: React.FC<ClientItemProps> = ({ className, client }) => {
       </div>
 
       <div className={styles['client-item__content']}>
-        <Text
-          className={styles['client-item__title']}
-          tag="p"
-          view="p-18"
-          weight="bold"
-          color="accent"
-        >
+        <Text className={styles['client-item__title']} tag="p" view="p-18" weight="bold">
           {client.name}
         </Text>
       </div>

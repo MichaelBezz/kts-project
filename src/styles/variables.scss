@@ -66,6 +66,7 @@ $color-input-text-disabled:            rgba($color-black, 0.2);
 $color-input-placeholder:              $color-spun-pearl;
 $color-input-bg:                       $color-white;
 $color-input-border:                   $color-white;
+$color-input-border-inverse:           $color-gainsboro;
 $color-input-border-focus:             $color-breaker-bay;
 
 $color-checkbox-bg:                    $color-white;
@@ -84,6 +85,8 @@ $color-dropdown-text-active:           $color-breaker-bay;
 $color-dropdown-scroll:                $color-breaker-bay;
 $color-dropdown-scroll-bg:             $color-spun-pearl;
 
+$color-card-text:                      $color-white;
+$color-card-bg-text:                   rgba($color-black, 0.6);
 $color-card-bg:                        $color-white;
 $color-card-image-bg:                  $color-gainsboro;
 $color-card-border:                    $color-ziggurat;

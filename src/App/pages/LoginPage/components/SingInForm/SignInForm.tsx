@@ -23,7 +23,7 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   password: Yup.string()
     .trim()
-    .min(3, 'The password must contain more than three symbols, for example: changeme')
+    .min(4, 'The password must contain more than four symbols, for example: changeme')
     .required('Required'),
 });
 

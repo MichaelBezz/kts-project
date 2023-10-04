@@ -44,7 +44,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       <label className={styles['checkbox__label']} htmlFor={id}>
         <div className={styles['checkbox__box']}>
           {checked && (
-            <CheckIcon className={styles['checkbox__icon']} width={20} height={20} />
+            <CheckIcon className={styles['checkbox__icon']} width={16} height={16} />
           )}
         </div>
 
