@@ -4,7 +4,7 @@
 
 ### Демонстрация проекта: ["Lalasia".](https://kts-lalasia.netlify.app/)
 
-![login page](https://github.com/michaelbezz/kts-project/blob/main/docs/login.png?raw=true)
+![login page](https://github.com/michaelbezz/kts-project/blob/hw-6/docs/login.png?raw=true)
 
 ---
 
