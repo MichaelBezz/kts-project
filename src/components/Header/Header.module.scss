@@ -29,9 +29,10 @@
 
       .is-open & {
         z-index: $z-index-mobile-menu;
-        position: absolute;
-        top: calc(100% + 2px);
+        position: fixed;
+        top: 86px;
         right: 0;
+        bottom: 0;
         left: 0;
         display: block;
       }

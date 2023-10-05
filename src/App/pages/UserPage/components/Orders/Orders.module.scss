@@ -1,0 +1,36 @@
+@import 'styles/mixins';
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  padding: $space-xl;
+  background-color: $color-card-bg;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+
+  &__table {
+    text-align: left;
+    border-collapse: collapse;
+  }
+
+  &__caption {
+    text-align: left;
+  }
+
+  &__head {
+    border-bottom: 2px solid $color-card-border;
+  }
+
+  &__data {
+    padding: $space-xxs 0;
+
+    &--discount {
+      @include vp-767 {
+        display: none;
+      }
+    }
+
+    &--empty {
+      text-align: center;
+    }
+  }
+}

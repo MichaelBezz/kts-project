@@ -62,11 +62,20 @@ $color-cart-button-hover:              $color-ziggurat;
 $color-cart-button-active:             $color-dark-green-copper;
 
 $color-input-text:                     $color-black;
-$color-input-text-disabled:            rgba(0, 0, 0, 0.2);
+$color-input-text-disabled:            rgba($color-black, 0.2);
 $color-input-placeholder:              $color-spun-pearl;
 $color-input-bg:                       $color-white;
 $color-input-border:                   $color-white;
+$color-input-border-inverse:           $color-gainsboro;
 $color-input-border-focus:             $color-breaker-bay;
+
+$color-checkbox-bg:                    $color-white;
+$color-checkbox-bg-disabled:           $color-gainsboro;
+$color-checkbox-border:                $color-gainsboro;
+$color-checkbox-border-hover:          $color-breaker-bay;
+$color-checkbox-border-disabled:       $color-gainsboro;
+$color-checkbox-check:                 $color-breaker-bay;
+$color-checkbox-check-disabled:        rgba($color-black, 0.2);
 
 $color-dropdown-bg:                    $color-white;
 $color-dropdown-text:                  $color-black;
@@ -76,8 +85,11 @@ $color-dropdown-text-active:           $color-breaker-bay;
 $color-dropdown-scroll:                $color-breaker-bay;
 $color-dropdown-scroll-bg:             $color-spun-pearl;
 
+$color-card-text:                      $color-white;
+$color-card-bg-text:                   rgba($color-black, 0.6);
 $color-card-bg:                        $color-white;
 $color-card-image-bg:                  $color-gainsboro;
+$color-card-border:                    $color-ziggurat;
 
 $color-slider-button-bg:               $color-black;
 $color-slider-button-icon:             $color-white;
@@ -91,10 +103,14 @@ $color-pagination-bg:                  $color-transparent;
 $color-pagination-bg-current:          $color-breaker-bay;
 $color-pagination-bg-active:           $color-dark-green-copper;
 
+$color-login-form-bg:                  $color-white;
+$color-login-form-border:              $color-gainsboro;
+
 // Animation
 // ------------------------------------
 
 $transition-default:                   0.3s ease;
+$transition-700:                       0.7s ease;
 
 // Typography
 // ------------------------------------

@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as React from 'react';
 import Input from 'components/Input';
 import CrossButton from 'components/buttons/CrossButton';
@@ -164,28 +165,45 @@ const Dropdown: React.FC<DropdownProps> = ({
         onChange={setFilter}
       />
 
-      {isOpened && (
-        <ul className={styles['dropdown__list']}>
-          {filteredOptions.map((option: Option) => (
-            <li key={option.key} className={styles['dropdown__item']}>
-              <input
-                className={cn(styles['dropdown__input'], 'visually-hidden')}
-                id={`dropdown-${option.key}`}
-                type="checkbox"
-                checked={selectedOption?.key === option.key}
-                onChange={() => handleOptionChange(option)}
-              />
+      <AnimatePresence>
+        {isOpened && (
+          <motion.ul
+            className={styles['dropdown__list']}
+            variants={{
+              collapsed: {
+                height: 0,
+                transition: { duration: 0.2 }
+              },
+              open: {
+                height: 'auto',
+                transition: { duration: 0.3, ease: 'easeOut' }
+              },
+            }}
+            initial='collapsed'
+            animate='open'
+            exit='collapsed'
+          >
+            {filteredOptions.map((option: Option) => (
+              <li key={option.key} className={styles['dropdown__item']}>
+                <input
+                  className={cn(styles['dropdown__input'], 'visually-hidden')}
+                  id={`dropdown-${option.key}`}
+                  type="checkbox"
+                  checked={selectedOption?.key === option.key}
+                  onChange={() => handleOptionChange(option)}
+                />
 
-              <label
-                className={styles['dropdown__label']}
-                htmlFor={`dropdown-${option.key}`}
-              >
-                {option.value}
-              </label>
-            </li>
-          ))}
-        </ul>
-      )}
+                <label
+                  className={styles['dropdown__label']}
+                  htmlFor={`dropdown-${option.key}`}
+                >
+                  {option.value}
+                </label>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

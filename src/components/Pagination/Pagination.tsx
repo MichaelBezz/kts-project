@@ -11,6 +11,7 @@ export type PaginationProps = {
   totalCount: number;
   pageSize: number;
   siblingCount?: number;
+  isLoading: boolean;
   onPageChange: (page: number) => void;
 };
 
@@ -20,6 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalCount,
   pageSize,
   siblingCount = 1,
+  isLoading,
   onPageChange
 }) => {
   const paginationRange = usePagination({
@@ -29,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({
     pageSize
   }) ?? [];
 
-  if (currentPage === 0 || paginationRange.length < 2) {
+  if (isLoading || paginationRange.length < 2) {
     return null;
   }
 

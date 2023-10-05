@@ -1,6 +1,6 @@
-import { AuthDataServer, IAuthData } from 'models/AuthMode';
+import { AuthResponseServer, IAuthResponse } from 'models/AuthMode';
 
-export const normalizeAuthData = (from: AuthDataServer): IAuthData => ({
+export const normalizeAuthResponse = (from: AuthResponseServer): IAuthResponse => ({
   accessToken: from['access_token'],
   refreshToken: from['refresh_token']
 });

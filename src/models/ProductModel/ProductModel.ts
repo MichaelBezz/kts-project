@@ -2,7 +2,7 @@ import { makeObservable, observable, computed, action } from 'mobx';
 import { ICategory } from 'models/CategoryModel';
 import { ProductServer, ProductId, IProduct, normalizeProduct } from 'models/ProductModel';
 
-type PrivateFields = '_cart';
+type PrivateFields = '_cartCount' | '_discountPrice';
 
 export default class ProductModel implements IProduct {
   readonly id: ProductId;
@@ -11,7 +11,8 @@ export default class ProductModel implements IProduct {
   readonly description: string;
   readonly category: ICategory;
   readonly images: string[];
-  private _cart: number = 0;
+  private _cartCount: number = 0;
+  private _discountPrice: number = 0;
 
   constructor({ id, title, price, description, category, images }: IProduct = {
     id: 0,
@@ -22,9 +23,14 @@ export default class ProductModel implements IProduct {
     images: [''],
   }) {
     makeObservable<ProductModel, PrivateFields>(this, {
-      _cart: observable,
-      cart: computed,
-      setCart: action.bound,
+      _cartCount: observable,
+      _discountPrice: observable,
+
+      cartCount: computed,
+      discountPrice: computed,
+
+      setCartCount: action.bound,
+      setDiscountPrice: action.bound,
     });
 
     this.id = id;
@@ -35,12 +41,20 @@ export default class ProductModel implements IProduct {
     this.images = images;
   }
 
-  get cart() {
-    return this._cart;
+  get cartCount(): number {
+    return this._cartCount;
   }
 
-  setCart(count: number): void {
-    this._cart = count;
+  get discountPrice(): number {
+    return +this._discountPrice.toFixed(0);
+  }
+
+  setCartCount(count: number): void {
+    this._cartCount = count;
+  }
+
+  setDiscountPrice(discount: number): void {
+    this._discountPrice = this.price - (this.price * (discount / 100));
   }
 
   static fromJson(from: ProductServer): ProductModel {

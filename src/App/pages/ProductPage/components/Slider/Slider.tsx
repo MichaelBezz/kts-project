@@ -47,29 +47,31 @@ const Slider: React.FC<SliderProps> = ({ className, imageSrc }) => {
         {imageSrc.map((src) => (
           <swiper-slide key={src}>
             <div className={styles['slider__slide']}>
-              <img src={src} width={600} height={600} alt="Product image slide" />
+              <img src={src} width="600" height="600" alt="Product image slide" />
             </div>
           </swiper-slide>
         ))}
       </swiper-container>
 
-      <div className={styles['slider__controls']}>
-        <button
-          className={styles['slider__button']}
-          ref={prevButtonRef}
-          type="button"
-        >
-          <ArrowDefaultIcon width={30} height={30} direction="left" />
-        </button>
+      {imageSrc.length > 1 && (
+        <div className={styles['slider__controls']}>
+          <button
+            className={styles['slider__button']}
+            ref={prevButtonRef}
+            type="button"
+          >
+            <ArrowDefaultIcon width={30} height={30} direction="left" />
+          </button>
 
-        <button
-          className={styles['slider__button']}
-          ref={nextButtonRef}
-          type="button"
-        >
-          <ArrowDefaultIcon width={30} height={30} direction="right" />
-        </button>
-      </div>
+          <button
+            className={styles['slider__button']}
+            ref={nextButtonRef}
+            type="button"
+          >
+            <ArrowDefaultIcon width={30} height={30} direction="right" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

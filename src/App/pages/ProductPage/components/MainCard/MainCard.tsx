@@ -1,18 +1,25 @@
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Text from 'components/Text';
 import AddButton from 'components/buttons/AddButton';
 import BuyButton from 'components/buttons/BuyButton';
-import ProductModel from 'models/ProductModel';
+import MainCardLoader from 'components/loaders/MainCardLoader';
+import { useProductStore } from 'store/hooks';
 import Slider from '../Slider';
 import styles from './MainCard.module.scss';
 
 export type MainCardProps = {
   className?: string;
-  product: ProductModel;
 };
 
-const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
+const MainCard: React.FC<MainCardProps> = ({ className }) => {
+  const { product, isLoading } = useProductStore();
+
+  if (isLoading) {
+    return (<MainCardLoader />);
+  }
+
   return (
     <div className={cn(styles['main-card'], className)}>
       <div className={styles['main-card__slider']}>
@@ -55,4 +62,4 @@ const MainCard: React.FC<MainCardProps> = ({ className, product }) => {
   );
 };
 
-export default React.memo(MainCard);
+export default observer(MainCard);

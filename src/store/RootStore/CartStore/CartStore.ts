@@ -2,47 +2,75 @@ import { AxiosInstance } from 'axios';
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 import { APIRoute } from 'config/api-route';
 import ListModel from 'models/ListModel';
-import ProductModel, { ProductServer } from 'models/ProductModel';
+import ProductModel, { ProductOrder, ProductServer } from 'models/ProductModel';
 import { api } from 'services/api';
 import { Meta } from 'utils/meta';
 
 export const CART_STORE_TOKEN = 'cart-store-token';
+export const CART_ORDERS_TOKEN = 'cart-orders-token';
 
 export interface ICartStore {
   hasItem: (key: number) => boolean;
   getItemCount: (keyParam: number) => number;
+  setDiscount: (discount: string) => void;
+  setDelivery: (discount: number) => void;
+  saveOrder: () => void;
+  loadOrders: () => void;
   plus: (item: ProductModel) => void;
   minus: (item: ProductModel) => void;
   delete: (item: ProductModel) => void;
   saveData: () => void;
   loadData: () => Promise<void>;
+  clearData: () => void;
 };
 
-type PrivateFields = '_cartList' | '_productList' | '_meta';
+type PrivateFields =
+  | '_cartList'
+  | '_productList'
+  | '_discount'
+  | '_delivery'
+  | '_orders'
+  | '_meta';
 
 export default class CartStore implements ICartStore {
   private readonly _api: AxiosInstance = api;
 
   private _cartList: ListModel<ProductModel> = new ListModel();
   private _productList: ListModel<ProductModel> = new ListModel();
+  private _discount: number = 0;
+  private _delivery: number = 3;
+  private _orders: ProductOrder[] = [];
   private _meta: Meta = Meta.initial;
 
   constructor() {
     makeObservable<CartStore, PrivateFields>(this, {
       _cartList: observable,
       _productList: observable,
+      _discount: observable,
+      _delivery: observable,
+      _orders: observable,
       _meta: observable,
 
       items: computed,
       count: computed,
+      totalPrice: computed,
+      totalDiscountPrice: computed,
+      discount: computed,
+      delivery: computed,
+      orders: computed,
       meta: computed,
       isLoading: computed,
 
+      setDiscount: action.bound,
+      setDelivery: action.bound,
+      saveOrder: action.bound,
+      loadOrders: action.bound,
       plus: action.bound,
       minus: action.bound,
       delete: action.bound,
       saveData: action.bound,
       loadData: action.bound,
+      clearData: action.bound,
     });
   }
 
@@ -55,9 +83,27 @@ export default class CartStore implements ICartStore {
   }
 
   get totalPrice(): number {
-    return this._cartList.items.reduce((acc, item) => {
-      return acc + (item.price * item.cart);
-    }, 0);
+    return Math.round(this._cartList.items.reduce(
+      (acc, item) => acc + (item.price * item.cartCount), 0
+    ));
+  }
+
+  get totalDiscountPrice(): number {
+    return Math.round(this._cartList.items.reduce(
+      (acc, item) => acc + (item.discountPrice * item.cartCount), 0
+    ));
+  }
+
+  get discount(): number {
+    return this._discount;
+  }
+
+  get delivery(): number {
+    return this._delivery;
+  }
+
+  get orders(): ProductOrder[] {
+    return this._orders;
   }
 
   get meta(): Meta {
@@ -73,17 +119,64 @@ export default class CartStore implements ICartStore {
   }
 
   getItemCount(key: number): number {
-    return this._cartList.getEntity(key).cart;
+    return this._cartList.getEntity(key).cartCount;
+  }
+
+  setDiscount(discount: string): void {
+    const parsedDiscount = parseInt(discount, 10);
+    const value = Number.isNaN(parsedDiscount) ? 0 : parsedDiscount;
+
+    this._discount = value;
+
+    if (value > 0) {
+      this.setDelivery(0);
+    } else {
+      this.setDelivery(3);
+    }
+
+    this._cartList.items.forEach(
+      (item) => item.setDiscountPrice(value)
+    );
+  }
+
+  setDelivery(delivery: number): void {
+    this._delivery = delivery;
+  }
+
+  saveOrder(): void {
+    const date = new Date().toLocaleString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    this._orders.push({
+      id: String(Date.now()).slice(-3),
+      date: date,
+      discount: this.discount,
+      total: this.totalDiscountPrice + this.delivery,
+    });
+
+    localStorage.setItem(CART_ORDERS_TOKEN, JSON.stringify(this._orders));
+  }
+
+  loadOrders(): void {
+    const localData = localStorage.getItem(CART_ORDERS_TOKEN);
+
+    if (!localData) {
+      return;
+    }
+
+    this._orders = JSON.parse(localData);
   }
 
   plus(item: ProductModel): void {
-    const isListContain = this._cartList.hasKey(item.id);
-
-    if (isListContain) {
+    if (this.hasItem(item.id)) {
       const entity = this._cartList.getEntity(item.id);
-      entity.setCart(entity.cart + 1);
+      entity.setCartCount(entity.cartCount + 1);
     } else {
-      item.setCart(1);
+      item.setCartCount(1);
+      item.setDiscountPrice(this._discount);
       this._cartList.addEntity({entity: item, key: item.id});
     }
 
@@ -93,10 +186,15 @@ export default class CartStore implements ICartStore {
   minus(item: ProductModel): void {
     const entity = this._cartList.getEntity(item.id);
 
-    if (entity.cart >= 2) {
-      entity.setCart(entity.cart - 1);
+    if (entity.cartCount >= 2) {
+      entity.setCartCount(entity.cartCount - 1);
     } else {
       this._cartList.deleteEntity(item.id);
+    }
+
+    if (!this.count) {
+      this.setDiscount('0');
+      this.setDelivery(3);
     }
 
     this.saveData();
@@ -104,16 +202,20 @@ export default class CartStore implements ICartStore {
 
   delete(item: ProductModel): void {
     this._cartList.deleteEntity(item.id);
+
+    if (!this.count) {
+      this.setDiscount('0');
+      this.setDelivery(3);
+    }
+
     this.saveData();
   }
 
   saveData(): void {
-    const data = this._cartList.items.reduce((acc, item) => {
-      return ({
-        ...acc,
-        [item.id]: item.cart
-      });
-    }, {});
+    const data = this._cartList.items.reduce((acc, item) => ({
+      ...acc,
+      [item.id]: item.cartCount
+    }), {});
 
     localStorage.setItem(CART_STORE_TOKEN, JSON.stringify(data));
   }
@@ -142,7 +244,8 @@ export default class CartStore implements ICartStore {
         this._productList.keys.forEach((key) => {
           if (key in parsedLocalData) {
             const entity = this._productList.getEntity(key);
-            entity.setCart(parsedLocalData[key]);
+            entity.setCartCount(parsedLocalData[key]);
+            entity.setDiscountPrice(this._discount);
 
             this._cartList.addEntity({entity, key});
           }
@@ -154,5 +257,10 @@ export default class CartStore implements ICartStore {
     } else {
       this._meta = Meta.error;
     }
+  }
+
+  clearData(): void {
+    this._cartList.reset();
+    localStorage.removeItem(CART_STORE_TOKEN);
   }
 }

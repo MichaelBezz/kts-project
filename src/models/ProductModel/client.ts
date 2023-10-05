@@ -10,3 +10,10 @@ export interface IProduct {
   category: ICategory;
   images: string[];
 };
+
+export type ProductOrder = {
+  id: string;
+  date: string;
+  discount: number;
+  total: number;
+};

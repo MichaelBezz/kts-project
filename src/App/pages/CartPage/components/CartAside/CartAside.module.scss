@@ -1,0 +1,102 @@
+@import 'styles/mixins';
+
+.cart-aside {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-m;
+
+  @include vp-1279 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include vp-767 {
+    grid-template-columns: 1fr;
+  }
+
+  &__block {
+    display: grid;
+    gap: $space-xxs;
+    padding: $space-xl $space-m;
+    background-color: $color-card-bg;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin-bottom: $space-s;
+  }
+
+  &__total {
+    display: flex;
+    flex-direction: column;
+    margin-top: $space-s;
+    padding-top: $space-xxxs;
+    border-top: 1px solid $color-card-border;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-m;
+  }
+
+  &__field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xxs;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 52px;
+    padding: $space-s $space-xs;
+    font-family: $ff-roboto;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: $color-input-text;
+    background-color: $color-input-bg;
+    border: 1px solid $color-input-border-inverse;
+    transition:
+      color $transition-default,
+      background-color $transition-default,
+      border-color $transition-default;
+
+    &::placeholder {
+      color: $color-input-placeholder;
+    }
+
+    @include hover-focus {
+      border-color: $color-input-border-focus;
+    }
+
+    &:focus-visible {
+      border-color: $color-input-border-focus;
+      outline: none;
+    }
+
+    &:disabled {
+      color: $color-input-text-disabled;
+      background-color: $color-input-bg;
+      border-color: $color-input-border;
+    }
+  }
+
+  &__button {
+    align-self: center;
+
+    @include hover {
+      color: $color-button-sec-text-hover;
+    }
+
+    @include active {
+      color: $color-button-sec-text-active;
+    }
+  }
+}

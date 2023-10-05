@@ -1,0 +1,57 @@
+@import 'styles/mixins';
+
+.checkbox {
+  display: flex;
+  user-select: none;
+
+  &__input:focus-visible + .checkbox__label {
+    .checkbox__box {
+      border-color: $color-checkbox-border-hover;
+    }
+  }
+
+  &__input:disabled + .checkbox__label {
+    pointer-events: none;
+
+    .checkbox__box {
+      color: $color-checkbox-check-disabled;
+      background-color: $color-checkbox-bg-disabled;
+      border-color: $color-checkbox-border-disabled;
+    }
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    cursor: pointer;
+
+    @include hover {
+      .checkbox__box {
+        border-color: $color-checkbox-border-hover;
+      }
+    }
+  }
+
+  &__box {
+    position: relative;
+    display: flex;
+    width: 16px;
+    height: 16px;
+    color: $color-checkbox-check;
+    background-color: $color-checkbox-bg;
+    border: 1px solid $color-checkbox-border;
+    transition:
+      color $transition-default,
+      background-color $transition-default,
+      border-color $transition-default;
+  }
+
+  &__icon {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+  }
+}

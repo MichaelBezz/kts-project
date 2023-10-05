@@ -1,90 +1,75 @@
 import cn from 'classnames';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import Text from 'components/Text';
-import Button from 'components/buttons/Button';
-import { IAuthRequest } from 'models/AuthMode';
+import Loader from 'components/loaders/Loader';
+import { AppRoute } from 'config/app-route';
 import { useAuthStore } from 'store/RootStore/hooks';
-import { validate } from 'utils/validate';
+import SignUpForm from './components/SignUpForm';
+import SignInForm from './components/SingInForm/SignInForm';
 import styles from './LoginPage.module.scss';
 
-export type LoginFormError = {
-  email: string;
-  password: string;
+enum Tab {
+  signIn = 'Sign in',
+  signUp = 'Sign up',
 };
+
+const TABS: Tab[] = Object.values(Tab);
 
 const LoginPage: React.FC = () => {
   const authStore = useAuthStore();
 
-  const handleFormSubmit = React.useCallback((value: IAuthRequest) => {
-    authStore.setAuthRequest(value);
-  }, [authStore]);
+  const [searchParams] = useSearchParams();
+  const searchTab = searchParams.get('tab');
+  const [activeTab, setActiveTab] = React.useState<string>();
+
+  React.useEffect(() => {
+    const isValidTab = searchTab && TABS.some((tab) => tab === searchTab);
+
+    if (isValidTab) {
+      setActiveTab(searchTab);
+    } else {
+      setActiveTab(Tab.signIn);
+    }
+  }, [searchTab]);
+
+  if (authStore.isLoading || authStore.isAuthUnknown) {
+    return (<Loader size="general" />);
+  }
+
+  if (authStore.isAuth) {
+    return (<Navigate to={AppRoute.user} />);
+  }
 
   return (
     <div className={styles['login-page']}>
       <div className={cn(styles['login-page__wrapper'], 'container')}>
-        <Formik
-          initialValues={{ email: '', password: '' }}
-          validate={validate}
-          onSubmit={(values) => {
-            handleFormSubmit(values);
-          }}
-        >
-          {({ isValid }) => (
-            <Form className={styles['login-page__form']} noValidate>
-              <div className={styles['login-page__field']}>
-                <label htmlFor="l-email">
-                  <Text tag="p" view="p-20">Email</Text>
-                </label>
-
-                <Field
-                  className={styles['login-page__input']}
-                  id="l-email"
-                  type="email"
-                  name="email"
-                />
-
-                <ErrorMessage name="email">
-                  {(msg) => (
-                    <Text tag="p" view="p-14" color="error">{msg}</Text>
+        <div className={styles['login-page__form']}>
+          <ul className={styles['login-page__header']}>
+            {TABS.map((tab) => (
+              <li key={tab} className={styles['login-page__item']}>
+                <Link
+                  className={cn(
+                    styles['login-page__link'],
+                    {[styles['login-page__link--active']]: tab === activeTab}
                   )}
-                </ErrorMessage>
-              </div>
+                  to={`?tab=${tab}`}
+                >
+                  <Text tag="p" view="p-20">
+                    {tab}
+                  </Text>
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-              <div className={styles['login-page__field']}>
-                <label htmlFor="l-password">
-                  <Text tag="p" view="p-20">Password</Text>
-                </label>
-
-                <Field
-                  className={styles['login-page__input']}
-                  id="l-password"
-                  type="password"
-                  name="password"
-                  autoComplete="off"
-                />
-
-                <ErrorMessage name="password">
-                  {(msg) => (
-                      <Text tag="p" view="p-14" color="error">{msg}</Text>
-                    )}
-                </ErrorMessage>
-              </div>
-
-              <Button
-                className={styles['login-page__in-button']}
-                buttonStyle="primary"
-                type="submit"
-                disabled={!isValid}
-              >
-                Sing in
-              </Button>
-            </Form>
-          )}
-        </Formik>
+          {activeTab === Tab.signIn && <SignInForm />}
+          {activeTab === Tab.signUp && <SignUpForm />}
+        </div>
       </div>
     </div>
   );
 };
 
-export default React.memo(LoginPage);
+export default observer(LoginPage);

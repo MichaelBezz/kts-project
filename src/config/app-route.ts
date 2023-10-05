@@ -5,5 +5,6 @@ export enum AppRoute {
   about = '/about',
   cart = '/cart',
   login = '/login',
+  user = '/user',
   notFound = '*'
 }

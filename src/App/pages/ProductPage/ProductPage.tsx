@@ -3,9 +3,8 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import Message from 'components/Message';
 import GoBackButton from 'components/buttons/GoBackButton';
-import MainCardLoader from 'components/loaders/MainCardLoader';
 import ProductStore from 'store/ProductStore';
-import { useLocalStore } from 'store/hooks';
+import { ProductStoreContext, useLocalStore } from 'store/hooks';
 import MainCard from './components/MainCard';
 import RelatedCards from './components/RelatedCards';
 import styles from './ProductPage.module.scss';
@@ -20,33 +19,24 @@ const ProductPage: React.FC = () => {
   }, [id, productStore]);
 
   return (
-    <div className={styles['product-page']}>
-      <div className="container">
-        <GoBackButton />
+    <ProductStoreContext.Provider value={productStore}>
+      <div className={styles['product-page']}>
+        <div className="container">
+          <GoBackButton />
 
-        {productStore.isError && (
-          <Message>Error. Try again.</Message>
-        )}
+          {productStore.isError && (
+            <Message>Error. Try again.</Message>
+          )}
 
-        {(productStore.isSuccess && !productStore.product) && (
-          <Message>Product not found.</Message>
-        )}
+          {(productStore.isSuccess && !productStore.product) && (
+            <Message>Product not found.</Message>
+          )}
 
-        {productStore.isLoading ? (
-          <MainCardLoader />
-        ) : (
-          <MainCard
-            className={styles['product-page__product']}
-            product={productStore.product}
-          />
-        )}
-
-        <RelatedCards
-          className={styles['product-page__cards']}
-          categoryId={productStore.product.category.id}
-        />
+          <MainCard className={styles['product-page__product']} />
+          <RelatedCards className={styles['product-page__cards']} />
+        </div>
       </div>
-    </div>
+    </ProductStoreContext.Provider>
   );
 };
 
