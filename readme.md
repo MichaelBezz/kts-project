@@ -2,7 +2,7 @@
 
 Прототип онлайн магазина с возможностью регистрации, выбора товара и его покупкой.
 
-### Демонстрация проекта: ["Lalasia".](https://kts-lalasia.netlify.app/)
+### Демонстрация проекта: ["Lalasia".](https://michaelbezz.github.io/kts-project/)
 
 ![index](https://github.com/michaelbezz/kts-project/blob/main/docs/index.png?raw=true)
 ![product](https://github.com/michaelbezz/kts-project/blob/main/docs/product.png?raw=true)
