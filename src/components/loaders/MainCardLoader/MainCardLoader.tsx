@@ -4,7 +4,7 @@ import ContentLoader from 'react-content-loader';
 const MainCardLoader: React.FC = (props) => {
   return (
     <ContentLoader
-      speed={2}
+      speed={3.5}
       viewBox="0 0 600 280"
       backgroundColor="#f3f3f3"
       foregroundColor="#86aaa7"

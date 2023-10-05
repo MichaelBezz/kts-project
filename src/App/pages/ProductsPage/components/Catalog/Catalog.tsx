@@ -64,6 +64,7 @@ const Catalog: React.FC<CatalogProps> = ({ className }) => {
         currentPage={Number(productsStore.pageParam)}
         totalCount={Number(productsStore.productCount)}
         pageSize={productsStore.productLimit}
+        isLoading={productsStore.isLoading}
         onPageChange={handlePaginationChange}
       />
     </div>

@@ -6,7 +6,7 @@
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(280px, 1fr));
-    justify-content: space-between;
+    justify-content: center;
     column-gap: 80px;
     row-gap: 30px;
     margin: 0;
@@ -14,8 +14,15 @@
     list-style: none;
 
     @include vp-1279 {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
+    }
+
+    @include vp-1023 {
+      grid-template-columns: repeat(2, minmax(280px, 400px));
+    }
+
+    @include vp-767 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 400px));
     }
   }
 }

@@ -47,7 +47,7 @@ const Orders: React.FC<OrdersProps> = ({ className }) => {
                   <Text tag="p" view="p-16">{order.date}</Text>
                 </td>
                 <td className={cn(styles['orders__data'], styles['orders__data--discount'])}>
-                  <Text tag="p" view="p-16">${order.discount}</Text>
+                  <Text tag="p" view="p-16">{order.discount ? `${order.discount}%` : '-'}</Text>
                 </td>
                 <td className={styles['orders__data']}>
                   <Text tag="p" view="p-16">${order.total}</Text>
